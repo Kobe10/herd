@@ -1,0 +1,11 @@
+.user {
+
+  position: absolute;
+  right: 200px;
+  top: 30px;
+  color: #6e5330;
+}
+
+.userName {
+  cursor: pointer;
+}

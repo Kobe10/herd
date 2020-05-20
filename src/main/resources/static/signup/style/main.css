@@ -1,0 +1,399 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+element {
+  -webkit-touch-callout: none;
+}
+
+body,
+html {
+  -webkit-tap-highlight-color: #d1c0a6;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  background: #d1c0a6;
+  position: relative;
+  overflow: hidden
+}
+
+.logo {
+  position: absolute;
+  left: 0.41rem;
+  top: 0.62rem;
+  width: 3.52rem;
+  height: 0.38rem;
+}
+
+.logo img {
+  display: block
+}
+
+.flower1 {
+  width: 4.15rem;
+  height: 3.62rem;
+  background: url(../images/right_t.png) no-repeat center;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.flower2 {
+  width: 3.66rem;
+  height: 4.98rem;
+  background: url(../images/left_s.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  bottom: 5rem;
+  left: 0;
+}
+
+.shui {
+  width: 7.5rem;
+  height: 4.92rem;
+  bottom: 0;
+  position: absolute;
+  left: 0;
+  background: url(../images/shui.png) no-repeat;
+  background-size: 100% 100%;
+}
+
+.shu {
+  background: url(../images/shu.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  left: 0;
+  bottom: 3.3rem;
+  width: 2.16rem;
+  height: 3.36rem
+}
+
+.flower3 {
+  width: 4.15rem;
+  height: 5.98rem;
+  right: 0;
+  bottom: 3rem;
+  background: url(../images/right_x.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+}
+
+.entry {
+  width: 2.57rem;
+  height: 0.83rem;
+  background: url(../images/entry.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 5.2rem;
+  left: 50%;
+  margin-left: -1.285rem;
+}
+
+.logo_big {
+  width: 6.79rem;
+  height: 2.77rem;
+  background: url(../images/title.png) no-repeat;
+  position: absolute;
+  background-size: 100% 100%;
+  top: 1.67rem;
+  left: 50%;
+  margin-left: -3.395rem;
+}
+
+.shi {
+  width: 1.44rem;
+  height: 3.42rem;
+  background: url(../images/shi.png) no-repeat;
+  background-size: 100% 100%;
+  bottom: 3.76rem;
+  right: 0.9rem;
+  position: absolute;
+}
+
+.search {
+  width: 2.05rem;
+  height: 0.56rem;
+  position: absolute;
+  background: url(../images/bm.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  right: 0.44rem;
+  bottom: 0.39rem
+}
+
+.in2 {
+  top: 2.26rem
+}
+
+.in3 {
+  bottom: -0.7rem
+}
+
+.contentFlex {
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.infoBg {
+  background: url(../images/bg.png) no-repeat;
+  background-size: 100% 100%;
+  width: 86vw;
+  height: 92vh;
+  transform: translate(7vw, 4vh);
+  -webkit-transform: translate(7vw, 4vh);
+}
+
+.csinformation {
+  background: url(../images/info.png) no-repeat;
+  background-size: 100% 100%;
+  width: 4.47rem;
+  height: 0.89rem;
+  position: absolute;
+  left: 50%;
+  margin-left: -2.235rem;
+  top: 1rem;
+}
+
+.information {
+  width: 5rem;
+  position: absolute;
+  left: 50%;
+  margin-left: -2.5rem;
+  top: 2.52rem;
+}
+
+.info_input {
+  width: 4.84rem;
+  height: 0.54rem;
+  border: solid 0.02rem #6e5330;
+  border-radius: 0.1rem;
+  line-height: 0.54rem;
+  font-size: 0.38rem;
+  text-align: left;
+  padding-left: 0.1rem;
+  color: #6e5330;
+  margin-bottom: 0.45rem
+}
+
+.info_input input {
+  background: none;
+  border: none;
+  width: 3.4rem;
+  height: 0.54rem;
+  line-height: 0.54rem;
+  margin-left: 0.15rem;
+  font-size: 0.38rem;
+  color: #6e5330;
+}
+
+.submit {
+  width: 1.76rem;
+  height: 0.61rem;
+  background: url(../images/submit.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  bottom: 1.75rem;
+  right: 1.22rem;
+}
+
+.select {
+  margin-top: 0px;
+  outline: none;
+  position: relative;
+  width: 3.4rem;
+  display: inline-block;
+}
+
+.add {
+  height: 0.51rem;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  font-size: 0.38rem;
+
+  display: block;
+  width: 3.4rem;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #e0d3bd;
+  color: #6e5330;
+}
+
+#num2 {
+  /* display: none */
+}
+
+.sucess {
+  width: 4.73rem;
+  height: 0.89rem;
+  background: url(../images/suecssTitle.png) no-repeat;
+  background-size: 100% 100%;
+  top: 1.35rem;
+  position: absolute;
+  left: 50%;
+  margin-left: -2.365rem;
+}
+
+.suessNumberTitle {
+  width: 4.55rem;
+  height: 0.38rem;
+  background: url(../images/bmm.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  left: 50%;
+  margin-left: -2.275rem;
+  top: 3.9rem;
+}
+
+.suessNumeber {
+  width: 4.55rem;
+  font-size: 0.38rem;
+  color: #6e5330;
+  left: 50%;
+  margin-left: -2.275rem;
+  height: 0.64rem;
+  top: 4.56rem;
+  line-height: 0.64rem;
+  position: absolute;
+  border: solid 0.02rem #6e5330;
+  border-radius: 0.1rem;
+  text-align: center;
+  background: #e0d3bd;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.suessNumeber p {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.imgTitle {
+  width: 4.13rem;
+  height: 0.59rem;
+  background: url(../images/num3t.png) no-repeat;
+  background-size: 100% 100%;
+  left: 50%;
+  margin-left: -2.065rem;
+  top: 6.45rem;
+  position: absolute;
+}
+
+.wximg {
+  width: 1.67rem;
+  height: 1.66rem;
+  position: absolute;
+  left: 50%;
+  margin-left: -0.835rem;
+  top: 7.32rem;
+}
+
+.wximg img {
+  width: 100%;
+  height: 100%;
+}
+
+.num4Title {
+  background: url(../images/num3Title.png) no-repeat;
+  width: 4.73rem;
+  height: 0.89rem;
+  position: absolute;
+  left: 50%;
+  margin-left: -2.365rem;
+  top: 1.06rem;
+  background-size: 100% 100%;
+}
+
+.result {
+  width: 4.73rem;
+  height: 0.89rem;
+  background: url(../images/result.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  left: 50%;
+  margin-left: -2.365rem;
+  top: 1.06rem
+}
+
+.bmms {
+  background: url(../images/bmms.png) no-repeat;
+  background-size: 100% 100%;
+  width: 2.73rem;
+  height: 0.39rem;
+  margin-left: -1.365rem
+}
+
+.tsinformation {
+  background: url(../images/tishi.png) no-repeat;
+  width: 4.8rem;
+  height: 3.59rem;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 50%;
+  margin-top: -1.795rem;
+  left: 50%;
+  margin-left: -2.4rem;
+  display: none;
+}
+
+#flower1,
+#flower2,
+#flower3,
+#shi,
+#shui,
+#shu {
+  opacity: 0;
+}
+
+.dialog {
+  width: 5.38rem;
+  height: 3.16rem;
+  background: url(../images/tc.png) no-repeat;
+  left: 50%;
+  margin-left: -2.69rem;
+  top: 50%;
+  margin-top: -1.58rem;
+  background-size: 100% 100%;
+  position: absolute;
+  font-size: 0.4rem;
+  text-align: center;
+  display: none;
+  line-height: 3.16rem;
+  color: #6e5330;
+}
+
+.goHistory {
+  width: 1.76rem;
+  height: 0.61rem;
+  background: url(../images/history.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  bottom: 1.75rem;
+  left: 1.22rem;
+}
+
+.dhLogo {
+  width: 2.42rem;
+  height: 0.65rem;
+  top: 0.53rem;
+  right: 0.89rem;
+  background: url(../images/dhlogo.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+}

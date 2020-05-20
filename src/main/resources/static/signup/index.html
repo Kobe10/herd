@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>TEST《浙江诗词大会》端午诗会网络海选赛报名正式开启！</title>
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" type="text/css" media="screen" href="style/main.css" />
+  <script>
+    ~ function () {
+      window.addEventListener('resize', computedFont, false);
+
+      function computedFont() {
+        var deviceW = document.documentElement.clientWidth;
+        document.documentElement.style.fontSize = deviceW / 750 * 100 + 'px';
+        console.log(deviceW)
+      }
+      computedFont();
+    }();
+  </script>
+</head>
+
+<body>
+  <!--分享代码开始-->
+  <div id="shareConfig" data-title="浙江诗词大会" data-text=""
+    data-img="https://y1.ifengimg.com/ifengimcp/pic/20150320/2cacf6cc607ab1b10e55_size89_w1024_h1024.jpg"
+    style="display:none"></div>
+
+  <!--分享代码结束-->
+  <div class="content">
+    <div class="flower1" id="flower1"></div>
+    <div class="logo"><img src="images/logo.png" width="100%" height="100%"></div>
+    <div class="dhLogo"></div>
+    <div class="flower2" id="flower2"></div>
+    <div class="shui" id="shui"></div>
+    <div class="shu" id="shu"></div>
+    <div class="flower3" id="flower3"></div>
+    <div class="logo_big"></div>
+    <div class="entry"></div>
+    <div class="shi" id="shi"></div>
+    <div class="search"></div>
+  </div>
+</body>
+<script src="https://p2.ifengimg.com/l/2018/27/61a49b087c93575/jquery-1.7.2.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="https://p3.ifengimg.com/a/2017/0809/wxshare.js"></script>
+<script src="./scripts/TweenMax.js"></script>
+<script>
+  var entry = $('.entry'),
+    search = $('.search');
+  entry.on("touchstart", function () {
+    window.location.href = './information.html'
+  })
+  search.on("touchstart", function () {
+    window.location.href = './search.html'
+  })
+
+
+  let flower1 = new TweenMax("#flower1", 1.5, {
+    opacity: 1,
+    ease: Linear.easeIn,
+    onComplete: function () {
+      flower2.play()
+      shu.play().delay(0.5)
+    }
+  });
+  let shui = new TweenMax("#shui", 3, {
+    opacity: 1,
+    ease: Linear.easeIn,
+    onComplete: function () {}
+  });
+
+  let flower2 = new TweenMax("#flower2", 1, {
+    opacity: 1,
+    ease: Linear.easeIn,
+    onComplete: function () {
+      flower3.play()
+      shi.play()
+    }
+  });
+  flower2.pause()
+  let flower3 = new TweenMax("#flower3", 1, {
+    opacity: 1,
+    ease: Linear.easeIn,
+    onComplete: function () {}
+  });
+  flower3.pause()
+  let shi = new TweenMax("#shi", 1, {
+    opacity: 1,
+    y: 20,
+    ease: Linear.easeIn,
+    onComplete: function () {}
+  });
+  shi.pause()
+  let shu = new TweenMax("#shu", 1, {
+    opacity: 1,
+    ease: Linear.easeIn,
+    onComplete: function () {}
+  });
+  shu.pause()
+</script>
+
+</html>

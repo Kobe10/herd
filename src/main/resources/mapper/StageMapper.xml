@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fenghuang.poetry.herd.dao.StageMapper">
+  <resultMap id="BaseResultMap" type="com.fenghuang.poetry.herd.dao.entity.StageEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="stage_code" jdbcType="VARCHAR" property="stageCode" />
+    <result column="stage_name" jdbcType="VARCHAR" property="stageName" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
+    <result column="last_modify_id" jdbcType="VARCHAR" property="lastModifyId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, stage_code, stage_name, is_del, create_id, last_modify_id, create_time, last_modify_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from stage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fenghuang.poetry.herd.dao.entity.StageEntity">
+    insert into stage (id, stage_code, stage_name, 
+      is_del, create_id, last_modify_id, 
+      create_time, last_modify_time)
+    values (#{id,jdbcType=INTEGER}, #{stageCode,jdbcType=VARCHAR}, #{stageName,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{createId,jdbcType=VARCHAR}, #{lastModifyId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fenghuang.poetry.herd.dao.entity.StageEntity">
+    insert into stage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="stageCode != null">
+        stage_code,
+      </if>
+      <if test="stageName != null">
+        stage_name,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="lastModifyId != null">
+        last_modify_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stageCode != null">
+        #{stageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stageName != null">
+        #{stageName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyId != null">
+        #{lastModifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fenghuang.poetry.herd.dao.entity.StageEntity">
+    update stage
+    <set>
+      <if test="stageCode != null">
+        stage_code = #{stageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stageName != null">
+        stage_name = #{stageName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyId != null">
+        last_modify_id = #{lastModifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fenghuang.poetry.herd.dao.entity.StageEntity">
+    update stage
+    set stage_code = #{stageCode,jdbcType=VARCHAR},
+      stage_name = #{stageName,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_id = #{createId,jdbcType=VARCHAR},
+      last_modify_id = #{lastModifyId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

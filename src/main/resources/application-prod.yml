@@ -1,0 +1,71 @@
+server:
+  port: 8085
+  servlet:
+    context-path: /herd
+
+spring:
+  #应用名称，集群名称需要一致
+  application:
+    name: herd
+  datasource:
+    druid:
+      url: jdbc:mysql://47.111.16.228:3306/herd?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: Fenghuang1!
+      driver-class-name: com.mysql.jdbc.Driver
+
+  #thymeleaf模板配置
+  thymeleaf:
+    cache: false
+
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: /templates/,classpath:/static/
+
+logging:
+  config:
+    classpath: logback-prod.xml
+  level:
+    com.fenghuang.poetry.herd.dao: debug
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.fenghuang.poetry.herd
+
+mapper:
+  mappers:  com.fenghuang.poetry
+  not-empty: false
+  identity: MYSQL
+
+#pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  returnPageInfo: check
+
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+
+  #如果您在防火墙后面部署应用程序，您可能更喜欢所有的执行器端点都可以在无需验证的情况下进行访问。您可以通过更include这个属性 来制定不需要权限的进行访问
+  #management.endpoints.web.exposure.include = *
+  endpoints:
+    web:
+      exposure:
+        include: ['*']
+      #这个是shutdown节点的基础访问路径     基本访问规则 localhost:port/content-path/base-path/shutdown
+      base-path: /herd
+  server:
+    address: 127.0.0.1                     #对应 localhost
+    servlet:
+      context-path: /manage               #对应 contextpath
+    port: 7180

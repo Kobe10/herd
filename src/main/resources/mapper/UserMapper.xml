@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fenghuang.poetry.herd.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.fenghuang.poetry.herd.dao.entity.UserEntity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="uid" jdbcType="VARCHAR" property="uid"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="wx_num" jdbcType="VARCHAR" property="wxNum"/>
+        <result column="province_code" jdbcType="VARCHAR" property="provinceCode"/>
+        <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
+        <result column="school" jdbcType="VARCHAR" property="school"/>
+        <result column="grade" jdbcType="VARCHAR" property="grade"/>
+        <result column="is_del" jdbcType="INTEGER" property="isDel"/>
+        <result column="create_id" jdbcType="VARCHAR" property="createId"/>
+        <result column="last_modify_id" jdbcType="VARCHAR" property="lastModifyId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, `uid`, user_name, phone, wx_num, province_code, area_code, school, grade, is_del, 
+    create_id, last_modify_id, create_time, last_modify_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="findUserByNameAndPhone" resultMap="BaseResultMap">
+      select * from user where is_del = 0 and user_name = #{userName} and phone = #{phone};
+    </select>
+    <select id="countUser" resultType="com.fenghuang.poetry.herd.service.model.dto.UserCountResultDto">
+        select u.area_code as areaCode, count(u.uid) as userNum
+        from user u
+        group by u.area_code;
+    </select>
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(uid) from user;
+    </select>
+    <select id="findUserListByCondition" resultMap="BaseResultMap">
+        select *
+        from user
+
+        where is_del = 0
+        <if test="areaCode != null and areaCode != ''">
+            and area_code = #{areaCode}
+        </if>
+        <if test="userName != null and userName != ''">
+            and user_name like CONCAT(CONCAT('%', #{userName}), '%')
+        </if>
+        <if test="phone != null and phone != ''">
+            and phone like CONCAT(CONCAT('%', #{phone}), '%')
+        </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.fenghuang.poetry.herd.dao.entity.UserEntity">
+    insert into user (id, `uid`, user_name, 
+      phone, wx_num, province_code, 
+      area_code, school, grade, 
+      is_del, create_id, last_modify_id, 
+      create_time, last_modify_time)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{wxNum,jdbcType=VARCHAR}, #{provinceCode,jdbcType=VARCHAR}, 
+      #{areaCode,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER}, #{createId,jdbcType=VARCHAR}, #{lastModifyId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.fenghuang.poetry.herd.dao.entity.UserEntity">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uid != null">
+                `uid`,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="wxNum != null">
+                wx_num,
+            </if>
+            <if test="provinceCode != null">
+                province_code,
+            </if>
+            <if test="areaCode != null">
+                area_code,
+            </if>
+            <if test="school != null">
+                school,
+            </if>
+            <if test="grade != null">
+                grade,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="lastModifyId != null">
+                last_modify_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="wxNum != null">
+                #{wxNum,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceCode != null">
+                #{provinceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="areaCode != null">
+                #{areaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="school != null">
+                #{school,jdbcType=VARCHAR},
+            </if>
+            <if test="grade != null">
+                #{grade,jdbcType=VARCHAR},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=INTEGER},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyId != null">
+                #{lastModifyId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fenghuang.poetry.herd.dao.entity.UserEntity">
+        update user
+        <set>
+            <if test="uid != null">
+                `uid` = #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="wxNum != null">
+                wx_num = #{wxNum,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceCode != null">
+                province_code = #{provinceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="areaCode != null">
+                area_code = #{areaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="school != null">
+                school = #{school,jdbcType=VARCHAR},
+            </if>
+            <if test="grade != null">
+                grade = #{grade,jdbcType=VARCHAR},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=INTEGER},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyId != null">
+                last_modify_id = #{lastModifyId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fenghuang.poetry.herd.dao.entity.UserEntity">
+    update user
+    set `uid` = #{uid,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      wx_num = #{wxNum,jdbcType=VARCHAR},
+      province_code = #{provinceCode,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_id = #{createId,jdbcType=VARCHAR},
+      last_modify_id = #{lastModifyId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

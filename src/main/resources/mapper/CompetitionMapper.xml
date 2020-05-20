@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fenghuang.poetry.herd.dao.CompetitionMapper">
+    <resultMap id="BaseResultMap" type="com.fenghuang.poetry.herd.dao.entity.CompetitionEntity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="uid" jdbcType="VARCHAR" property="uid"/>
+        <result column="scene_code" jdbcType="VARCHAR" property="sceneCode"/>
+        <result column="competition_code" jdbcType="VARCHAR" property="competitionCode"/>
+        <result column="competition_status" jdbcType="VARCHAR" property="competitionStatus"/>
+        <result column="use_times" jdbcType="TINYINT" property="useTimes"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_id" jdbcType="VARCHAR" property="createId"/>
+        <result column="last_modify_id" jdbcType="VARCHAR" property="lastModifyId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, `uid`, scene_code, competition_code, competition_status, use_times, is_del, create_id, 
+    last_modify_id, create_time, last_modify_time
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from competition
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="findByCompetitionCode" resultType="java.lang.String">
+        select competition_code from competition where is_del = 0 and competition_code = #{competitionCode};
+    </select>
+    <select id="findByUidAndSceneCode" resultMap="BaseResultMap">
+        select * from competition where is_del = 0 and uid = #{uid} and scene_code = #{sceneCode}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from competition
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.fenghuang.poetry.herd.dao.entity.CompetitionEntity">
+    insert into competition (id, `uid`, scene_code, 
+      competition_code, competition_status, use_times, 
+      is_del, create_id, last_modify_id, 
+      create_time, last_modify_time)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, #{sceneCode,jdbcType=VARCHAR}, 
+      #{competitionCode,jdbcType=VARCHAR}, #{competitionStatus,jdbcType=VARCHAR}, #{useTimes,jdbcType=TINYINT}, 
+      #{isDel,jdbcType=TINYINT}, #{createId,jdbcType=VARCHAR}, #{lastModifyId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.fenghuang.poetry.herd.dao.entity.CompetitionEntity">
+        insert into competition
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uid != null">
+                `uid`,
+            </if>
+            <if test="sceneCode != null">
+                scene_code,
+            </if>
+            <if test="competitionCode != null">
+                competition_code,
+            </if>
+            <if test="competitionStatus != null">
+                competition_status,
+            </if>
+            <if test="useTimes != null">
+                use_times,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="lastModifyId != null">
+                last_modify_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="sceneCode != null">
+                #{sceneCode,jdbcType=VARCHAR},
+            </if>
+            <if test="competitionCode != null">
+                #{competitionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="competitionStatus != null">
+                #{competitionStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="useTimes != null">
+                #{useTimes,jdbcType=TINYINT},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyId != null">
+                #{lastModifyId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fenghuang.poetry.herd.dao.entity.CompetitionEntity">
+        update competition
+        <set>
+            <if test="uid != null">
+                `uid` = #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="sceneCode != null">
+                scene_code = #{sceneCode,jdbcType=VARCHAR},
+            </if>
+            <if test="competitionCode != null">
+                competition_code = #{competitionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="competitionStatus != null">
+                competition_status = #{competitionStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="useTimes != null">
+                use_times = #{useTimes,jdbcType=TINYINT},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyId != null">
+                last_modify_id = #{lastModifyId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fenghuang.poetry.herd.dao.entity.CompetitionEntity">
+    update competition
+    set `uid` = #{uid,jdbcType=VARCHAR},
+      scene_code = #{sceneCode,jdbcType=VARCHAR},
+      competition_code = #{competitionCode,jdbcType=VARCHAR},
+      competition_status = #{competitionStatus,jdbcType=VARCHAR},
+      use_times = #{useTimes,jdbcType=TINYINT},
+      is_del = #{isDel,jdbcType=TINYINT},
+      create_id = #{createId,jdbcType=VARCHAR},
+      last_modify_id = #{lastModifyId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

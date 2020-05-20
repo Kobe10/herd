@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>统计</title>
+  <link rel="stylesheet" href="style/bootstrap.min.css" />
+  <link rel="stylesheet" href="style/bootstrap-table.min.css" />
+  <link rel="stylesheet" href="style/bootstrapmb.css" />
+  <link rel="stylesheet" href="style/index.css" />
+</head>
+
+
+<body style="background:#dfd3bd">
+  <div id="wrapper">
+    <div class="overlay"></div>
+
+    <!-- Sidebar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+      <ul class="nav sidebar-nav">
+        <li class="sidebar-brand">
+          <a href="#">
+            浙江诗词大会
+          </a>
+        </li>
+        <li>
+          <a href="./information.html"><i class="fa fa-fw fa-home"></i> 首页</a>
+        </li>
+        <li>
+
+          <a href="./statis.html"><i class="fa fa-fw fa-home"></i> 统计</a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div class="user"><span>用户名：</span><b class="userName"></b></div>
+    <div id="page-content-wrapper">
+      <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
+        <span class="hamb-top"></span>
+        <span class="hamb-middle"></span>
+        <span class="hamb-bottom"></span>
+      </button>
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-10 col-lg-offset-1">
+            <div id="main" style="width: 1000px;height:500px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+</body>
+<script src="scripts/jq1.12.4.js"></script>
+<script src="scripts/bootstrap.min.js"></script>
+<script src="scripts/bootstrap-table.min.js"></script>
+<script src="scripts/echarts.min.js"></script>
+<script src="./scripts/tableExport.js"></script>
+<!--在客户端保存生成的导出文件-->
+<script src="./scripts/bootstrap-table-export.js"></script>
+<script>
+  $(document).ready(function () {
+    var trigger = $('.hamburger'),
+      overlay = $('.overlay'),
+      isClosed = false;
+
+    trigger.click(function () {
+      hamburger_cross();
+    });
+
+    function hamburger_cross() {
+
+      if (isClosed == true) {
+        overlay.hide();
+        trigger.removeClass('is-open');
+        trigger.addClass('is-closed');
+        isClosed = false;
+      } else {
+        overlay.show();
+        trigger.removeClass('is-closed');
+        trigger.addClass('is-open');
+        isClosed = true;
+      }
+    }
+
+    $('[data-toggle="offcanvas"]').click(function () {
+      $('#wrapper').toggleClass('toggled');
+    });
+    var bsdata;
+
+
+
+
+    //获取人数数据
+    let seriesCount = [],
+      legendData = ['总数'],
+      peopleCount;
+    $.ajax({
+      url: 'http://211.159.176.138:8085/herd/web/user/count',
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        if (res.code == 200) {
+          console.log(res)
+          peopleCount = res.data.totalUserNum
+          seriesCount = [{
+            name: '总数',
+            type: 'bar',
+            data: [peopleCount]
+          }]
+          console.log(seriesCount)
+          let seriesArray = [];
+          res.data.userCountList.forEach((item) => {
+            console.log(item)
+            return seriesCount.push({
+              name: item.areaName,
+              type: 'line',
+              data: [item.userNum]
+            })
+          })
+          res.data.userCountList.filter((item) => {
+            if (item.areaName) {
+              return legendData.push(item.areaName)
+            }
+
+          })
+          console.log(legendData)
+          echartsFun()
+        }
+      }
+    })
+
+    //获取cookie
+    var getCookie = function (name) {
+      //获取当前所有cookie
+      var strCookies = document.cookie;
+      //截取变成cookie数组
+      var array = strCookies.split(';');
+      //循环每个cookie
+      for (var i = 0; i < array.length; i++) {
+        //将cookie截取成两部分
+        var item = array[i].split("=");
+        //判断cookie的name 是否相等
+        if (item[0] == name) {
+          return item[1];
+        }
+      }
+      return null;
+    }
+    var username = getCookie('name')
+    if (!username) {
+      $('.userName').html('admin')
+    } else {
+      $('.userName').html(username) //设置username
+    }
+
+    //退出登录
+    $('.userName').click(function () {
+      $.ajax({
+        url: 'http://211.159.176.138:8085/herd/web/user/logout',
+        method: 'post',
+        success: function (res) {
+          if (res.code == 200) {
+            setTimeout(() => {
+              location.href = "./index.html";
+            }, 500)
+          }
+        }
+      })
+    })
+
+    function echartsFun() {
+
+      var myChart = echarts.init(document.getElementById('main'));
+      //echarts
+      option = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            crossStyle: {
+              color: '#999'
+            }
+          }
+        },
+        toolbox: {
+          feature: {
+            dataView: {
+              show: true,
+              readOnly: false
+            },
+            magicType: {
+              show: true,
+              type: ['line', 'bar']
+            },
+            restore: {
+              show: true
+            },
+            saveAsImage: {
+              show: true
+            }
+          }
+        },
+        legend: {
+          data: legendData
+        },
+        xAxis: [{
+          type: 'category',
+          data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+          axisPointer: {
+            type: 'shadow'
+          }
+        }],
+        yAxis: [{
+          type: 'value',
+          name: '总数',
+          min: 0,
+          max: peopleCount + 10,
+          interval: parseInt((peopleCount + 10) / 5),
+          axisLabel: {
+            formatter: '{value}人'
+          }
+        }, ],
+        series: seriesCount
+      };
+      myChart.setOption(option);
+    }
+
+
+  });
+</script>
+
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>TEST《浙江诗词大会》端午诗会网络海选赛报名正式开启！</title>
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" type="text/css" media="screen" href="style/main.css" />
+  <script>
+    ~ function () {
+      window.addEventListener('resize', computedFont, false);
+
+      function computedFont() {
+        var deviceW = document.documentElement.clientWidth;
+        document.documentElement.style.fontSize = deviceW / 750 * 100 + 'px';
+      }
+      computedFont();
+    }();
+  </script>
+</head>
+
+<body>
+  <div class="content">
+    <div class="flower1"></div>
+    <div class="flower2 in2"></div>
+    <div class="flower2 in3"></div>
+    <div class="flower3"></div>
+    <div class="infoBg"></div>
+    <div id="num2" style="display: block;">
+      <div class="csinformation"></div>
+      <div class="information">
+        <div class="info_input">
+          <span>姓名:</span><input type="text" class="userName"></input>
+        </div>
+        <div class="info_input">
+          <span>电话:</span><input type="text" class="phoneNumber"></input>
+        </div>
+        <div class="info_input">
+          <span>微信号:</span><input type="text" class="wxNumber"></input>
+        </div>
+        <div class="info_input">
+          <span>地区:</span>
+          <div class="select">
+
+            <select id="add" class="add">
+              <option selected="selected" disabled="disabled" style='display: none' value=''></option>
+
+              <option value="330100">杭州市 </option>
+              <option value="330200"> 宁波市 </option>
+              <option value="330300"> 温州市 </option>
+              <option value="330600"> 绍兴市 </option>
+              <option value="330400"> 嘉兴市 </option>
+              <option value="330700"> 金华市 </option>
+              <option value="330800"> 衢州市 </option>
+              <option value="331000"> 台州市 </option>
+              <option value="331100"> 丽水市 </option>
+              <option value="330900"> 舟山市 </option>
+
+            </select>
+          </div></input>
+        </div>
+        <div class="info_input">
+          <span>学校:</span><input type="text" class="school"></input>
+        </div>
+        <div class="info_input">
+          <span>年级:</span><input type="text" class="grade"></input>
+        </div>
+      </div>
+      <div class="submit"></div>
+    </div>
+    <div id="num3" style="display:none">
+      <div class="sucess"></div>
+      <div class="suessNumberTitle"></div>
+      <div class="suessNumeber">
+        <p>ZJSCDH223322226</p>
+      </div>
+      <div class="imgTitle"></div>
+      <div class="wximg"><img src="images/wxImage.png"></div>
+    </div>
+    <div class="tsinformation"></div>
+    <div class="dialog"></div>
+  </div>
+</body>
+<script src="https://p2.ifengimg.com/l/2018/27/61a49b087c93575/jquery-1.7.2.min.js"></script>
+<script src="scripts/index.js"></script>
+
+<script>
+  let submit = $('.submit'),
+    num2 = $('#num2');
+  submit.on("touchstart", function () {
+    let userName = $('.userName').val(),
+      phoneNumber = $('.phoneNumber').val(),
+      wxNumber = $('.wxNumber').val(),
+      add = $("#add option:selected").val(),
+      school = $('.school').val(),
+      grade = $('.grade').val(),
+      tsinformation = $('.tsinformation');
+    console.log(add)
+    if (userName == '' || phoneNumber == '' || wxNumber == '' || add == '' || school == '' || grade == '') {
+      tsinformation.show();
+      setTimeout(() => {
+        tsinformation.hide()
+      }, 2500)
+    } else if (!(/^1[3456789]\d{9}$/.test(phoneNumber))) {
+      $('.dialog').show()
+      $('.dialog').html('手机号有误，请重新输入')
+      setTimeout(() => {
+        $('.dialog').hide()
+      }, 2500)
+    } else {
+      let data = {
+        "areaCode": add,
+        "grade": grade,
+        "userName": userName,
+        "phone": phoneNumber,
+        "school": school,
+        "wxNum": wxNumber
+
+      }
+      let infoData = JSON.stringify(data)
+      $.ajax({
+        url: 'http://211.159.176.138:8085/herd/api/apply/sign',
+        type: 'post',
+        data: infoData,
+        headers: {
+          'content-type': 'application/json'
+        },
+        success: function (res) {
+          if (res.code == 200) {
+            num2.hide()
+            console.log(res.data.competitionCodeInfoVo.competitionCode)
+            let competitionCode = res.data.competitionCodeInfoVo.competitionCode;
+            $('#num3').show()
+            $('.suessNumeber p').html(competitionCode)
+
+          } else {
+            alert('报名人数太多，请稍后再试')
+          }
+
+        },
+        error: function (error) {
+          console.log(error.message)
+          //请求出错处理
+        }
+      })
+    }
+
+  })
+
+
+  if (isAndroid()) {
+    //alert(889)
+    const innerHeight = window.innerHeight;
+    window.addEventListener('resize', () => {
+      const newInnerHeight = window.innerHeight;
+      if (innerHeight > newInnerHeight) {
+        // 键盘弹出事件处理
+        // alert("android 键盘弹窗事件");
+        $('.submit').css("display", "none")
+        $('.infoBg').css({
+          "width": "6.5rem",
+          "height": "12.3rem",
+          "transform": "translateX(0.5rem)",
+          "-webkit-transform": "translateX(0.5rem)",
+          "margin-top": "4vh"
+        })
+
+      } else {
+        // 键盘收起事件处理
+        //alert("android 键盘收起事件处理")
+        $('.submit').css("display", "block")
+        $('.infoBg').css({
+          "width": "86vw",
+          "height": "92vh",
+          "transform": "translate(7vw, 4vh)",
+          "-webkit-transform": "translate(7vw, 4vh)",
+          "margin-top": "auto"
+        })
+
+      }
+    });
+  } else if (isIOS()) {
+    console.log('ios机型')
+    // window.addEventListener('focusin', () => {
+    //   // 键盘弹出事件处理
+    //   alert("iphone 键盘弹出事件处理")
+    // });
+    window.addEventListener('focusout', () => {
+      window.scrollTo(0, 0)
+      // 键盘收起事件处理
+
+    });
+  }
+</script>
+
+</html>
