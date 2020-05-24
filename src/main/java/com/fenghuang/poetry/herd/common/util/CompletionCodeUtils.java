@@ -1,7 +1,5 @@
 package com.fenghuang.poetry.herd.common.util;
 
-import org.springframework.util.StopWatch;
-
 /**
  * <p></p>
  * <p>
@@ -10,7 +8,7 @@ import org.springframework.util.StopWatch;
  * <BR>-----------------------------------------------
  * <BR>    修改日期         修改人          修改内容
  * </PRE>
- *
+ * wiki: https://blog.csdn.net/zgjllf1011/article/details/79297512
  * @author fuzq
  * @version 1.0
  * @Desc
@@ -33,7 +31,7 @@ public class CompletionCodeUtils {
      */
     public static String create(byte groupid, int codecount, int codelength, String password) {
         //8位的数据总长度
-        int fullcodelength = codelength * convertByteCount / 8;
+        int fullcodelength = codelength * convertByteCount / 5;
         //随机码对时间和id同时做异或处理
         //类型1，id4，随机码n,校验码1
         int randcount = fullcodelength - 6;//随机码有多少个
@@ -74,8 +72,8 @@ public class CompletionCodeUtils {
 
             //按6位一组复制给最终数组
             for (int j = 0; j < byteHelpUtils.bytes.length; j++) {
-                for (int k = 0; k < 8; k++) {
-                    int sourceindex = j * 8 + k;
+                for (int k = 0; k < 5; k++) {
+                    int sourceindex = j * 5 + k;
                     int targetindex_x = sourceindex / convertByteCount;
                     int targetindex_y = sourceindex % convertByteCount;
                     byte placeval = (byte) Math.pow(2, k);

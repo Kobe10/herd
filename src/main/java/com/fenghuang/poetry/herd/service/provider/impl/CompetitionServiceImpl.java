@@ -35,8 +35,8 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Override
     public String createCompetitionCode() {
         // 海选报名码规则
-        String prefix = "zjscdh-";
-        String hxCompletionCode = CompletionCodeUtils.create((byte) 1, 1, 12, CompletionCodeUtils.allCapitalStrings);
+        String prefix = "";
+        String hxCompletionCode = CompletionCodeUtils.create((byte) 1, 1, 10, CompletionCodeUtils.allCapitalStrings);
         return prefix + hxCompletionCode;
     }
 

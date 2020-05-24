@@ -2,8 +2,9 @@ package com.fenghuang.poetry.herd.service.provider.impl;
 
 import com.fenghuang.poetry.herd.common.enums.AreaEnum;
 import com.fenghuang.poetry.herd.common.enums.CompetitionStatusEnum;
+import com.fenghuang.poetry.herd.common.util.ChineseNameUtil;
+import com.fenghuang.poetry.herd.common.util.PinYin4jUtils;
 import com.fenghuang.poetry.herd.common.util.StringUtils;
-import com.fenghuang.poetry.herd.common.util.UUIDGenerator;
 import com.fenghuang.poetry.herd.config.exception.BusinessException;
 import com.fenghuang.poetry.herd.dao.CompetitionMapper;
 import com.fenghuang.poetry.herd.dao.UserMapper;
@@ -32,7 +33,6 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * <p></p>
@@ -97,6 +97,11 @@ public class UserServiceImpl implements UserService {
         if (!Objects.isNull(userInfo)) {
             throw new BusinessException("当前用户已经注册！");
         }
+
+//        //获取中文名  压测使用
+//        String userName = ChineseNameUtil.getName();
+//        userInfoDto.setUserName(userName);
+
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(userInfoDto, userEntity);
         //生成uuid
@@ -111,13 +116,13 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             throw new BusinessException("该手机号已使用，请更换手机号!");
         }
-
+        String prefix = PinYin4jUtils.getFirstPinYin(userInfoDto.getUserName()) + "-";
         // 创建报名码
-        String competitionCode = competitionService.createCompetitionCode();
+        String competitionCode = prefix + competitionService.createCompetitionCode();
         // 验证报名码是否重复
         if (StringUtils.isNotBlank(competitionService.findByCompetitionCode(competitionCode))) {
             //如果重复 -- 后面加上uuid后四位
-            competitionCode = competitionService.createCompetitionCode() + competitionService.createUUidLast4();
+            competitionCode = prefix + competitionService.createCompetitionCode() + competitionService.createUUidLast4();
         }
         competitionDto.setCompetitionCode(competitionCode);
         competitionDto.setCompetitionCodeStatus(CompetitionStatusEnum.WSY.getCode());
