@@ -3,6 +3,7 @@ package com.fenghuang.poetry.herd.service.provider.impl;
 import com.fenghuang.poetry.herd.common.enums.AreaEnum;
 import com.fenghuang.poetry.herd.common.enums.CompetitionStatusEnum;
 import com.fenghuang.poetry.herd.common.util.StringUtils;
+import com.fenghuang.poetry.herd.common.util.UUIDGenerator;
 import com.fenghuang.poetry.herd.config.exception.BusinessException;
 import com.fenghuang.poetry.herd.dao.CompetitionMapper;
 import com.fenghuang.poetry.herd.dao.UserMapper;
@@ -20,6 +21,7 @@ import com.fenghuang.poetry.herd.web.model.resp.user.UserDetailInfoVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * <p></p>
@@ -46,6 +49,7 @@ import java.util.Objects;
  * @date Created in 2020年05月11日 13:34
  * @since 1.0
  */
+@Slf4j
 @Component
 public class UserServiceImpl implements UserService {
     @Resource
@@ -112,7 +116,8 @@ public class UserServiceImpl implements UserService {
         String competitionCode = competitionService.createCompetitionCode();
         // 验证报名码是否重复
         if (StringUtils.isNotBlank(competitionService.findByCompetitionCode(competitionCode))) {
-            competitionCode = competitionService.createCompetitionCode() + "A";
+            //如果重复 -- 后面加上uuid后四位
+            competitionCode = competitionService.createCompetitionCode() + competitionService.createUUidLast4();
         }
         competitionDto.setCompetitionCode(competitionCode);
         competitionDto.setCompetitionCodeStatus(CompetitionStatusEnum.WSY.getCode());
@@ -127,6 +132,8 @@ public class UserServiceImpl implements UserService {
         try {
             competitionMapper.insertSelective(competitionEntity);
         } catch (Exception e) {
+            log.error("报名码插入异常，报名码实体信息");
+
             throw new BusinessException("活动火爆，请稍后重试!");
         }
         //插入用户的阶段数据

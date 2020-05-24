@@ -8,6 +8,7 @@ import com.xuanner.seq.sequence.Sequence;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.UUID;
 
 /**
  * <p></p>
@@ -36,7 +37,6 @@ public class CompetitionServiceImpl implements CompetitionService {
         // 海选报名码规则
         String prefix = "zjscdh-";
         String hxCompletionCode = CompletionCodeUtils.create((byte) 1, 1, 12, CompletionCodeUtils.allCapitalStrings);
-//        long id =  sequence.nextValue();
         return prefix + hxCompletionCode;
     }
 
@@ -60,5 +60,17 @@ public class CompetitionServiceImpl implements CompetitionService {
     public String createUid() {
         long uid = sequence.nextValue();
         return String.valueOf(uid);
+    }
+
+    /**
+     * uuid 后四位
+     *
+     * @return
+     */
+    @Override
+    public String createUUidLast4() {
+        UUID uuid = UUID.randomUUID();    //获取UID的值
+        String uuidStr = uuid.toString();
+        return uuidStr.substring(uuidStr.length() - 4);
     }
 }

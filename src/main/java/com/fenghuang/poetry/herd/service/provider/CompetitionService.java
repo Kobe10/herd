@@ -37,4 +37,11 @@ public interface CompetitionService {
      * @return
      */
     String createUid();
+
+    /**
+     * uuid 后四位
+     *
+     * @return
+     */
+    String createUUidLast4();
 }

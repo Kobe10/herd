@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fenghuang.poetry.herd.api.model.req.ApplyInfoReq;
 import com.fenghuang.poetry.herd.api.model.req.QueryApplyInfoReq;
 import com.fenghuang.poetry.herd.api.model.resp.ApplyInfoVo;
+import com.fenghuang.poetry.herd.common.util.LimitUtil;
 import com.fenghuang.poetry.herd.common.util.RegexUtil;
 import com.fenghuang.poetry.herd.common.web.Resp;
 import com.fenghuang.poetry.herd.config.exception.BusinessException;
@@ -40,7 +41,6 @@ public class ApplyController {
     @Autowired
     private UserFacade userFacade;
 
-
     @ApiOperation(
             value = "考试报名接口",
             notes = "考试报名接口",
@@ -50,8 +50,12 @@ public class ApplyController {
     )
     @PostMapping("/sign")
     public Object apply(@RequestBody ApplyInfoReq applyInfoReq) {
-        // 1、参数校验 注解校验
         log.info("【海选报名-sign，入参:{}】", JSONObject.toJSONString(applyInfoReq));
+        if (!LimitUtil.tryAcquire()) {
+            log.warn("apply-报名接口并发量查过100，活动火爆,拒绝请求");
+            return new Resp(500, "活动太火爆了，请稍后再试");
+        }
+
         // 验证是否为手机号
         if (!RegexUtil.isChinaPhoneLegal(applyInfoReq.getPhone())) {
             return new Resp(500, "手机号格式不正确");
@@ -63,7 +67,7 @@ public class ApplyController {
             applyInfoVo = userFacade.sign(applyInfoReq);
         } catch (BusinessException e) {
             log.error("海选报名异常，异常信息:{}", e.getMessage());
-            return new Resp(500, e.getMessage());
+            return new Resp(500, "服务器繁忙，请稍后再试");
         }
 
         if (Objects.isNull(applyInfoVo)) {
@@ -89,18 +93,5 @@ public class ApplyController {
             return new Resp(500, "您还没有报名，请重新报名");
         }
         return new Resp(applyInfoVo);
-    }
-
-    @ApiOperation(
-            value = "查询参赛码接口",
-            notes = "查询参赛码接口",
-            response = ApplyInfoVo.class,
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            httpMethod = "POST"
-    )
-    @GetMapping("/get/h5")
-    public Object getH5() {
-
-        return null;
     }
 }
