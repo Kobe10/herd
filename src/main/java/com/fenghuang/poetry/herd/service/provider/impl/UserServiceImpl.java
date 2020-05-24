@@ -132,9 +132,15 @@ public class UserServiceImpl implements UserService {
         try {
             competitionMapper.insertSelective(competitionEntity);
         } catch (Exception e) {
-            log.error("报名码插入异常，报名码实体信息");
-
-            throw new BusinessException("活动火爆，请稍后重试!");
+            log.error("报名码插入异常，报名码实体信息:{}", competitionEntity);
+            competitionCode = competitionService.createCompetitionCode() + competitionService.createUUidLast4();
+            competitionDto.setCompetitionCode(competitionCode);
+            competitionEntity.setCompetitionCode(competitionCode);
+            try {
+                competitionMapper.insertSelective(competitionEntity);
+            } catch (Exception e1) {
+                throw new BusinessException("活动火爆，请稍后重试!");
+            }
         }
         //插入用户的阶段数据
         UserStageEntity userStageEntity = new UserStageEntity();

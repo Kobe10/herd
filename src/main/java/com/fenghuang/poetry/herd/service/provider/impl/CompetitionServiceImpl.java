@@ -71,6 +71,6 @@ public class CompetitionServiceImpl implements CompetitionService {
     public String createUUidLast4() {
         UUID uuid = UUID.randomUUID();    //获取UID的值
         String uuidStr = uuid.toString();
-        return uuidStr.substring(uuidStr.length() - 4);
+        return uuidStr.substring(uuidStr.length() - 2);
     }
 }

@@ -57,9 +57,9 @@ public class ApplyController {
         }
 
         // 验证是否为手机号
-        if (!RegexUtil.isChinaPhoneLegal(applyInfoReq.getPhone())) {
-            return new Resp(500, "手机号格式不正确");
-        }
+//        if (!RegexUtil.isChinaPhoneLegal(applyInfoReq.getPhone())) {
+//            return new Resp(500, "手机号格式不正确");
+//        }
 
         // 2、报名
         ApplyInfoVo applyInfoVo = new ApplyInfoVo();
