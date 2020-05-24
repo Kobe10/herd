@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>TEST《浙江诗词大会》端午诗会网络海选赛报名正式开启！</title>
+  <meta name="description" content="TEST《浙江诗词大会》端午诗会网络海选赛报名正式开启！" />
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" type="text/css" media="screen" href="style/main.css" />
@@ -22,6 +23,13 @@
 </head>
 
 <body>
+  <!-- 微信分享图 小于35K 尺寸为300X300 -->
+  <img id="imgForShare" style="position: fixed; left: -1000%; top: -1000%;"
+    src="https://x0.ifengimg.com/ucms/2020_15/177D571ABD446E3C2263776494A37BC2F36D51EE_w300_h300.png" alt="分享缩略图" />
+  <div id="ifeng_share_thumbnail" style="display:none"></div>
+  <div id="ifeng_share_title" style="display:none"></div>
+  <div id="ifeng_share_description" style="display:none"></div>
+  <div id="ifeng_share_url" style="display:none"></div>
   <div class="content">
     <div class="flower1"></div>
     <div class="flower2 in2"></div>
@@ -55,14 +63,78 @@
 </body>
 <script src="https://p2.ifengimg.com/l/2018/27/61a49b087c93575/jquery-1.7.2.min.js"></script>
 <script src="./scripts/index.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+  var shareIcon = document.getElementById('imgForShare').src,
+    shareTitle = 'TEST浙江诗词大会TEST浙江诗词大会TEST浙江诗词大会',
+    shareContent = document.querySelector('meta[name=description]') ? document.querySelector('meta[name=description]')
+    .getAttribute('content') : 'TEST浙江诗词大会',
+    shareLink = window.location.href;
+  document.getElementById("ifeng_share_title").innerHTML = shareTitle;
+  document.getElementById("ifeng_share_thumbnail").innerHTML = shareIcon;
+  document.getElementById("ifeng_share_description").innerHTML = shareContent;
+  document.getElementById("ifeng_share_url").innerHTML = shareLink;
+  if (/MicroMessenger/.test(navigator.userAgent)) {
+    var wxConfigParams = {};
+    $.ajax({
+      url: 'https://api.cmpp.v.ifeng.com/api/Secert',
+      type: 'get',
+      dataType: 'jsonp',
+      data: {
+        url: encodeURIComponent(window.location.href),
+        _: '',
+        rt: 'jsonp',
+      },
+      success: function (data) {
+        wxConfigParams.debug = false;
+        wxConfigParams.appId = data.data.appId;
+        wxConfigParams.timestamp = data.data.timestamp;
+        wxConfigParams.nonceStr = data.data.nonceStr;
+        wxConfigParams.signature = data.data.signature;
+        wxConfigParams.jsApiList = ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ',
+          'onMenuShareQZone'
+        ];
+        wx.config(wxConfigParams);
+        wx.ready(function () {
+          wx.onMenuShareAppMessage({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareQZone({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareQQ({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareTimeline({
+            title: shareTitle,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+        });
+      },
+      error: function (data) {}
+    });
+  }
+</script>
 <script>
   let submit = $('.submit'),
     goHistory = $('.goHistory'),
-    num4 = $('.num4');
+    num4 = $('.num4'),
+    flag = true;
   goHistory.on('touchstart', function () {
     window.location.href = './index.html'
   })
   submit.on("touchstart", function () {
+    if (!flag) return
     let userName = $('.userName').val(),
       phoneNumber = $('.phoneNumber').val();
     if (userName == '' || phoneNumber == '') {
@@ -78,11 +150,12 @@
         $('.dialog').hide()
       }, 2500)
     } else {
+      flag = false
       let infoData = {
         phone: phoneNumber,
         userName: userName
       }
-      console.log(infoData) //13745674567
+      // console.log(infoData) //13745674567
       $.ajax({
         url: 'http://211.159.176.138:8085/herd/api/apply/get/info',
         type: 'post',
@@ -90,29 +163,39 @@
         headers: {
           'content-type': 'application/json'
         },
+        beforeSend: function () {
+          $('.submit').addClass('bg')
+        },
         success: function (res) {
           if (res.code == 200 && res.status == 'success') {
             console.log(res.data.competitionCodeInfoVo.competitionCodeStatus)
             num4.hide()
             $('#num3').show()
             $('.suessNumeber p').html(res.data.competitionCodeInfoVo.competitionCode)
+            flag = true
           } else {
-            $('.dialog').show()
-            $('.dialog').html('信息输入错误，请再次核查')
-            setTimeout(() => {
-              $('.dialog').hide()
-            }, 2500)
+            dialogShow('信息输入错误，请再次核查')
           }
 
         },
         error: function (res) {
           // alert(res)
+          dialogShow('报名人数太多，请稍后在试')
         }
       })
     }
 
   })
 
+  function dialogShow(msg) {
+    $('.dialog').show()
+    $('.dialog').html(msg)
+    setTimeout(() => {
+      $('.dialog').hide()
+      $('.submit').removeClass('bg')
+      flag = true
+    }, 2500)
+  }
   if (isAndroid()) {
     const innerHeight = window.innerHeight;
     window.addEventListener('resize', () => {

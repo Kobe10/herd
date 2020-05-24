@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="TEST《浙江诗词大会》端午诗会网络海选赛报名正式开启！" />
   <title>TEST《浙江诗词大会》端午诗会网络海选赛报名正式开启！</title>
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -22,6 +23,13 @@
 </head>
 
 <body>
+  <!-- 微信分享图 小于35K 尺寸为300X300 -->
+  <img id="imgForShare" style="position: fixed; left: -1000%; top: -1000%;"
+    src="https://x0.ifengimg.com/ucms/2020_15/177D571ABD446E3C2263776494A37BC2F36D51EE_w300_h300.png" alt="分享缩略图" />
+  <div id="ifeng_share_thumbnail" style="display:none"></div>
+  <div id="ifeng_share_title" style="display:none"></div>
+  <div id="ifeng_share_description" style="display:none"></div>
+  <div id="ifeng_share_url" style="display:none"></div>
   <div class="content">
     <div class="flower1"></div>
     <div class="flower2 in2"></div>
@@ -59,13 +67,13 @@
               <option value="330900"> 舟山市 </option>
 
             </select>
-          </div></input>
+          </div>
         </div>
         <div class="info_input">
-          <span>学校:</span><input type="text" class="school"></input>
+          <span>学校:</span><input type="text" class="school" />
         </div>
         <div class="info_input">
-          <span>年级:</span><input type="text" class="grade"></input>
+          <span>年级:</span><input type="text" class="grade" />
         </div>
       </div>
       <div class="submit"></div>
@@ -85,11 +93,77 @@
 </body>
 <script src="https://p2.ifengimg.com/l/2018/27/61a49b087c93575/jquery-1.7.2.min.js"></script>
 <script src="scripts/index.js"></script>
-
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script>
-  let submit = $('.submit'),
-    num2 = $('#num2');
+  var shareIcon = document.getElementById('imgForShare').src,
+    shareTitle = 'TEST浙江诗词大会TEST浙江诗词大会TEST浙江诗词大会',
+    shareContent = document.querySelector('meta[name=description]') ? document.querySelector('meta[name=description]')
+    .getAttribute('content') : 'TEST浙江诗词大会',
+    shareLink = window.location.href;
+  document.getElementById("ifeng_share_title").innerHTML = shareTitle;
+  document.getElementById("ifeng_share_thumbnail").innerHTML = shareIcon;
+  document.getElementById("ifeng_share_description").innerHTML = shareContent;
+  document.getElementById("ifeng_share_url").innerHTML = shareLink;
+  if (/MicroMessenger/.test(navigator.userAgent)) {
+    var wxConfigParams = {};
+    $.ajax({
+      url: 'https://api.cmpp.v.ifeng.com/api/Secert',
+      type: 'get',
+      dataType: 'jsonp',
+      data: {
+        url: encodeURIComponent(window.location.href),
+        _: '',
+        rt: 'jsonp',
+      },
+      success: function (data) {
+        wxConfigParams.debug = false;
+        wxConfigParams.appId = data.data.appId;
+        wxConfigParams.timestamp = data.data.timestamp;
+        wxConfigParams.nonceStr = data.data.nonceStr;
+        wxConfigParams.signature = data.data.signature;
+        wxConfigParams.jsApiList = ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ',
+          'onMenuShareQZone'
+        ];
+        wx.config(wxConfigParams);
+        wx.ready(function () {
+          wx.onMenuShareAppMessage({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareQZone({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareQQ({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareTimeline({
+            title: shareTitle,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+        });
+      },
+      error: function (data) {}
+    });
+  }
+</script>
+<script>
+  var submit = $('.submit'),
+    num2 = $('#num2'),
+    flag = true;
+
   submit.on("touchstart", function () {
+
+    if (!flag) return
+
     let userName = $('.userName').val(),
       phoneNumber = $('.phoneNumber').val(),
       wxNumber = $('.wxNumber').val(),
@@ -97,7 +171,6 @@
       school = $('.school').val(),
       grade = $('.grade').val(),
       tsinformation = $('.tsinformation');
-    console.log(add)
     if (userName == '' || phoneNumber == '' || wxNumber == '' || add == '' || school == '' || grade == '') {
       tsinformation.show();
       setTimeout(() => {
@@ -110,6 +183,7 @@
         $('.dialog').hide()
       }, 2500)
     } else {
+      flag = false
       let data = {
         "areaCode": add,
         "grade": grade,
@@ -127,6 +201,9 @@
         headers: {
           'content-type': 'application/json'
         },
+        beforeSend: function () {
+          $('.submit').addClass('bg')
+        },
         success: function (res) {
           if (res.code == 200) {
             num2.hide()
@@ -134,14 +211,18 @@
             let competitionCode = res.data.competitionCodeInfoVo.competitionCode;
             $('#num3').show()
             $('.suessNumeber p').html(competitionCode)
+            flag = true
 
-          } else {
-            alert('报名人数太多，请稍后再试')
+          } else if (res.code == 500) { //报名重复
+            dialogShow(res.message)
+          } else { //报名人数太多
+
+            dialogShow('报名人数太多，请稍后在试')
           }
 
         },
         error: function (error) {
-          console.log(error.message)
+          dialogShow('报名人数太多，请稍后在试')
           //请求出错处理
         }
       })
@@ -149,6 +230,17 @@
 
   })
 
+
+
+  function dialogShow(msg) {
+    $('.dialog').show()
+    $('.dialog').html(msg)
+    setTimeout(() => {
+      $('.dialog').hide()
+      $('.submit').removeClass('bg')
+      flag = true
+    }, 2500)
+  }
 
   if (isAndroid()) {
     //alert(889)
