@@ -5,6 +5,7 @@ import com.fenghuang.poetry.herd.api.model.req.QueryApplyInfoReq;
 import com.fenghuang.poetry.herd.api.model.resp.ApplyInfoVo;
 import com.fenghuang.poetry.herd.api.model.resp.CompetitionCodeInfoVo;
 import com.fenghuang.poetry.herd.common.enums.ApplyStatusEnum;
+import com.fenghuang.poetry.herd.common.enums.AreaWxChatEnum;
 import com.fenghuang.poetry.herd.common.enums.StageEnum;
 import com.fenghuang.poetry.herd.service.facade.UserFacade;
 import com.fenghuang.poetry.herd.service.model.dto.CompetitionDto;
@@ -60,6 +61,7 @@ public class UserFacadeImpl implements UserFacade {
             return ApplyInfoVo.builder()
                     .applyStatus(ApplyStatusEnum.YBM.getCode())
                     .competitionCodeInfoVo(competitionCodeInfoVo)
+                    .wxGroupChatQRUrl(AreaWxChatEnum.getPngPathByCode(userInfoDto.getAreaCode()))
                     .build();
         }
         return null;
@@ -87,6 +89,7 @@ public class UserFacadeImpl implements UserFacade {
                 return ApplyInfoVo.builder()
                         .applyStatus(ApplyStatusEnum.YBM.getCode())
                         .competitionCodeInfoVo(competitionCodeInfoVo)
+                        .wxGroupChatQRUrl(AreaWxChatEnum.getPngPathByCode(userInfo.getAreaCode()))
                         .build();
             }
         }

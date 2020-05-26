@@ -42,4 +42,7 @@ public class ApplyInfoVo implements Serializable {
 
     @ApiModelProperty(notes = "报名码信息")
     private CompetitionCodeInfoVo competitionCodeInfoVo;
+
+    @ApiModelProperty(notes = "微信群聊地址二维码链接")
+    private String wxGroupChatQRUrl;
 }

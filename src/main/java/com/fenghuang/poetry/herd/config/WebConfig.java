@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addRedirectViewController("/swagger.html", "swagger-ui.html");
+        registry.addRedirectViewController("/swagger.html", "swagger-ui.html");
     }
 
     @Override
@@ -20,8 +20,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("swagger-ui.html")
                 .addResourceLocations("classpath:/META-INF/resources/");
 
-        registry.addResourceHandler("index.html")
-                .addResourceLocations("classpath:/static/");
+//        registry.addResourceHandler("index.html")
+//                .addResourceLocations("classpath:/static/");
 
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
