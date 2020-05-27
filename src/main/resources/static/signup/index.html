@@ -124,12 +124,12 @@
   })
 
 
-  let flower1 = new TweenMax("#flower1", 1.5, {
+  let flower1 = new TweenMax("#flower1", 1, {
     opacity: 1,
     ease: Linear.easeIn,
     onComplete: function () {
       flower2.play()
-      shu.play().delay(0.5)
+      shu.play().delay(0.1)
     }
   });
   let shui = new TweenMax("#shui", 3, {
@@ -156,10 +156,11 @@
   let shi = new TweenMax("#shi", 1, {
     opacity: 1,
     y: 20,
+    delay: 0.8,
     ease: Linear.easeIn,
     onComplete: function () {}
   });
-  shi.pause()
+
   let shu = new TweenMax("#shu", 1, {
     opacity: 1,
     ease: Linear.easeIn,

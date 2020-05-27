@@ -77,6 +77,7 @@
         </div>
       </div>
       <div class="submit"></div>
+      <div class="goHistory"></div>
     </div>
     <div id="num3" style="display:none">
       <div class="sucess"></div>
@@ -157,9 +158,13 @@
 </script>
 <script>
   var submit = $('.submit'),
+    goHistory = $('.goHistory'),
     num2 = $('#num2'),
+    wximg = $('.wximg img'),
     flag = true;
-
+  goHistory.on('touchstart', function () {
+    window.location.href = './index.html'
+  })
   submit.on("touchstart", function () {
 
     if (!flag) return
@@ -211,6 +216,7 @@
             let competitionCode = res.data.competitionCodeInfoVo.competitionCode;
             $('#num3').show()
             $('.suessNumeber p').html(competitionCode)
+            wximg.attr('src', res.data.wxGroupChatQRUrl)
             flag = true
 
           } else if (res.code == 500) { //报名重复
@@ -251,6 +257,7 @@
         // 键盘弹出事件处理
         // alert("android 键盘弹窗事件");
         $('.submit').css("display", "none")
+        $('.goHistory').css("display", "none")
         $('.infoBg').css({
           "width": "6.5rem",
           "height": "12.3rem",
@@ -263,6 +270,7 @@
         // 键盘收起事件处理
         //alert("android 键盘收起事件处理")
         $('.submit').css("display", "block")
+        $('.goHistory').css("display", "block")
         $('.infoBg').css({
           "width": "86vw",
           "height": "92vh",

@@ -129,6 +129,7 @@
   let submit = $('.submit'),
     goHistory = $('.goHistory'),
     num4 = $('.num4'),
+    wximg = $('.wximg img'),
     flag = true;
   goHistory.on('touchstart', function () {
     window.location.href = './index.html'
@@ -172,6 +173,7 @@
             num4.hide()
             $('#num3').show()
             $('.suessNumeber p').html(res.data.competitionCodeInfoVo.competitionCode)
+            wximg.attr('src', res.data.wxGroupChatQRUrl)
             flag = true
           } else {
             dialogShow('信息输入错误，请再次核查')
