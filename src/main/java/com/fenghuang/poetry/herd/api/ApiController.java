@@ -65,22 +65,4 @@ public class ApiController {
     public Object getQrCode(@RequestBody CompetitionInfoReq competitionInfoReq) {
         return null;
     }
-
-    /**
-     * 获取答题规则接口
-     *
-     * @param competitionRuleInfoVo 参赛规则
-     * @return
-     */
-    @ApiOperation(
-            value = "获取参赛规则  根据场景编码 ",
-            notes = "获取参赛规则  根据场景编码",
-            produces = MediaType.APPLICATION_OCTET_STREAM_VALUE,
-            httpMethod = "POST"
-    )
-    @PostMapping("/get/competition/rule")
-    public Object getCompetitionRule(@RequestBody CompetitionRuleInfoVo competitionRuleInfoVo) {
-        return null;
-    }
-
 }
