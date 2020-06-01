@@ -100,7 +100,8 @@
       legendData = ['总数'],
       peopleCount;
     $.ajax({
-      url: 'http://211.159.176.138:8085/herd/web/user/count',
+      // url: 'http://211.159.176.138:8085/herd/web/user/count',
+      url: 'http://47.111.16.228:8085/herd/web/user/count',
       method: 'post',
       headers: {
         'content-type': 'application/json'
@@ -163,7 +164,8 @@
     //退出登录
     $('.userName').click(function () {
       $.ajax({
-        url: 'http://211.159.176.138:8085/herd/web/user/logout',
+        // url: 'http://47.111.16.228:8085/herd/web/user/logout',
+        url: 'http://47.111.16.228:8085/herd/web/user/logout',
         method: 'post',
         success: function (res) {
           if (res.code == 200) {

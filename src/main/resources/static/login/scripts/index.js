@@ -13,7 +13,8 @@ let renderHtml = (function () {
         alert('请输入正确的用户名或密码')
       } else {
         $.ajax({
-          url: 'http://211.159.176.138:8085/herd/web/user/login',
+          // url: 'http://211.159.176.138:8085/herd/web/user/login',
+          url: 'http://47.111.16.228:8085/herd/web/user/login',
           type: 'post',
           data: JSON.stringify(infoData),
           headers: {

@@ -37,7 +37,8 @@ public enum AreaWxChatEnum {
     /**
      * 上线之后修改 todo
      */
-    private static final String pngPath = "http://211.159.176.138:8085/herd/images/";
+    private static final String pngPath = "http://47.111.16.228:8085/herd/images/";
+//    private static final String pngPath = "http://211.159.176.138:8085/herd/images/";
     /**
      * 类型编码
      */
