@@ -402,3 +402,10 @@ html {
   background: url(../images/tj_h.png) no-repeat;
   background-size: 100% 100%;
 }
+
+.wximger {
+  width: 4.98rem;
+  height: 2.46rem;
+  margin-left: -2.49rem;
+  top: 6.1rem
+}

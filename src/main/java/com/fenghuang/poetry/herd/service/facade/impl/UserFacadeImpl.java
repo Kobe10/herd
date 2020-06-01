@@ -62,6 +62,7 @@ public class UserFacadeImpl implements UserFacade {
                     .applyStatus(ApplyStatusEnum.YBM.getCode())
                     .competitionCodeInfoVo(competitionCodeInfoVo)
                     .wxGroupChatQRUrl(AreaWxChatEnum.getPngPathByCode(userInfoDto.getAreaCode()))
+                    .wxGroupCopyWriting(AreaWxChatEnum.getCopyWritingByCode(userInfoDto.getAreaCode()))
                     .build();
         }
         return null;
@@ -90,6 +91,7 @@ public class UserFacadeImpl implements UserFacade {
                         .applyStatus(ApplyStatusEnum.YBM.getCode())
                         .competitionCodeInfoVo(competitionCodeInfoVo)
                         .wxGroupChatQRUrl(AreaWxChatEnum.getPngPathByCode(userInfo.getAreaCode()))
+                        .wxGroupCopyWriting(AreaWxChatEnum.getCopyWritingByCode(userInfoDto.getAreaCode()))
                         .build();
             }
         }

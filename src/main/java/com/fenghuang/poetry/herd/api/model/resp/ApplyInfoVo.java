@@ -45,4 +45,7 @@ public class ApplyInfoVo implements Serializable {
 
     @ApiModelProperty(notes = "微信群聊地址二维码链接")
     private String wxGroupChatQRUrl;
+
+    @ApiModelProperty(notes = "微信群聊文案")
+    private String wxGroupCopyWriting;
 }
