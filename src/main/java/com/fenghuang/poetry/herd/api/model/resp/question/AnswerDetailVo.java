@@ -7,9 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-
 /**
  * <p></p>
  * <p>
@@ -29,18 +26,12 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "比赛详细信息")
-public class CompetitionInfoVo implements Serializable {
+@ApiModel(description = "答题结果详细信息")
+public class AnswerDetailVo {
 
-    private static final long serialVersionUID = 3644823689956944698L;
-    @ApiModelProperty(notes = "比赛大标题", value = "xxx海选赛")
-    private String competitionTitle;
+    @ApiModelProperty(notes = "分数", value = "答题最终分数")
+    private Integer score;
 
-    @ApiModelProperty(notes = "比赛时间时长   单位:秒", value = "600")
-    private Integer competitionDuration;
-
-    @ApiModelProperty(notes = "开始答题时间   ", value = "2020-05-12 12:12:12")
-    private Timestamp startAnswerTime;
-
-
+    @ApiModelProperty(notes = "答题花费时长", value = "10分20秒")
+    private String userTime;
 }

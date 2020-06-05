@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * <p></p>
@@ -31,14 +32,9 @@ import java.sql.Timestamp;
 @ApiModel(description = "提交答案返回信息")
 public class SubmitAnswerVo {
 
-    @ApiModelProperty(notes = "比赛大标题", value = "xxx海选赛")
-    private String competitionTitle;
+    @ApiModelProperty(notes = "排名信息  包含省级，地区级  已经排序")
+    private List<RankDetailVo> rankDetailVoList;
 
-    @ApiModelProperty(notes = "比赛时间时长   单位:秒", value = "600")
-    private Integer competitionDuration;
-
-    @ApiModelProperty(notes = "开始答题时间   ", value = "2020-05-12 12:12:12")
-    private Timestamp startAnswerTime;
-
-
+    @ApiModelProperty(notes = "答题结果详细信息")
+    private AnswerDetailVo answerDetailVo;
 }

@@ -13,6 +13,11 @@ spring:
       username: root
       password: Fenghuang1!
       driver-class-name: com.mysql.jdbc.Driver
+  # 上传文件配置
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
   #thymeleaf模板配置
   thymeleaf:

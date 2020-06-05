@@ -3,6 +3,9 @@ server:
   servlet:
     context-path: /herd
 
+  tomcat:
+    basedir: ../upload
+
 spring:
   #应用名称，集群名称需要一致
   application:
@@ -13,6 +16,11 @@ spring:
       username: root
       password: wdfzq1957
       driver-class-name: com.mysql.jdbc.Driver
+  # 上传文件配置
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
   #thymeleaf模板配置
   thymeleaf:
