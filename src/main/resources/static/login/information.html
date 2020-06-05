@@ -31,6 +31,9 @@
         <li>
           <a href="./statis.html"><i class="fa fa-fw fa-home"></i> 统计</a>
         </li>
+        <li>
+          <a href="./file.html"><i class="fa fa-fw fa-home"></i> 工具</a>
+        </li>
       </ul>
     </nav>
     <!-- /#sidebar-wrapper -->
@@ -145,7 +148,9 @@
       exportDataType: 'all', //'basic':当前页的数据, 'all':全部的数据, 'selected':选中的数据
       showExport: true, //是否显示导出按钮
       buttonsAlign: "right", //按钮位置
-      exportTypes: ['excel', 'doc', 'txt'], //导出文件类型，[ 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf'],
+      exportTypes: ['excel', 'doc', 'txt',
+        'csv'
+      ], //导出文件类型，[ 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf'],
       onLoadSuccess: function (data) { //加载成功时执行
         $("#table").bootstrapTable("load", data.data.list)
       }

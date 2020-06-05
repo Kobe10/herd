@@ -4,11 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>统计</title>
+  <title>上传图片</title>
   <link rel="stylesheet" href="style/bootstrap.min.css" />
   <link rel="stylesheet" href="style/bootstrap-table.min.css" />
   <link rel="stylesheet" href="style/bootstrapmb.css" />
+  <link rel="stylesheet" href="src/css/layui.css">
+  <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
   <link rel="stylesheet" href="style/index.css" />
+  <style>
+    .demoMore {
+      display: block;
+      width: 30%;
+      float: left;
+      margin: 10px;
+
+    }
+  </style>
 </head>
 
 
@@ -49,7 +60,29 @@
 
         <div class="row">
           <div class="col-lg-10 col-lg-offset-1">
-            <div id="main" style="width: 1000px;height:500px;"></div>
+
+            <button class="layui-btn demoMore"
+              lay-data="{url: 'http://211.159.176.138:8085/herd/web/tool/upload/wx/330100',accept: 'images'}">杭州市</button></button>
+            <button class="layui-btn demoMore"
+              lay-data="{url: 'http://211.159.176.138:8085/herd/web/tool/upload/wx/330200',accept: 'images'}">宁波市</button>
+            <button class="layui-btn demoMore"
+              lay-data="{url: 'http://211.159.176.138:8085/herd/web/tool/upload/wx/330300',accept: 'images'}">温州市</button>
+            <button class="layui-btn demoMore"
+              lay-data="{url: 'http://211.159.176.138:8085/herd/web/tool/upload/wx/330600',accept: 'images'}">绍兴市</button></button>
+            <button class="layui-btn demoMore"
+              lay-data="{url: 'http://211.159.176.138:8085/herd/web/tool/upload/wx/330500',accept: 'images'}">湖州市</button>
+            <button class="layui-btn demoMore"
+              lay-data="{url: 'http://211.159.176.138:8085/herd/web/tool/upload/wx/330400',accept: 'images'}">嘉兴市</button>
+            <button class="layui-btn demoMore"
+              lay-data="{url: 'http://211.159.176.138:8085/herd/web/tool/upload/wx/330700',accept: 'images'}">金华市</button></button>
+            <button class="layui-btn demoMore"
+              lay-data="{url: 'http://211.159.176.138:8085/herd/web/tool/upload/wx/330800',accept: 'images'}">衢州市</button>
+            <button class="layui-btn demoMore"
+              lay-data="{url: 'http://211.159.176.138:8085/herd/web/tool/upload/wx/331000',accept: 'images'}">台州市</button>
+            <button class="layui-btn demoMore"
+              lay-data="{url: 'http://211.159.176.138:8085/herd/web/tool/upload/wx/331100',accept: 'images'}">丽水市</button></button>
+            <button class="layui-btn demoMore"
+              lay-data="{url: 'http://211.159.176.138:8085/herd/web/tool/upload/wx/330900',accept: 'images'}">舟山市</button>
           </div>
         </div>
       </div>
@@ -61,10 +94,10 @@
 <script src="scripts/jq1.12.4.js"></script>
 <script src="scripts/bootstrap.min.js"></script>
 <script src="scripts/bootstrap-table.min.js"></script>
-<script src="scripts/echarts.min.js"></script>
-<script src="./scripts/tableExport.js"></script>
+<!-- <script src="scripts/lay/modules/upload.js"></script> -->
 <!--在客户端保存生成的导出文件-->
 <script src="./scripts/bootstrap-table-export.js"></script>
+<script src="src/layui.js"></script>
 <script>
   $(document).ready(function () {
     var trigger = $('.hamburger'),
@@ -98,10 +131,30 @@
 
 
 
-    //获取人数数据
-    let seriesCount = [],
-      legendData = ['总数'],
-      peopleCount;
+
+
+
+    layui.use(['upload', 'element'], function () {
+      var $ = layui.jquery,
+        upload = layui.upload,
+        element = layui.element;
+      upload.render({
+        elem: '.demoMore',
+        multiple: true,
+        method: 'post', //可选项。HTTP类型，默认post
+        done: function (res, index, upload) {
+          //获取当前触发上传的元素，一般用于 elem 绑定 class 的情况，注意：此乃 layui 2.1.0 新增
+          var item = this.item;
+          var cur = item.context.innerText
+          console.log(item.context)
+          item.context.innerText = cur + '上传成功'
+        }
+      })
+    })
+
+
+
+    let peopleCount;
     $.ajax({
       url: 'http://211.159.176.138:8085/herd/web/user/count',
       method: 'post',
@@ -109,33 +162,7 @@
         'content-type': 'application/json'
       },
       success: function (res) {
-        if (res.code == 200) {
-          console.log(res)
-          peopleCount = res.data.totalUserNum
-          seriesCount = [{
-            name: '总数',
-            type: 'bar',
-            data: [peopleCount]
-          }]
-          console.log(seriesCount)
-          let seriesArray = [];
-          res.data.userCountList.forEach((item) => {
-            console.log(item)
-            return seriesCount.push({
-              name: item.areaName,
-              type: 'line',
-              data: [item.userNum]
-            })
-          })
-          res.data.userCountList.filter((item) => {
-            if (item.areaName) {
-              return legendData.push(item.areaName)
-            }
-
-          })
-          console.log(legendData)
-          echartsFun()
-        }
+        if (res.code == 200) {}
       }
     })
 
@@ -178,62 +205,7 @@
       })
     })
 
-    function echartsFun() {
 
-      var myChart = echarts.init(document.getElementById('main'));
-      //echarts
-      option = {
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'cross',
-            crossStyle: {
-              color: '#999'
-            }
-          }
-        },
-        toolbox: {
-          feature: {
-            dataView: {
-              show: true,
-              readOnly: false
-            },
-            magicType: {
-              show: true,
-              type: ['line', 'bar']
-            },
-            restore: {
-              show: true
-            },
-            saveAsImage: {
-              show: true
-            }
-          }
-        },
-        legend: {
-          data: legendData
-        },
-        xAxis: [{
-          type: 'category',
-          data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-          axisPointer: {
-            type: 'shadow'
-          }
-        }],
-        yAxis: [{
-          type: 'value',
-          name: '总数',
-          min: 0,
-          max: peopleCount + 10,
-          interval: parseInt((peopleCount + 10) / 5),
-          axisLabel: {
-            formatter: '{value}人'
-          }
-        }, ],
-        series: seriesCount
-      };
-      myChart.setOption(option);
-    }
 
 
   });
