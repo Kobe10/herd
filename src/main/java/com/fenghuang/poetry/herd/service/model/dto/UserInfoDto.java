@@ -64,6 +64,11 @@ public class UserInfoDto implements Serializable {
     private String areaCode;
 
     /**
+     * 赛段编码
+     */
+    private String generaCode;
+
+    /**
      * 学校
      */
     private String school;

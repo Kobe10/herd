@@ -44,6 +44,11 @@ public class UserEntity implements Serializable {
     private String areaCode;
 
     /**
+     * 赛段编码
+     */
+    private String generaCode;
+
+    /**
      * 学校
      */
     private String school;
@@ -178,5 +183,13 @@ public class UserEntity implements Serializable {
 
     public void setLastModifyTime(Date lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
+    }
+
+    public String getGeneraCode() {
+        return generaCode;
+    }
+
+    public void setGeneraCode(String generaCode) {
+        this.generaCode = generaCode;
     }
 }

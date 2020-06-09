@@ -9,6 +9,7 @@
         <result column="wx_num" jdbcType="VARCHAR" property="wxNum"/>
         <result column="province_code" jdbcType="VARCHAR" property="provinceCode"/>
         <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
+        <result column="genera_code" jdbcType="VARCHAR" property="generaCode"/>
         <result column="school" jdbcType="VARCHAR" property="school"/>
         <result column="grade" jdbcType="VARCHAR" property="grade"/>
         <result column="is_del" jdbcType="INTEGER" property="isDel"/>
@@ -18,7 +19,7 @@
         <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, `uid`, user_name, phone, wx_num, province_code, area_code, school, grade, is_del, 
+    id, `uid`, user_name, phone, wx_num, province_code, area_code,genera_code, school, grade, is_del,
     create_id, last_modify_id, create_time, last_modify_time
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -60,12 +61,12 @@
     <insert id="insert" parameterType="com.fenghuang.poetry.herd.dao.entity.UserEntity">
     insert into user (id, `uid`, user_name, 
       phone, wx_num, province_code, 
-      area_code, school, grade, 
+      area_code, genera_code,  school, grade,
       is_del, create_id, last_modify_id, 
       create_time, last_modify_time)
     values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{wxNum,jdbcType=VARCHAR}, #{provinceCode,jdbcType=VARCHAR}, 
-      #{areaCode,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
+      #{areaCode,jdbcType=VARCHAR}, #{generaCode,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR},
       #{isDel,jdbcType=INTEGER}, #{createId,jdbcType=VARCHAR}, #{lastModifyId,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP})
   </insert>
@@ -92,6 +93,9 @@
             </if>
             <if test="areaCode != null">
                 area_code,
+            </if>
+            <if test="generaCode != null">
+                genera_code,
             </if>
             <if test="school != null">
                 school,
@@ -137,6 +141,9 @@
             <if test="areaCode != null">
                 #{areaCode,jdbcType=VARCHAR},
             </if>
+            <if test="generaCode != null">
+                #{generaCode,jdbcType=VARCHAR},
+            </if>
             <if test="school != null">
                 #{school,jdbcType=VARCHAR},
             </if>
@@ -181,6 +188,9 @@
             <if test="areaCode != null">
                 area_code = #{areaCode,jdbcType=VARCHAR},
             </if>
+            <if test="generaCode != null">
+                genera_code = #{generaCode,jdbcType=VARCHAR},
+            </if>
             <if test="school != null">
                 school = #{school,jdbcType=VARCHAR},
             </if>
@@ -213,6 +223,7 @@
       wx_num = #{wxNum,jdbcType=VARCHAR},
       province_code = #{provinceCode,jdbcType=VARCHAR},
       area_code = #{areaCode,jdbcType=VARCHAR},
+      genera_code = #{generaCode,jdbcType=VARCHAR},
       school = #{school,jdbcType=VARCHAR},
       grade = #{grade,jdbcType=VARCHAR},
       is_del = #{isDel,jdbcType=INTEGER},
