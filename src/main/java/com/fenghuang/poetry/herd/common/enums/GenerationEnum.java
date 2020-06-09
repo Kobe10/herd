@@ -22,11 +22,11 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 @AllArgsConstructor
 public enum GenerationEnum {
-    de("other", "小学段"),
-    primary("primary", "小学段"),
-    junior("junior", "初中段"),
-    high("high", "高中段"),
-    other("other", "高中段");
+    primary("primary", "幼儿园-五年级"),
+    junior("junior", "六年级-初二"),
+    high("high", "初三-高二"),
+    colleague("colleague", "高三-大学"),
+    other("colleague", "默认");
 
     /**
      * 类型编码
@@ -40,13 +40,13 @@ public enum GenerationEnum {
 
     public static GenerationEnum getByCode(String code) {
         if (StringUtils.isBlank(code)) {
-            return de;
+            return other;
         }
         for (GenerationEnum canShowStatusEnum : GenerationEnum.values()) {
             if (canShowStatusEnum.getCode().equals(code.trim())) {
                 return canShowStatusEnum;
             }
         }
-        return de;
+        return other;
     }
 }
