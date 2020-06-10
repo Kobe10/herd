@@ -58,6 +58,17 @@ public class ToolController {
     private String resourceDir;
 
     /**
+     * 获取配置文件的路径
+     *
+     * @author Ginty
+     * @date 2019/3/25 16:50
+     * @param null
+     * @return
+     */
+    @Value("${server.tomcat.tempdir}")
+    private String tempDir;
+
+    /**
      * 上传二维码图片
      *
      * @param file
@@ -70,9 +81,10 @@ public class ToolController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             httpMethod = "POST"
     )
-    @PostMapping("/upload/wx/{areaCode}")
+    @PostMapping("/upload/wx/{areaCode}/{generaCode}")
     @ResponseBody
     public Object upload(MultipartFile file, @PathVariable("areaCode") String areaCode,
+                         @PathVariable("generaCode") String generaCode,
                          HttpServletRequest request) throws IOException {
         try {
             if (Objects.isNull(file)) {
@@ -82,13 +94,15 @@ public class ToolController {
             if (fileName != null && !"".equals(fileName)) {
                 //文件上传的地址
 //            String path = ResourceUtils.getURL("classpath:").getPath() + "static/images";
-                Path path = Paths.get(resourceDir);
+                //todo  临时目录
+//                Path path = Paths.get(resourceDir);
+                Path path = Paths.get(tempDir);
                 //新建目录
                 //文件后缀
                 String fileSuffix = fileName.substring(fileName.lastIndexOf("."), fileName.length());
                 String newFilename = null;
-                if (StringUtils.isNotBlank(areaCode)) {
-                    newFilename = areaCode + fileSuffix;
+                if (StringUtils.isNotBlank(areaCode) && StringUtils.isNotBlank(generaCode)) {
+                    newFilename = areaCode + "-" + generaCode + fileSuffix;
                 } else {
                     newFilename = fileName;
                 }
@@ -132,7 +146,8 @@ public class ToolController {
         String upload = null;
 
         //获取商品图片目录
-        Path path = Paths.get(resourceDir);
+//        Path path = Paths.get(resourceDir);
+        Path path = Paths.get(tempDir);
         upload = path.toAbsolutePath().toString() + File.separator + imageName;
 
 

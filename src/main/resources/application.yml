@@ -5,6 +5,7 @@ server:
 
   tomcat:
     basedir: ../upload
+    tempdir: ../tempupload
 
 spring:
   #应用名称，集群名称需要一致
