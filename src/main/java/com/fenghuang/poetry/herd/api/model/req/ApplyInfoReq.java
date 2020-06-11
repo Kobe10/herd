@@ -45,10 +45,6 @@ public class ApplyInfoReq {
     @NotBlank(message = "请填写地区号")
     private String areaCode;
 
-    @ApiModelProperty(notes = "赛段", value = "high 高中", required = true)
-    @NotBlank(message = "请选择赛段")
-    private String generaCode;
-
     @ApiModelProperty(notes = "学校", value = "杭州附小  手动填写", required = true)
     @NotBlank(message = "请填写学校")
     private String school;
