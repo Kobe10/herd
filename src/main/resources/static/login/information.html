@@ -39,6 +39,7 @@
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
     <div class="user"><span>用户名：</span><b class="userName"></b></div>
+
     <div id="page-content-wrapper">
       <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
         <span class="hamb-top"></span>
@@ -74,6 +75,9 @@
     trigger.click(function () {
       hamburger_cross();
     });
+
+
+
 
     function hamburger_cross() {
 
@@ -117,8 +121,7 @@
     }]
 
     $('#table').bootstrapTable({
-      // url: 'http://211.159.176.138:8085/herd/web/user/list',
-      url: 'http://47.111.16.228:8085/herd/web/user/list',
+      url: 'http://211.159.176.138:8085/herd/web/user/list',
       toolbar: '#toolbar', //工具按钮用哪个容器
       dataType: "json",
       contentType: 'application/json;charset=UTF-8',
@@ -171,8 +174,7 @@
     //退出登录
     $('.userName').click(function () {
       $.ajax({
-        // url: 'http://211.159.176.138:8085/herd/web/user/logout',
-        url: 'http://47.111.16.228:8085/herd/web/user/logout',
+        url: 'http://211.159.176.138:8085/herd/web/user/logout',
         method: 'post',
         success: function (res) {
           if (res.code == 200) {

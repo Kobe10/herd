@@ -9,3 +9,32 @@
 .userName {
   cursor: pointer;
 }
+
+.school_ul {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.school_ul li {
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.school_ul li.current_s {
+  color: #009688;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.content {
+  display: none;
+}
+
+.current {
+  display: block;
+}

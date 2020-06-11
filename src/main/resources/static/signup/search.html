@@ -2,249 +2,244 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>TEST《浙江诗词大会》端午诗会网络海选赛报名正式开启！</title>
-    <meta name="description" content="TEST《浙江诗词大会》端午诗会网络海选赛报名正式开启！"/>
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" type="text/css" media="screen" href="style/main.css"/>
-    <script>
-        ~function () {
-            window.addEventListener('resize', computedFont, false);
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>《浙江诗词大会》网络海选赛“端午诗会”报名启动！</title>
+  <meta name="description" content="与大咖同台，赢高额奖金，下一个“诗词明星”就是你！" />
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" type="text/css" media="screen" href="style/main.css" />
+  <script>
+    ~ function () {
+      window.addEventListener('resize', computedFont, false);
 
-            function computedFont() {
-                var deviceW = document.documentElement.clientWidth;
-                document.documentElement.style.fontSize = deviceW / 750 * 100 + 'px';
-            }
-
-            computedFont();
-        }();
-    </script>
+      function computedFont() {
+        var deviceW = document.documentElement.clientWidth;
+        document.documentElement.style.fontSize = deviceW / 750 * 100 + 'px';
+      }
+      computedFont();
+    }();
+  </script>
 </head>
 
 <body>
-<!-- 微信分享图 小于35K 尺寸为300X300 -->
-<img id="imgForShare" style="position: fixed; left: -1000%; top: -1000%;"
-     src="https://x0.ifengimg.com/ucms/2020_15/177D571ABD446E3C2263776494A37BC2F36D51EE_w300_h300.png" alt="分享缩略图"/>
-<div id="ifeng_share_thumbnail" style="display:none"></div>
-<div id="ifeng_share_title" style="display:none"></div>
-<div id="ifeng_share_description" style="display:none"></div>
-<div id="ifeng_share_url" style="display:none"></div>
-<div class="content">
+  <!-- 微信分享图 小于35K 尺寸为300X300 -->
+  <img id="imgForShare" style="position: fixed; left: -1000%; top: -1000%;"
+    src="http://x0.ifengimg.com/cmpp/2020_22/b3e15815c3731d3_size88_w300_h300.jpg" alt="分享缩略图" />
+  <div id="ifeng_share_thumbnail" style="display:none"></div>
+  <div id="ifeng_share_title" style="display:none"></div>
+  <div id="ifeng_share_description" style="display:none"></div>
+  <div id="ifeng_share_url" style="display:none"></div>
+  <div class="content">
     <div class="flower1"></div>
     <div class="flower2 in2"></div>
     <div class="flower2 in3"></div>
     <div class="flower3"></div>
     <div class="infoBg"></div>
     <div class="num4">
-        <div class="num4Title"></div>
-        <div class="information">
-            <div class="info_input">
-                <span>姓名:</span><input type="text" class="userName"></input>
-            </div>
-            <div class="info_input">
-                <span>电话:</span><input type="text" class="phoneNumber"></input>
-            </div>
+      <div class="num4Title"></div>
+      <div class="information">
+        <div class="info_input">
+          <span>姓名:</span><input type="text" class="userName"></input>
         </div>
-        <div class="submit"></div>
-        <div class="goHistory"></div>
+        <div class="info_input">
+          <span>电话:</span><input type="text" class="phoneNumber"></input>
+        </div>
+      </div>
+      <div class="submit"></div>
+      <div class="goHistory"></div>
     </div>
     <div id="num3" style="display:none">
-        <div class="result"></div>
-        <div class="suessNumberTitle bmms"></div>
-        <div class="suessNumeber">
-            <p>ZJSCDH223322226</p>
-        </div>
-        <div class="imgTitle"></div>
-        <div class="wximg"><img src="images/wxImage.png"></div>
+      <div class="result"></div>
+      <div class="suessNumberTitle bmms"></div>
+      <div class="suessNumeber">
+        <p>ZJSCDH223322226</p>
+      </div>
+      <div class="imgTitle"></div>
+      <div class="wximg"><img src="images/wxImage.png"></div>
     </div>
-    <div class="dialog"></div>
-</div>
+    <div class="dialog" style="line-height:3.16rem"></div>
+  </div>
 </body>
 <script src="https://p2.ifengimg.com/l/2018/27/61a49b087c93575/jquery-1.7.2.min.js"></script>
 <script src="./scripts/index.js"></script>
 <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script>
-    var shareIcon = document.getElementById('imgForShare').src,
-        shareTitle = 'TEST浙江诗词大会TEST浙江诗词大会TEST浙江诗词大会',
-        shareContent = document.querySelector('meta[name=description]') ? document.querySelector('meta[name=description]')
-            .getAttribute('content') : 'TEST浙江诗词大会',
-        shareLink = window.location.href;
-    document.getElementById("ifeng_share_title").innerHTML = shareTitle;
-    document.getElementById("ifeng_share_thumbnail").innerHTML = shareIcon;
-    document.getElementById("ifeng_share_description").innerHTML = shareContent;
-    document.getElementById("ifeng_share_url").innerHTML = shareLink;
-    if (/MicroMessenger/.test(navigator.userAgent)) {
-        var wxConfigParams = {};
-        $.ajax({
-            url: 'https://api.cmpp.v.ifeng.com/api/Secert',
-            type: 'get',
-            dataType: 'jsonp',
-            data: {
-                url: encodeURIComponent(window.location.href),
-                _: '',
-                rt: 'jsonp',
-            },
-            success: function (data) {
-                wxConfigParams.debug = false;
-                wxConfigParams.appId = data.data.appId;
-                wxConfigParams.timestamp = data.data.timestamp;
-                wxConfigParams.nonceStr = data.data.nonceStr;
-                wxConfigParams.signature = data.data.signature;
-                wxConfigParams.jsApiList = ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ',
-                    'onMenuShareQZone'
-                ];
-                wx.config(wxConfigParams);
-                wx.ready(function () {
-                    wx.onMenuShareAppMessage({
-                        title: shareTitle,
-                        desc: shareContent,
-                        link: shareLink,
-                        imgUrl: shareIcon
-                    });
-                    wx.onMenuShareQZone({
-                        title: shareTitle,
-                        desc: shareContent,
-                        link: shareLink,
-                        imgUrl: shareIcon
-                    });
-                    wx.onMenuShareQQ({
-                        title: shareTitle,
-                        desc: shareContent,
-                        link: shareLink,
-                        imgUrl: shareIcon
-                    });
-                    wx.onMenuShareTimeline({
-                        title: shareTitle,
-                        link: shareLink,
-                        imgUrl: shareIcon
-                    });
-                });
-            },
-            error: function (data) {
-            }
+  var shareIcon = document.getElementById('imgForShare').src,
+    shareTitle = '《浙江诗词大会》网络海选赛“端午诗会”报名启动！',
+    shareContent = document.querySelector('meta[name=description]') ? document.querySelector('meta[name=description]')
+    .getAttribute('content') : '与大咖同台，赢高额奖金，下一个“诗词明星”就是你！',
+    shareLink = window.location.href;
+  document.getElementById("ifeng_share_title").innerHTML = shareTitle;
+  document.getElementById("ifeng_share_thumbnail").innerHTML = shareIcon;
+  document.getElementById("ifeng_share_description").innerHTML = shareContent;
+  document.getElementById("ifeng_share_url").innerHTML = shareLink;
+  if (/MicroMessenger/.test(navigator.userAgent)) {
+    var wxConfigParams = {};
+    $.ajax({
+      url: 'https://api.cmpp.v.ifeng.com/api/Secert',
+      type: 'get',
+      dataType: 'jsonp',
+      data: {
+        url: encodeURIComponent(window.location.href),
+        _: '',
+        rt: 'jsonp',
+      },
+      success: function (data) {
+        wxConfigParams.debug = false;
+        wxConfigParams.appId = data.data.appId;
+        wxConfigParams.timestamp = data.data.timestamp;
+        wxConfigParams.nonceStr = data.data.nonceStr;
+        wxConfigParams.signature = data.data.signature;
+        wxConfigParams.jsApiList = ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ',
+          'onMenuShareQZone'
+        ];
+        wx.config(wxConfigParams);
+        wx.ready(function () {
+          wx.onMenuShareAppMessage({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareQZone({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareQQ({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareTimeline({
+            title: shareTitle,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
         });
-    }
+      },
+      error: function (data) {}
+    });
+  }
 </script>
 <script>
-    let submit = $('.submit'),
-        goHistory = $('.goHistory'),
-        num4 = $('.num4'),
-        wximg = $('.wximg img'),
-        flag = true;
-    goHistory.on('touchstart', function () {
-        window.location.href = './index.html'
-    })
-    submit.on("touchstart", function () {
-        if (!flag) return
-        let userName = $('.userName').val(),
-            phoneNumber = $('.phoneNumber').val();
-        if (userName == '' || phoneNumber == '') {
-            $('.dialog').show()
-            $('.dialog').html('请填写完整信息！')
-            setTimeout(() => {
-                $('.dialog').hide()
-            }, 2500)
-        } else if (!(/^1[3456789]\d{9}$/.test(phoneNumber))) {
-            $('.dialog').show()
-            $('.dialog').html('手机号有误，请重新输入')
-            setTimeout(() => {
-                $('.dialog').hide()
-            }, 2500)
-        } else {
-            flag = false
-            let infoData = {
-                phone: phoneNumber,
-                userName: userName
-            }
-            // console.log(infoData) //13745674567
-            $.ajax({
-                // url: 'http://211.159.176.138:8085/herd/api/apply/get/info',
-                url: 'http://47.111.16.228:8085/herd/api/apply/get/info',
-                type: 'post',
-                data: JSON.stringify(infoData),
-                headers: {
-                    'content-type': 'application/json'
-                },
-                beforeSend: function () {
-                    $('.submit').addClass('bg')
-                },
-                success: function (res) {
-                    if (res.code == 200 && res.status == 'success') {
-                        console.log(res.data.competitionCodeInfoVo.competitionCodeStatus)
-                        num4.hide()
-                        $('#num3').show()
-                        $('.suessNumeber p').html(res.data.competitionCodeInfoVo.competitionCode)
-                        wximg.attr('src', res.data.wxGroupChatQRUrl)
-                        flag = true
-                    } else {
-                        dialogShow('信息输入错误，请再次核查')
-                    }
-
-                },
-                error: function (res) {
-                    // alert(res)
-                    dialogShow('报名人数太多，请稍后在试')
-                }
-            })
-        }
-
-    })
-
-    function dialogShow(msg) {
-        $('.dialog').show()
-        $('.dialog').html(msg)
-        setTimeout(() => {
-            $('.dialog').hide()
-            $('.submit').removeClass('bg')
+  let submit = $('.submit'),
+    goHistory = $('.goHistory'),
+    num4 = $('.num4'),
+    flag = true;
+  goHistory.on('touchstart', function () {
+    window.location.href = './index.shtml'
+  })
+  submit.on("touchstart", function () {
+    if (!flag) return
+    let userName = $('.userName').val(),
+      phoneNumber = $('.phoneNumber').val();
+    if (userName == '' || phoneNumber == '') {
+      $('.dialog').show()
+      $('.dialog').html('请填写完整信息！')
+      setTimeout(() => {
+        $('.dialog').hide()
+      }, 2500)
+    } else if (!(/^1[3456789]\d{9}$/.test(phoneNumber))) {
+      $('.dialog').show()
+      $('.dialog').html('手机号有误，请重新输入')
+      setTimeout(() => {
+        $('.dialog').hide()
+      }, 2500)
+    } else {
+      flag = false
+      let infoData = {
+        phone: phoneNumber,
+        userName: userName
+      }
+      // console.log(infoData) //13745674567
+      $.ajax({
+        // url: 'http://47.111.16.228:8085/herd/api/apply/get/info',
+        url: 'http://211.159.176.138:8085/herd/api/apply/sign', //测试地址
+        type: 'post',
+        data: JSON.stringify(infoData),
+        headers: {
+          'content-type': 'application/json'
+        },
+        beforeSend: function () {
+          $('.submit').addClass('bg')
+        },
+        success: function (res) {
+          if (res.code == 200 && res.status == 'success') {
+            //console.log(res.data.competitionCodeInfoVo.competitionCodeStatus)
+            num4.hide()
+            $('#num3').show()
+            $('.suessNumeber p').html(res.data.competitionCodeInfoVo.competitionCode)
             flag = true
-        }, 2500)
+          } else {
+            dialogShow('信息输入错误，请再次核查')
+          }
+
+        },
+        error: function (res) {
+          // alert(res)
+          dialogShow('报名人数太多，请稍后在试')
+        }
+      })
     }
 
-    if (isAndroid()) {
-        const innerHeight = window.innerHeight;
-        window.addEventListener('resize', () => {
-            const newInnerHeight = window.innerHeight;
-            if (innerHeight > newInnerHeight) {
-                // 键盘弹出事件处理
-                // alert("android 键盘弹窗事件");
+  })
 
-                $('.submit').css("display", "none")
-                $('.infoBg').css({
-                    "width": "6.5rem",
-                    "height": "12.3rem",
-                    "transform": "translateX(0.5rem)",
-                    "-webkit-transform": "translateX(0.5rem)",
-                    "margin-top": "4vh"
-                })
+  function dialogShow(msg) {
+    $('.dialog').show()
+    $('.dialog').html(msg)
+    setTimeout(() => {
+      $('.dialog').hide()
+      $('.submit').removeClass('bg')
+      flag = true
+    }, 2500)
+  }
+  if (isAndroid()) {
+    const innerHeight = window.innerHeight;
+    window.addEventListener('resize', () => {
+      const newInnerHeight = window.innerHeight;
+      if (innerHeight > newInnerHeight) {
+        // 键盘弹出事件处理
+        // alert("android 键盘弹窗事件");
 
-            } else {
-                // 键盘收起事件处理
-                //alert("android 键盘收起事件处理")
-                $('.submit').css("display", "block")
-                $('.infoBg').css({
-                    "width": "86vw",
-                    "height": "92vh",
-                    "transform": "translate(7vw, 4vh)",
-                    "-webkit-transform": "translate(7vw, 4vh)",
-                    "margin-top": "auto"
-                })
+        $('.submit').css("display", "none")
+        $('.infoBg').css({
+          "width": "6.5rem",
+          "height": "12.3rem",
+          "transform": "translateX(0.5rem)",
+          "-webkit-transform": "translateX(0.5rem)",
+          "margin-top": "4vh"
+        })
 
-            }
-        });
-    } else if (isIOS()) {
-        console.log('ios机型')
-        // window.addEventListener('focusin', () => {
-        //   // 键盘弹出事件处理
-        //   alert("iphone 键盘弹出事件处理")
-        // });
-        window.addEventListener('focusout', () => {
-            window.scrollTo(0, 0)
-            // 键盘收起事件处理
+      } else {
+        // 键盘收起事件处理
+        //alert("android 键盘收起事件处理")
+        $('.submit').css("display", "block")
+        $('.infoBg').css({
+          "width": "86vw",
+          "height": "92vh",
+          "transform": "translate(7vw, 4vh)",
+          "-webkit-transform": "translate(7vw, 4vh)",
+          "margin-top": "auto"
+        })
 
-        });
-    }
+      }
+    });
+  } else if (isIOS()) {
+    console.log('ios机型')
+    // window.addEventListener('focusin', () => {
+    //   // 键盘弹出事件处理
+    //   alert("iphone 键盘弹出事件处理")
+    // });
+    window.addEventListener('focusout', () => {
+      window.scrollTo(0, 0)
+      // 键盘收起事件处理
+
+    });
+  }
 </script>
 
 </html>

@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="赏浙江诗词之美，品江南人文底蕴，兴中华传统文化" />
-  <title>test《浙江诗词大会》网络海选赛“端午诗会”报名启动！</title>
+  <meta name="description" content="与大咖同台，赢高额奖金，下一个“诗词明星”就是你！" />
+  <title>《浙江诗词大会》网络海选赛“端午诗会”报名启动！</title>
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" type="text/css" media="screen" href="style/main.css" />
@@ -25,7 +25,7 @@
 <body>
   <!-- 微信分享图 小于35K 尺寸为300X300 -->
   <img id="imgForShare" style="position: fixed; left: -1000%; top: -1000%;"
-    src="https://x0.ifengimg.com/ucms/2020_15/177D571ABD446E3C2263776494A37BC2F36D51EE_w300_h300.png" alt="分享缩略图" />
+    src="http://x0.ifengimg.com/cmpp/2020_22/b3e15815c3731d3_size88_w300_h300.jpg" alt="分享缩略图" />
   <div id="ifeng_share_thumbnail" style="display:none"></div>
   <div id="ifeng_share_title" style="display:none"></div>
   <div id="ifeng_share_description" style="display:none"></div>
@@ -43,12 +43,6 @@
           <span>姓名:</span><input type="text" class="userName"></input>
         </div>
         <div class="info_input">
-          <span>电话:</span><input type="text" class="phoneNumber"></input>
-        </div>
-        <div class="info_input">
-          <span>微信号:</span><input type="text" class="wxNumber"></input>
-        </div>
-        <div class="info_input">
           <span>赛区:</span>
           <div class="select">
 
@@ -59,6 +53,7 @@
               <option value="330200"> 宁波市 </option>
               <option value="330300"> 温州市 </option>
               <option value="330600"> 绍兴市 </option>
+              <option value="330500"> 湖州市 </option>
               <option value="330400"> 嘉兴市 </option>
               <option value="330700"> 金华市 </option>
               <option value="330800"> 衢州市 </option>
@@ -73,9 +68,40 @@
           <span>学校:</span><input type="text" class="school" />
         </div>
         <div class="info_input">
-          <span>年级:</span><input type="text" class="grade" />
+          <span>年级:</span>
+          <div class="select">
+            <select id="class_add" class="add">
+              <option selected="selected" disabled="disabled" style='display: none' value=''></option>
+              <option value="one">幼儿园</option>
+              <option value="two">一年级</option>
+              <option value="three">二年级</option>
+              <option value="four">三年级</option>
+              <option value="five">四年级</option>
+              <option value="six">五年级</option>
+              <option value="seven">六年级 </option>
+              <option value="eight">七年级 </option>
+              <option value="nine">八年级 </option>
+              <option value="ten"> 九年级 </option>
+              <option value="eleven"> 高一 </option>
+              <option value="twelve"> 高二 </option>
+              <option value="thirteen"> 高三 </option>
+              <option value="fourteen"> 大学 </option>
+
+            </select>
+          </div>
         </div>
+        <div class="info_input">
+          <span>电话:</span><input type="text" class="phoneNumber"></input>
+        </div>
+        <div class="info_input">
+          <span>微信号:</span><input type="text" class="wxNumber"></input>
+        </div>
+
+
+
+
       </div>
+
       <div class="submit"></div>
       <div class="goHistory"></div>
     </div>
@@ -88,7 +114,9 @@
       <div class="wximg wximger"><img src="images/zs.png"></div>
     </div>
     <div class="tsinformation"></div>
-    <div class="dialog"></div>
+    <div class="dialog">
+      <p style="margin-top: 1.4rem"></p>
+    </div>
   </div>
 </body>
 <script src="https://p2.ifengimg.com/l/2018/27/61a49b087c93575/jquery-1.7.2.min.js"></script>
@@ -98,7 +126,7 @@
   var shareIcon = document.getElementById('imgForShare').src,
     shareTitle = '《浙江诗词大会》网络海选赛“端午诗会”报名启动！',
     shareContent = document.querySelector('meta[name=description]') ? document.querySelector('meta[name=description]')
-    .getAttribute('content') : '赏浙江诗词之美，品江南人文底蕴，兴中华传统文化',
+    .getAttribute('content') : '与大咖同台，赢高额奖金，下一个“诗词明星”就是你！',
     shareLink = window.location.href;
   document.getElementById("ifeng_share_title").innerHTML = shareTitle;
   document.getElementById("ifeng_share_thumbnail").innerHTML = shareIcon;
@@ -162,7 +190,7 @@
     wximg = $('.wximg img'),
     flag = true;
   goHistory.on('touchstart', function () {
-    window.location.href = './index.html'
+    window.location.href = './index.shtml'
   })
   submit.on("touchstart", function () {
 
@@ -172,17 +200,21 @@
       phoneNumber = $('.phoneNumber').val(),
       wxNumber = $('.wxNumber').val(),
       add = $("#add option:selected").val(),
-      school = $('.school').val(),
+      class_add = $("#class_add option:selected").val()
+    school = $('.school').val(),
       grade = $('.grade').val(),
       tsinformation = $('.tsinformation');
-    if (userName == '' || phoneNumber == '' || wxNumber == '' || add == '' || school == '' || grade == '') {
+    console.log(class_add)
+
+    if (userName == '' || phoneNumber == '' || wxNumber == '' || add == '' || school == '' || grade == '' ||
+      class_add == '') {
       tsinformation.show();
       setTimeout(() => {
         tsinformation.hide()
       }, 2500)
     } else if (!(/^1[3456789]\d{9}$/.test(phoneNumber))) {
       $('.dialog').show()
-      $('.dialog').html('手机号有误，请重新输入')
+      $('.dialog p').html('手机号有误，请重新输入')
       setTimeout(() => {
         $('.dialog').hide()
       }, 2500)
@@ -194,13 +226,14 @@
         "userName": userName,
         "phone": phoneNumber,
         "school": school,
-        "wxNum": wxNumber
+        "wxNum": wxNumber,
+        "generaCode": class_add
 
       }
       let infoData = JSON.stringify(data)
       $.ajax({
-        // url: 'http://211.159.176.138:8085/herd/api/apply/sign',
-        url: 'http://47.111.16.228:8085/herd/api/apply/sign',
+        //url: 'http://47.111.16.228:8085/herd/api/apply/sign', //线上
+        url: 'http://211.159.176.138:8085/herd/api/apply/sign', //测试地址
         type: 'post',
         data: infoData,
         headers: {
@@ -212,7 +245,7 @@
         success: function (res) {
           if (res.code == 200) {
             num2.hide()
-            console.log(res.data.competitionCodeInfoVo.competitionCode)
+            //console.log(res.data.competitionCodeInfoVo.competitionCode)
             let competitionCode = res.data.competitionCodeInfoVo.competitionCode;
             $('#num3').show()
             $('.suessNumeber p').html(competitionCode)
@@ -240,7 +273,7 @@
 
   function dialogShow(msg) {
     $('.dialog').show()
-    $('.dialog').html(msg)
+    $('.dialog p').html(msg)
     setTimeout(() => {
       $('.dialog').hide()
       $('.submit').removeClass('bg')
