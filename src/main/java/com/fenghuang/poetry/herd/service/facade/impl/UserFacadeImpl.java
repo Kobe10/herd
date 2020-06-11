@@ -4,10 +4,7 @@ import com.fenghuang.poetry.herd.api.model.req.ApplyInfoReq;
 import com.fenghuang.poetry.herd.api.model.req.QueryApplyInfoReq;
 import com.fenghuang.poetry.herd.api.model.resp.ApplyInfoVo;
 import com.fenghuang.poetry.herd.api.model.resp.CompetitionCodeInfoVo;
-import com.fenghuang.poetry.herd.common.enums.ApplyStatusEnum;
-import com.fenghuang.poetry.herd.common.enums.AreaWxChatEnum;
-import com.fenghuang.poetry.herd.common.enums.GenerationEnum;
-import com.fenghuang.poetry.herd.common.enums.StageEnum;
+import com.fenghuang.poetry.herd.common.enums.*;
 import com.fenghuang.poetry.herd.service.facade.UserFacade;
 import com.fenghuang.poetry.herd.service.model.dto.CompetitionDto;
 import com.fenghuang.poetry.herd.service.model.dto.UserExtraInfoDto;
@@ -63,7 +60,7 @@ public class UserFacadeImpl implements UserFacade {
                     .applyStatus(ApplyStatusEnum.YBM.getCode())
                     .competitionCodeInfoVo(competitionCodeInfoVo)
                     .wxGroupChatQRUrl(AreaWxChatEnum.getPngPathByCode(userInfoDto.getAreaCode()) +
-                            "-" + GenerationEnum.getByCode(userInfoDto.getGeneraCode()) + ".png")
+                            "-" + GradeEnum.getByCode(userInfoDto.getGrade()).getGeneraCode() + ".png")
                     .build();
         }
         return null;
@@ -92,7 +89,7 @@ public class UserFacadeImpl implements UserFacade {
                         .applyStatus(ApplyStatusEnum.YBM.getCode())
                         .competitionCodeInfoVo(competitionCodeInfoVo)
                         .wxGroupChatQRUrl(AreaWxChatEnum.getPngPathByCode(userInfo.getAreaCode()) +
-                                "-" + GenerationEnum.getByCode(userInfo.getGeneraCode()) + ".png")
+                                "-" + GradeEnum.getByCode(userInfo.getGrade()).getGeneraCode() + ".png")
                         .build();
             }
         }
