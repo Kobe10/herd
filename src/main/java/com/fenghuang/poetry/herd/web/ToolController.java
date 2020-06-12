@@ -95,8 +95,8 @@ public class ToolController {
                 //文件上传的地址
 //            String path = ResourceUtils.getURL("classpath:").getPath() + "static/images";
                 //todo  临时目录
-//                Path path = Paths.get(resourceDir);
-                Path path = Paths.get(tempDir);
+                Path path = Paths.get(resourceDir);
+//                Path path = Paths.get(tempDir);
                 //新建目录
                 //文件后缀
                 String fileSuffix = fileName.substring(fileName.lastIndexOf("."), fileName.length());
