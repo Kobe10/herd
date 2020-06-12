@@ -146,6 +146,63 @@ public class ToolController {
         String upload = null;
 
         //获取商品图片目录
+        Path path = Paths.get(resourceDir);
+//        Path path = Paths.get(tempDir);
+        upload = path.toAbsolutePath().toString() + File.separator + imageName;
+
+
+        try {
+            //获取图片存放路径
+            String imgPath = upload;
+            ips = new FileInputStream(new File(imgPath));
+            String type = imageName.substring(imageName.indexOf(".") + 1);
+            if (type.equals("png")) {
+                response.setContentType("image/png");
+            }
+            if (type.equals("jpeg")) {
+                response.setContentType("image/jpeg");
+            }
+            out = response.getOutputStream();
+            //读取文件流
+            int len = 0;
+            byte[] buffer = new byte[1024 * 10];
+            while ((len = ips.read(buffer)) != -1) {
+                out.write(buffer, 0, len);
+            }
+            out.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            assert out != null;
+            out.close();
+            ips.close();
+        }
+        return null;
+    }
+
+
+    /**
+     * 上传二维码图片
+     *
+     * @param imageName
+     * @return
+     */
+    @ApiOperation(
+            value = "用户列表接口",
+            notes = "用户列表接口",
+            response = UserDetailInfoVo.class,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            httpMethod = "POST"
+    )
+    @GetMapping("/show/wx/test/{imageName}")
+    @ResponseBody
+    public Object showImageTest(@PathVariable("imageName") String imageName,
+                            HttpServletResponse response) throws IOException {
+        ServletOutputStream out = null;
+        FileInputStream ips = null;
+        String upload = null;
+
+        //获取商品图片目录
 //        Path path = Paths.get(resourceDir);
         Path path = Paths.get(tempDir);
         upload = path.toAbsolutePath().toString() + File.separator + imageName;

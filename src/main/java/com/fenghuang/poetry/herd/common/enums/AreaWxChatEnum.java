@@ -49,7 +49,8 @@ public enum AreaWxChatEnum {
     /**
      * 上线之后修改 todo
      */
-    private static final String pngPath = "http://211.159.176.138:8085/herd/web/tool/show/wx/";
+//    private static final String pngPath = "http://211.159.176.138:8085/herd/web/tool/show/wx/";
+    private static final String pngPath = "http://211.159.176.138:8085/herd/web/tool/show/wx/test/";
     /**
      * 类型编码
      */

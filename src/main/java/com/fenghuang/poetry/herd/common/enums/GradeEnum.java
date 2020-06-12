@@ -34,7 +34,7 @@ public enum GradeEnum {
     ten("ten", "九年级", "high"),
     eleven("eleven", "高一", "high"),
     twelve("twelve", "高二", "high"),
-    thirteen("thirteen", "高三", "high"),
+    thirteen("thirteen", "高三", "colleague"),
     fourteen("fourteen", "大学", "colleague"),
     other("fourteen", "大学", "colleague");
 
