@@ -29,7 +29,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "报名详细信息")
+@ApiModel(value = "报名详细信息")
 public class ApplyInfoVo implements Serializable {
 
     private static final long serialVersionUID = -8475401027021887426L;

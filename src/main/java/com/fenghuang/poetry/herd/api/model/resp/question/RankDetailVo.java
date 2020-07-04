@@ -29,7 +29,7 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "排名详细信息对象")
+@ApiModel(value = "排名详细信息对象")
 public class RankDetailVo implements Serializable {
 
     private static final long serialVersionUID = -3189057521870744736L;

@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "参赛规则详细信息")
+@ApiModel(value = "参赛规则详细信息")
 public class CompetitionRuleInfoVo {
 
     @ApiModelProperty(notes = "参赛规则")

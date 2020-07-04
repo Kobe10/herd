@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 /**
  * <p></p>
@@ -27,9 +28,10 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "查看问题详情入参", description = "查看问题详情入参`")
-public class QuestionDetailReq {
+public class QuestionDetailReq implements Serializable {
 
+    private static final long serialVersionUID = -7592777220968777235L;
     @ApiModelProperty(notes = "问题id", value = "111112s", required = true)
-    @NotBlank(message = "问题id不能为空")
+//    @NotBlank(message = "问题id不能为空")
     private String questionId;
 }

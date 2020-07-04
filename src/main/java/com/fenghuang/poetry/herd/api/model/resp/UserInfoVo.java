@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "用户详细信息")
+@ApiModel(value = "用户详细信息")
 public class UserInfoVo {
 
     @ApiModelProperty(notes = "用户姓名")

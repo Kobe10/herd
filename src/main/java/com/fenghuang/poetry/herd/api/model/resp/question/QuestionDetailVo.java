@@ -28,7 +28,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "问题的vo对象")
+@ApiModel(value = "问题的vo对象")
 public class QuestionDetailVo implements Serializable {
     private static final long serialVersionUID = 3305017896655222744L;
     @ApiModelProperty(notes = "问题Id 唯一标识，用来查询问题详情使用")

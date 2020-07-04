@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * <p></p>
@@ -28,7 +29,8 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "提交报名信息入参", description = "提交报名信息入参")
-public class ApplyInfoReq {
+public class ApplyInfoReq implements Serializable {
+    private static final long serialVersionUID = 6749847801877685314L;
     @ApiModelProperty(notes = "用户姓名", value = "韦小宝", required = true)
     @NotNull(message = "请填写姓名")
     private String userName;

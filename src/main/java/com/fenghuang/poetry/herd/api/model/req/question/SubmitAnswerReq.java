@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -28,17 +29,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "提交答案入参", description = "提交答案入参`")
-public class SubmitAnswerReq {
+public class SubmitAnswerReq implements Serializable {
 
+    private static final long serialVersionUID = -2514566415581542368L;
     @ApiModelProperty(notes = "参赛码", value = "shx-sdfasfxxx", required = true)
-    @NotBlank(message = "参赛码为空")
+//    @NotBlank(message = "参赛码为空")
     private String competitionCode;
 
     @ApiModelProperty(notes = "场景编码", value = "HX", required = true)
-    @NotBlank(message = "场景编码不能为空")
+//    @NotBlank(message = "场景编码不能为空")
     private String sceneCode;
 
     @ApiModelProperty(notes = "提交答案信息", value = "shx-sdfasfxxx", required = true)
-    @NotBlank(message = "提交答案信息")
+//    @NotBlank(message = "提交答案信息")
     private List<AnswerInfoReq> answerInfoReqList;
 }

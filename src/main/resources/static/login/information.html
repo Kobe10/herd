@@ -2,63 +2,63 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="style/bootstrap.min.css" />
-  <link rel="stylesheet" href="style/bootstrap-table.min.css" />
-  <link rel="stylesheet" href="style/bootstrapmb.css" />
-  <link rel="stylesheet" href="style/index.css" />
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style/bootstrap.min.css"/>
+    <link rel="stylesheet" href="style/bootstrap-table.min.css"/>
+    <link rel="stylesheet" href="style/bootstrapmb.css"/>
+    <link rel="stylesheet" href="style/index.css"/>
+    <title>Document</title>
 </head>
 
 <body style="background:#dfd3bd">
-  <div id="wrapper">
+<div id="wrapper">
     <div class="overlay"></div>
 
     <!-- Sidebar -->
     <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
-      <ul class="nav sidebar-nav">
-        <li class="sidebar-brand">
-          <a href="#">
-            浙江诗词大会
-          </a>
-        </li>
-        <li>
-          <a href="./information.html"><i class="fa fa-fw fa-home"></i> 首页</a>
+        <ul class="nav sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    浙江诗词大会
+                </a>
+            </li>
+            <li>
+                <a href="./information.html"><i class="fa fa-fw fa-home"></i> 首页</a>
 
-        </li>
-        <li>
-          <a href="./statis.html"><i class="fa fa-fw fa-home"></i> 统计</a>
-        </li>
-        <li>
-          <a href="./file.html"><i class="fa fa-fw fa-home"></i> 工具</a>
-        </li>
-      </ul>
+            </li>
+            <li>
+                <a href="./statis.html"><i class="fa fa-fw fa-home"></i> 统计</a>
+            </li>
+            <li>
+                <a href="./file.html"><i class="fa fa-fw fa-home"></i> 工具</a>
+            </li>
+        </ul>
     </nav>
     <!-- /#sidebar-wrapper -->
     <!-- Page Content -->
     <div class="user"><span>用户名：</span><b class="userName"></b></div>
 
     <div id="page-content-wrapper">
-      <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
-        <span class="hamb-top"></span>
-        <span class="hamb-middle"></span>
-        <span class="hamb-bottom"></span>
-      </button>
-      <div class="container">
+        <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+        </button>
+        <div class="container">
 
-        <div class="row">
-          <div class="col-lg-10 col-lg-offset-1">
-            <table id="table" style="background:#fff">
-            </table>
-          </div>
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <table id="table" style="background:#fff">
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
     <!-- /#page-content-wrapper -->
 
-  </div>
+</div>
 </body>
 <script src="scripts/jq1.12.4.js"></script>
 <script src="scripts/bootstrap.min.js"></script>
@@ -67,145 +67,143 @@
 <!--在客户端保存生成的导出文件-->
 <script src="./scripts/bootstrap-table-export.js"></script>
 <script>
-  $(document).ready(function () {
-    var trigger = $('.hamburger'),
-      overlay = $('.overlay'),
-      isClosed = false;
+    $(document).ready(function () {
+        var trigger = $('.hamburger'),
+            overlay = $('.overlay'),
+            isClosed = false;
 
-    trigger.click(function () {
-      hamburger_cross();
-    });
-
-
+        trigger.click(function () {
+            hamburger_cross();
+        });
 
 
-    function hamburger_cross() {
+        function hamburger_cross() {
 
-      if (isClosed == true) {
-        overlay.hide();
-        trigger.removeClass('is-open');
-        trigger.addClass('is-closed');
-        isClosed = false;
-      } else {
-        overlay.show();
-        trigger.removeClass('is-closed');
-        trigger.addClass('is-open');
-        isClosed = true;
-      }
-    }
-
-    $('[data-toggle="offcanvas"]').click(function () {
-      $('#wrapper').toggleClass('toggled');
-    });
-    var bsdata;
-    var columns = [{
-      field: 'userName',
-      title: '姓名'
-    }, {
-      field: 'phone',
-      title: '电话'
-    }, {
-      field: 'wxNum',
-      title: '微信号'
-    }, {
-      field: 'areaName',
-      title: '城市',
-      sortable: true
-    }, {
-      field: 'school',
-      title: '学校',
-      sortable: true
-    }, {
-      field: 'grade',
-      title: '年级'
-    }]
-
-    $('#table').bootstrapTable({
-      url: 'http://211.159.176.138:8085/herd/web/user/list',
-      toolbar: '#toolbar', //工具按钮用哪个容器
-      dataType: "json",
-      contentType: 'application/json;charset=UTF-8',
-      method: 'POST', // 请求方式（*）
-      columns: columns,
-      striped: true, // 是否显示行间隔色
-      cache: false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-      sortable: true, //用 是否启排序
-      sortOrder: "asc", // 排序方式
-      sidePagination: "client", // 分页方式：client客户端分页，server服务端分页（*）
-      pagination: true, // 是否显示分页（*）
-      pageNumber: 1, //如果设置了分页，首页页码
-      pageSize: 10, //每页的记录行数（*）
-      pageList: [10, 20], //可供选择的每页的行数（*）
-      //	onlyInfoPagination:false, //设置为 true 只显示总数据数，而不显示分页
-      showRefresh: true, // 是否显示刷新按钮
-      queryParams: queryParams,
-      queryParamsType: "limit",
-      clickToSelect: true, // 是否启用点击选中行
-      //	uniqueId : "fileid", // 每一行的唯一标识，一般为主键列
-      showToggle: false, // 是否显示详细视图和列表视图的切换按钮
-      //	cardView : false, // 是否显示详细视图
-      //	detailView : false, // 是否显示父子表
-      search: true, //是否启用搜索框
-      searchable: true,
-      data_local: "zh-US",
-      silent: true,
-      exportDataType: 'all', //'basic':当前页的数据, 'all':全部的数据, 'selected':选中的数据
-      showExport: true, //是否显示导出按钮
-      buttonsAlign: "right", //按钮位置
-      exportTypes: ['excel', 'doc', 'txt',
-        'csv'
-      ], //导出文件类型，[ 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf'],
-      onLoadSuccess: function (data) { //加载成功时执行
-        $("#table").bootstrapTable("load", data.data.list)
-      }
-    });
-
-    function queryParams(params) {
-      var temp = {
-        "areaCode": "",
-        "pageNum": 1,
-        "pageSize": 10,
-        "phone": "",
-        "userName": ""
-      }
-      return JSON.stringify(temp)
-    }
-
-    //退出登录
-    $('.userName').click(function () {
-      $.ajax({
-        url: 'http://211.159.176.138:8085/herd/web/user/logout',
-        method: 'post',
-        success: function (res) {
-          if (res.code == 200) {
-            setTimeout(() => {
-              location.href = "./index.html";
-            }, 500)
-          }
+            if (isClosed == true) {
+                overlay.hide();
+                trigger.removeClass('is-open');
+                trigger.addClass('is-closed');
+                isClosed = false;
+            } else {
+                overlay.show();
+                trigger.removeClass('is-closed');
+                trigger.addClass('is-open');
+                isClosed = true;
+            }
         }
-      })
-    })
 
-    //获取cookie
-    var getCookie = function (name) {
-      //获取当前所有cookie
-      var strCookies = document.cookie;
-      //截取变成cookie数组
-      var array = strCookies.split(';');
-      //循环每个cookie
-      for (var i = 0; i < array.length; i++) {
-        //将cookie截取成两部分
-        var item = array[i].split("=");
-        //判断cookie的name 是否相等
-        if (item[0] == name) {
-          return item[1];
+        $('[data-toggle="offcanvas"]').click(function () {
+            $('#wrapper').toggleClass('toggled');
+        });
+        var bsdata;
+        var columns = [{
+            field: 'userName',
+            title: '姓名'
+        }, {
+            field: 'phone',
+            title: '电话'
+        }, {
+            field: 'wxNum',
+            title: '微信号'
+        }, {
+            field: 'areaName',
+            title: '城市',
+            sortable: true
+        }, {
+            field: 'school',
+            title: '学校',
+            sortable: true
+        }, {
+            field: 'grade',
+            title: '年级'
+        }]
+
+        $('#table').bootstrapTable({
+            url: 'http://211.159.176.138:8085/herd/web/user/list',
+            toolbar: '#toolbar', //工具按钮用哪个容器
+            dataType: "json",
+            contentType: 'application/json;charset=UTF-8',
+            method: 'POST', // 请求方式（*）
+            columns: columns,
+            striped: true, // 是否显示行间隔色
+            cache: false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            sortable: true, //用 是否启排序
+            sortOrder: "asc", // 排序方式
+            sidePagination: "client", // 分页方式：client客户端分页，server服务端分页（*）
+            pagination: true, // 是否显示分页（*）
+            pageNumber: 1, //如果设置了分页，首页页码
+            pageSize: 10, //每页的记录行数（*）
+            pageList: [10, 20], //可供选择的每页的行数（*）
+            //	onlyInfoPagination:false, //设置为 true 只显示总数据数，而不显示分页
+            showRefresh: true, // 是否显示刷新按钮
+            queryParams: queryParams,
+            queryParamsType: "limit",
+            clickToSelect: true, // 是否启用点击选中行
+            //	uniqueId : "fileid", // 每一行的唯一标识，一般为主键列
+            showToggle: false, // 是否显示详细视图和列表视图的切换按钮
+            //	cardView : false, // 是否显示详细视图
+            //	detailView : false, // 是否显示父子表
+            search: true, //是否启用搜索框
+            searchable: true,
+            data_local: "zh-US",
+            silent: true,
+            exportDataType: 'all', //'basic':当前页的数据, 'all':全部的数据, 'selected':选中的数据
+            showExport: true, //是否显示导出按钮
+            buttonsAlign: "right", //按钮位置
+            exportTypes: ['excel', 'doc', 'txt',
+                'csv'
+            ], //导出文件类型，[ 'csv', 'txt', 'sql', 'doc', 'excel', 'xlsx', 'pdf'],
+            onLoadSuccess: function (data) { //加载成功时执行
+                $("#table").bootstrapTable("load", data.data.list)
+            }
+        });
+
+        function queryParams(params) {
+            var temp = {
+                "areaCode": "",
+                "pageNum": 1,
+                "pageSize": 10,
+                "phone": "",
+                "userName": ""
+            }
+            return JSON.stringify(temp)
         }
-      }
-      return null;
-    }
-    var username = getCookie('name')
-    $('.userName').html(username) //设置username
-  });
+
+        //退出登录
+        $('.userName').click(function () {
+            $.ajax({
+                url: 'http://211.159.176.138:8085/herd/web/user/logout',
+                method: 'post',
+                success: function (res) {
+                    if (res.code == 200) {
+                        setTimeout(() => {
+                            location.href = "./index.html";
+                        }, 500)
+                    }
+                }
+            })
+        })
+
+        //获取cookie
+        var getCookie = function (name) {
+            //获取当前所有cookie
+            var strCookies = document.cookie;
+            //截取变成cookie数组
+            var array = strCookies.split(';');
+            //循环每个cookie
+            for (var i = 0; i < array.length; i++) {
+                //将cookie截取成两部分
+                var item = array[i].split("=");
+                //判断cookie的name 是否相等
+                if (item[0] == name) {
+                    return item[1];
+                }
+            }
+            return null;
+        }
+        var username = getCookie('name')
+        $('.userName').html(username) //设置username
+    });
 </script>
 
 </html>

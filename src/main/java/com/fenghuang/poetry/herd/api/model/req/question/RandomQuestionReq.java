@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 /**
  * <p></p>
@@ -27,9 +28,10 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "随机获取问题入参", description = "随机获取问题入参`")
-public class RandomQuestionReq {
+public class RandomQuestionReq implements Serializable {
 
+    private static final long serialVersionUID = 3114624340284335599L;
     @ApiModelProperty(notes = "场景编码", value = "HX", required = true)
-    @NotBlank(message = "场景编码为空")
+//    @NotBlank(message = "场景编码为空")
     private String sceneCode;
 }

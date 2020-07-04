@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "参赛码详细信息")
+@ApiModel(value = "参赛码详细信息")
 public class CompetitionCodeInfoVo {
 
     @ApiModelProperty(notes = "参赛码", value = "xxxxxx", required = true)

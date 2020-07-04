@@ -26,7 +26,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "选项的vo对象")
+@ApiModel(value = "选项的vo对象")
 public class OptionDetailVo implements Serializable {
     private static final long serialVersionUID = -8334672472819036234L;
     @ApiModelProperty(notes = "选项id 唯一标识")

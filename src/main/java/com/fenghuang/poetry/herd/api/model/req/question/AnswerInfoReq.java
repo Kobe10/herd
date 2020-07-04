@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 /**
  * <p></p>
@@ -27,18 +28,19 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "答案详情入参", description = "答案详情入参`")
-public class AnswerInfoReq {
+public class AnswerInfoReq implements Serializable {
 
+    private static final long serialVersionUID = 4209569127767728022L;
     @ApiModelProperty(notes = "是否为答案", value = "0 不是答案   1 是提交上来的答案", required = true)
-    @NotBlank(message = "标记为空")
+//    @NotBlank(message = "标记为空")
     private Integer isAnswer;
 
     @ApiModelProperty(notes = "问题id", value = "asdfadf", required = true)
-    @NotBlank(message = "问题id不能为空")
+//    @NotBlank(message = "问题id不能为空")
     private String questionId;
 
     @ApiModelProperty(notes = "问题类型", value = "radio:单选 Multiple:多选 blank:填空", required = true)
-    @NotBlank(message = "问题类型不能为空")
+//    @NotBlank(message = "问题类型不能为空")
     private String questionType;
 
     @ApiModelProperty(notes = "用户填写答案", value = "单选:A   多选:ABC  填空:xxxx", required = true)

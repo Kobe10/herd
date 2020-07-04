@@ -29,7 +29,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "随机问题出参")
+@ApiModel(value = "随机问题出参")
 public class RandomQuestionVo implements Serializable {
 
     private static final long serialVersionUID = -178967570204061848L;

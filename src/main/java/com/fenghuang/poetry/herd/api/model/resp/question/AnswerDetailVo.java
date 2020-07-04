@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "答题结果详细信息")
+@ApiModel(value = "答题结果详细信息")
 public class AnswerDetailVo {
 
     @ApiModelProperty(notes = "分数", value = "答题最终分数")

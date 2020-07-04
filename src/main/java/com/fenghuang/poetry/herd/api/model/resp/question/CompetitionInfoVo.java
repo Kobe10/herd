@@ -29,7 +29,7 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "比赛详细信息")
+@ApiModel(value = "比赛详细信息")
 public class CompetitionInfoVo implements Serializable {
 
     private static final long serialVersionUID = 3644823689956944698L;

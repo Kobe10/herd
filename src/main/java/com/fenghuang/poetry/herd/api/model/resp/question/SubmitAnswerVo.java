@@ -29,7 +29,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "提交答案返回信息")
+@ApiModel(value = "提交答案返回信息")
 public class SubmitAnswerVo {
 
     @ApiModelProperty(notes = "排名信息  包含省级，地区级  已经排序")
