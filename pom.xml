@@ -23,7 +23,7 @@
         <pagehelper.version>5.1.8</pagehelper.version>
         <mockito-all.version>1.10.19</mockito-all.version>
         <spring-boot-druid.version>1.1.10</spring-boot-druid.version>
-        <guava.version>27.0.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <gson.version>2.6.2</gson.version>
         <emoji-java.version>5.1.1</emoji-java.version>
