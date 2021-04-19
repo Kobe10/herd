@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fenghuang.poetry.herd.dao.QuestionOptionMapper">
+    <resultMap id="BaseResultMap" type="com.fenghuang.poetry.herd.dao.entity.QuestionOptionEntity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="question_code" jdbcType="VARCHAR" property="questionCode"/>
+        <result column="option_code" jdbcType="VARCHAR" property="optionCode"/>
+        <result column="option_title" jdbcType="VARCHAR" property="optionTitle"/>
+        <result column="option_desc" jdbcType="VARCHAR" property="optionDesc"/>
+        <result column="letter" jdbcType="VARCHAR" property="letter"/>
+        <result column="order_value" jdbcType="INTEGER" property="orderValue"/>
+        <result column="is_del" jdbcType="INTEGER" property="isDel"/>
+        <result column="create_id" jdbcType="VARCHAR" property="createId"/>
+        <result column="last_modify_id" jdbcType="VARCHAR" property="lastModifyId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, question_code, option_code, option_title, option_desc, letter, order_value, is_del,
+    create_id, last_modify_id, create_time, last_modify_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from question_option
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectByQuestionCode" resultMap="BaseResultMap">
+        select *
+        from question_option
+        where is_del = 0
+          and question_code = #{questionCode};
+    </select>
+    <select id="selectOptionByCodeList" resultMap="BaseResultMap">
+        select *
+        from question_option
+        where is_del = 0
+        and question_code in
+        <foreach item="item" index="index" collection="questionCodeList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        order by id
+    </select>
+    <select id="selectByQuestionCodeBatch"
+            resultType="com.fenghuang.poetry.herd.dao.entity.QuestionOptionEntity">
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from question_option
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.fenghuang.poetry.herd.dao.entity.QuestionOptionEntity">
+        insert into question_option (id, question_code, option_code,
+                                     option_title, option_desc, letter,
+                                     order_value, is_del, create_id,
+                                     last_modify_id, create_time, last_modify_time)
+        values (#{id,jdbcType=INTEGER}, #{questionCode,jdbcType=VARCHAR}, #{optionCode,jdbcType=VARCHAR},
+                #{optionTitle,jdbcType=VARCHAR}, #{optionDesc,jdbcType=VARCHAR}, #{letter,jdbcType=VARCHAR},
+                #{orderValue,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{createId,jdbcType=VARCHAR},
+                #{lastModifyId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+                #{lastModifyTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.fenghuang.poetry.herd.dao.entity.QuestionOptionEntity">
+        insert into question_option
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="questionCode != null">
+                question_code,
+            </if>
+            <if test="optionCode != null">
+                option_code,
+            </if>
+            <if test="optionTitle != null">
+                option_title,
+            </if>
+            <if test="optionDesc != null">
+                option_desc,
+            </if>
+            <if test="letter != null">
+                letter,
+            </if>
+            <if test="orderValue != null">
+                order_value,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="lastModifyId != null">
+                last_modify_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="questionCode != null">
+                #{questionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="optionCode != null">
+                #{optionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="optionTitle != null">
+                #{optionTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="optionDesc != null">
+                #{optionDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="letter != null">
+                #{letter,jdbcType=VARCHAR},
+            </if>
+            <if test="orderValue != null">
+                #{orderValue,jdbcType=INTEGER},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=INTEGER},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyId != null">
+                #{lastModifyId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fenghuang.poetry.herd.dao.entity.QuestionOptionEntity">
+        update question_option
+        <set>
+            <if test="questionCode != null">
+                question_code = #{questionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="optionCode != null">
+                option_code = #{optionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="optionTitle != null">
+                option_title = #{optionTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="optionDesc != null">
+                option_desc = #{optionDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="letter != null">
+                letter = #{letter,jdbcType=VARCHAR},
+            </if>
+            <if test="orderValue != null">
+                order_value = #{orderValue,jdbcType=INTEGER},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=INTEGER},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyId != null">
+                last_modify_id = #{lastModifyId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fenghuang.poetry.herd.dao.entity.QuestionOptionEntity">
+        update question_option
+        set question_code    = #{questionCode,jdbcType=VARCHAR},
+            option_code      = #{optionCode,jdbcType=VARCHAR},
+            option_title     = #{optionTitle,jdbcType=VARCHAR},
+            option_desc      = #{optionDesc,jdbcType=VARCHAR},
+            letter           = #{letter,jdbcType=VARCHAR},
+            order_value      = #{orderValue,jdbcType=INTEGER},
+            is_del           = #{isDel,jdbcType=INTEGER},
+            create_id        = #{createId,jdbcType=VARCHAR},
+            last_modify_id   = #{lastModifyId,jdbcType=VARCHAR},
+            create_time      = #{createTime,jdbcType=TIMESTAMP},
+            last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

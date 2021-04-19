@@ -90,7 +90,7 @@ public class ApplyController {
         log.info("【查询报名码-getApplyInfo，入参:{}】", JSONObject.toJSONString(queryApplyInfoReq));
         ApplyInfoVo applyInfoVo = userFacade.findCompetition(queryApplyInfoReq);
         if (Objects.isNull(applyInfoVo)) {
-            return new Resp(500, "您还没有报名，请重新报名");
+            return new Resp(500, "未查询到您的参赛信息");
         }
         return new Resp(applyInfoVo);
     }

@@ -2,13 +2,14 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="与大咖同台，赢高额奖金，下一个“诗词明星”就是你！" />
+  <meta charset="utf-8" />
+  <!--banner:begin:292602:1:1:72722eeec6c32386be7024b1a4f21fbc3df7ae85-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>《浙江诗词大会》网络海选赛“端午诗会”报名启动！</title>
   <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" type="text/css" media="screen" href="style/main.css" />
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <link rel="stylesheet" type="text/css" media="screen"
+    href="//x0.ifengimg.com/cmpp/2020/24/13968bcaf4baaf7/main.css" />
   <script>
     ~ function () {
       window.addEventListener('resize', computedFont, false);
@@ -20,11 +21,12 @@
       computedFont();
     }();
   </script>
+  <!--banner:end:292602-->
 </head>
 
 <body>
-  <!-- 微信分享图 小于35K 尺寸为300X300 -->
-  <img id="imgForShare" style="position: fixed; left: -1000%; top: -1000%;"
+  <!--banner:begin:292603:0:2:7917ddd6d2b9c538151d46d5df035877476081b6-->
+  <!-- 微信分享图 小于35K 尺寸为300X300 --> <img id="imgForShare" style="position: fixed; left: -1000%; top: -1000%;"
     src="http://x0.ifengimg.com/cmpp/2020_22/b3e15815c3731d3_size88_w300_h300.jpg" alt="分享缩略图" />
   <div id="ifeng_share_thumbnail" style="display:none"></div>
   <div id="ifeng_share_title" style="display:none"></div>
@@ -40,15 +42,14 @@
       <div class="csinformation"></div>
       <div class="information">
         <div class="info_input">
-          <span>姓名:</span><input type="text" class="userName"></input>
+          <span>姓名:</span>
+          <input type="text" class="userName" />
         </div>
         <div class="info_input">
           <span>赛区:</span>
           <div class="select">
-
             <select id="add" class="add">
-              <option selected="selected" disabled="disabled" style='display: none' value=''></option>
-
+              <option selected="selected" disabled="disabled" style="display: none" value=""></option>
               <option value="330100">杭州市 </option>
               <option value="330200"> 宁波市 </option>
               <option value="330300"> 温州市 </option>
@@ -60,18 +61,18 @@
               <option value="331000"> 台州市 </option>
               <option value="331100"> 丽水市 </option>
               <option value="330900"> 舟山市 </option>
-
             </select>
           </div>
         </div>
         <div class="info_input">
-          <span>学校:</span><input type="text" class="school" />
+          <span>学校:</span>
+          <input type="text" class="school" />
         </div>
         <div class="info_input">
           <span>年级:</span>
           <div class="select">
             <select id="class_add" class="add">
-              <option selected="selected" disabled="disabled" style='display: none' value=''></option>
+              <option selected="selected" disabled="disabled" style="display: none" value=""></option>
               <option value="one">幼儿园</option>
               <option value="two">一年级</option>
               <option value="three">二年级</option>
@@ -86,22 +87,18 @@
               <option value="twelve"> 高二 </option>
               <option value="thirteen"> 高三 </option>
               <option value="fourteen"> 大学 </option>
-
             </select>
           </div>
         </div>
         <div class="info_input">
-          <span>电话:</span><input type="text" class="phoneNumber"></input>
+          <span>电话:</span>
+          <input type="text" class="phoneNumber" />
         </div>
         <div class="info_input">
-          <span>微信号:</span><input type="text" class="wxNumber"></input>
+          <span>微信号:</span>
+          <input type="text" class="wxNumber" />
         </div>
-
-
-
-
       </div>
-
       <div class="submit"></div>
       <div class="goHistory"></div>
     </div>
@@ -111,221 +108,227 @@
       <div class="suessNumeber">
         <p>ZJSCDH223322226</p>
       </div>
-      <div class="wximg wximger"><img src="images/zs.png"></div>
+      <div class="wximg wximger">
+        <img src="images/zs.png" />
+      </div>
     </div>
     <div class="tsinformation"></div>
     <div class="dialog">
       <p style="margin-top: 1.4rem"></p>
     </div>
   </div>
-</body>
-<script src="https://p2.ifengimg.com/l/2018/27/61a49b087c93575/jquery-1.7.2.min.js"></script>
-<script src="scripts/index.js"></script>
-<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-<script>
-  var shareIcon = document.getElementById('imgForShare').src,
-    shareTitle = '《浙江诗词大会》网络海选赛“端午诗会”报名启动！',
-    shareContent = document.querySelector('meta[name=description]') ? document.querySelector('meta[name=description]')
-    .getAttribute('content') : '与大咖同台，赢高额奖金，下一个“诗词明星”就是你！',
-    shareLink = window.location.href;
-  document.getElementById("ifeng_share_title").innerHTML = shareTitle;
-  document.getElementById("ifeng_share_thumbnail").innerHTML = shareIcon;
-  document.getElementById("ifeng_share_description").innerHTML = shareContent;
-  document.getElementById("ifeng_share_url").innerHTML = shareLink;
-  if (/MicroMessenger/.test(navigator.userAgent)) {
-    var wxConfigParams = {};
-    $.ajax({
-      url: 'https://api.cmpp.v.ifeng.com/api/Secert',
-      type: 'get',
-      dataType: 'jsonp',
-      data: {
-        url: encodeURIComponent(window.location.href),
-        _: '',
-        rt: 'jsonp',
-      },
-      success: function (data) {
-        wxConfigParams.debug = false;
-        wxConfigParams.appId = data.data.appId;
-        wxConfigParams.timestamp = data.data.timestamp;
-        wxConfigParams.nonceStr = data.data.nonceStr;
-        wxConfigParams.signature = data.data.signature;
-        wxConfigParams.jsApiList = ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ',
-          'onMenuShareQZone'
-        ];
-        wx.config(wxConfigParams);
-        wx.ready(function () {
-          wx.onMenuShareAppMessage({
-            title: shareTitle,
-            desc: shareContent,
-            link: shareLink,
-            imgUrl: shareIcon
+  <script src="https://p2.ifengimg.com/l/2018/27/61a49b087c93575/jquery-1.7.2.min.js"></script>
+  <script src="//x0.ifengimg.com/cmpp/2020/24/13968bcaf4baaf7/index.js"></script>
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+  <script>
+    var shareIcon = document.getElementById('imgForShare').src,
+      shareTitle = '《浙江诗词大会》网络海选赛“端午诗会”报名启动！',
+      shareContent = document.querySelector('meta[name=description]') ? document.querySelector('meta[name=description]')
+      .getAttribute('content') : '与大咖同台，赢高额奖金，下一个“诗词明星”就是你！',
+      shareLink = window.location.href;
+    document.getElementById("ifeng_share_title").innerHTML = shareTitle;
+    document.getElementById("ifeng_share_thumbnail").innerHTML = shareIcon;
+    document.getElementById("ifeng_share_description").innerHTML = shareContent;
+    document.getElementById("ifeng_share_url").innerHTML = shareLink;
+    if (/MicroMessenger/.test(navigator.userAgent)) {
+      var wxConfigParams = {};
+      $.ajax({
+        url: 'https://api.cmpp.v.ifeng.com/api/Secert',
+        type: 'get',
+        dataType: 'jsonp',
+        data: {
+          url: encodeURIComponent(window.location.href),
+          _: '',
+          rt: 'jsonp',
+        },
+        success: function (data) {
+          wxConfigParams.debug = false;
+          wxConfigParams.appId = data.data.appId;
+          wxConfigParams.timestamp = data.data.timestamp;
+          wxConfigParams.nonceStr = data.data.nonceStr;
+          wxConfigParams.signature = data.data.signature;
+          wxConfigParams.jsApiList = ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ',
+            'onMenuShareQZone'
+          ];
+          wx.config(wxConfigParams);
+          wx.ready(function () {
+            wx.onMenuShareAppMessage({
+              title: shareTitle,
+              desc: shareContent,
+              link: shareLink,
+              imgUrl: shareIcon
+            });
+            wx.onMenuShareQZone({
+              title: shareTitle,
+              desc: shareContent,
+              link: shareLink,
+              imgUrl: shareIcon
+            });
+            wx.onMenuShareQQ({
+              title: shareTitle,
+              desc: shareContent,
+              link: shareLink,
+              imgUrl: shareIcon
+            });
+            wx.onMenuShareTimeline({
+              title: shareTitle,
+              link: shareLink,
+              imgUrl: shareIcon
+            });
           });
-          wx.onMenuShareQZone({
-            title: shareTitle,
-            desc: shareContent,
-            link: shareLink,
-            imgUrl: shareIcon
-          });
-          wx.onMenuShareQQ({
-            title: shareTitle,
-            desc: shareContent,
-            link: shareLink,
-            imgUrl: shareIcon
-          });
-          wx.onMenuShareTimeline({
-            title: shareTitle,
-            link: shareLink,
-            imgUrl: shareIcon
-          });
-        });
-      },
-      error: function (data) {}
-    });
-  }
-</script>
-<script>
-  var submit = $('.submit'),
-    goHistory = $('.goHistory'),
-    num2 = $('#num2'),
-    wximg = $('.wximg img'),
-    flag = true;
-  goHistory.on('touchstart', function () {
-    window.location.href = './index.shtml'
-  })
-  submit.on("touchstart", function () {
+        },
+        error: function (data) {}
+      });
+    }
+  </script>
+  <script>
+    var submit = $('.submit'),
+      goHistory = $('.goHistory'),
+      num2 = $('#num2'),
+      wximg = $('.wximg img'),
+      flag = true;
+    goHistory.on('touchstart', function () {
+      window.location.href = './index.html'
+    })
+    submit.on("touchstart", function () {
 
-    if (!flag) return
+      if (!flag) return
 
-    let userName = $('.userName').val(),
-      phoneNumber = $('.phoneNumber').val(),
-      wxNumber = $('.wxNumber').val(),
-      add = $("#add option:selected").val(),
-      class_add = $("#class_add option:selected").val()
-    school = $('.school').val(),
-      grade = $('.grade').val(),
-      tsinformation = $('.tsinformation');
-    console.log(class_add)
+      let userName = $('.userName').val(),
+        phoneNumber = $('.phoneNumber').val(),
+        wxNumber = $('.wxNumber').val(),
+        add = $("#add option:selected").val(),
+        class_add = $("#class_add option:selected").val()
+      school = $('.school').val(),
+        grade = $('.grade').val(),
+        tsinformation = $('.tsinformation');
+      console.log(class_add)
 
-    if (userName == '' || phoneNumber == '' || wxNumber == '' || add == '' || school == '' || grade == '' ||
-      class_add == '') {
-      tsinformation.show();
-      setTimeout(() => {
-        tsinformation.hide()
-      }, 2500)
-    } else if (!(/^1[3456789]\d{9}$/.test(phoneNumber))) {
+      if (userName == '' || phoneNumber == '' || wxNumber == '' || add == '' || school == '' || grade == '' ||
+        class_add == '') {
+        tsinformation.show();
+        setTimeout(() => {
+          tsinformation.hide()
+        }, 2500)
+      } else if (!(/^1[3456789]\d{9}$/.test(phoneNumber))) {
+        $('.dialog').show()
+        $('.dialog p').html('手机号有误，请重新输入')
+        setTimeout(() => {
+          $('.dialog').hide()
+        }, 2500)
+      } else {
+        flag = false
+        let data = {
+          "areaCode": add,
+          "grade": class_add,
+          "userName": userName,
+          "phone": phoneNumber,
+          "school": school,
+          "wxNum": wxNumber,
+          //"generaCode": class_add
+
+        }
+        let infoData = JSON.stringify(data)
+        $.ajax({
+         //url: 'http://47.111.16.228:8085/herd/api/apply/sign', //线上
+          url: 'http://211.159.176.138:8085/herd/api/apply/sign', //测试地址
+          type: 'post',
+          data: infoData,
+          headers: {
+            'content-type': 'application/json'
+          },
+          beforeSend: function () {
+            $('.submit').addClass('bg')
+          },
+          success: function (res) {
+            if (res.code == 200) {
+              num2.hide()
+              //console.log(res.data.competitionCodeInfoVo.competitionCode)
+              let competitionCode = res.data.competitionCodeInfoVo.competitionCode;
+              $('#num3').show()
+              $('.suessNumeber p').html(competitionCode)
+              wximg.attr('src', res.data.wxGroupChatQRUrl)
+              flag = true
+
+            } else if (res.code == 500) { //报名重复
+              dialogShow(res.message)
+            } else { //报名人数太多
+
+              dialogShow('报名人数太多，请稍后在试')
+            }
+
+          },
+          error: function (error) {
+            dialogShow('报名人数太多，请稍后在试')
+            //请求出错处理
+          }
+        })
+      }
+
+    })
+
+
+
+    function dialogShow(msg) {
       $('.dialog').show()
-      $('.dialog p').html('手机号有误，请重新输入')
+      $('.dialog p').html(msg)
       setTimeout(() => {
         $('.dialog').hide()
+        $('.submit').removeClass('bg')
+        flag = true
       }, 2500)
-    } else {
-      flag = false
-      let data = {
-        "areaCode": add,
-        "grade": class_add,
-        "userName": userName,
-        "phone": phoneNumber,
-        "school": school,
-        "wxNum": wxNumber,
-        //"generaCode": class_add
-
-      }
-      let infoData = JSON.stringify(data)
-      $.ajax({
-        //url: 'http://47.111.16.228:8085/herd/api/apply/sign', //线上
-        url: 'http://211.159.176.138:8085/herd/api/apply/sign', //测试地址
-        type: 'post',
-        data: infoData,
-        headers: {
-          'content-type': 'application/json'
-        },
-        beforeSend: function () {
-          $('.submit').addClass('bg')
-        },
-        success: function (res) {
-          if (res.code == 200) {
-            num2.hide()
-            //console.log(res.data.competitionCodeInfoVo.competitionCode)
-            let competitionCode = res.data.competitionCodeInfoVo.competitionCode;
-            $('#num3').show()
-            $('.suessNumeber p').html(competitionCode)
-            wximg.attr('src', res.data.wxGroupChatQRUrl)
-            flag = true
-
-          } else if (res.code == 500) { //报名重复
-            dialogShow(res.message)
-          } else { //报名人数太多
-
-            dialogShow('报名人数太多，请稍后在试')
-          }
-
-        },
-        error: function (error) {
-          dialogShow('报名人数太多，请稍后在试')
-          //请求出错处理
-        }
-      })
     }
 
-  })
+    if (isAndroid()) {
+      //alert(889)
+      const innerHeight = window.innerHeight;
+      window.addEventListener('resize', () => {
+        const newInnerHeight = window.innerHeight;
+        if (innerHeight > newInnerHeight) {
+          // 键盘弹出事件处理
+          // alert("android 键盘弹窗事件");
+          $('.submit').css("display", "none")
+          $('.goHistory').css("display", "none")
+          $('.infoBg').css({
+            "width": "6.5rem",
+            "height": "12.3rem",
+            "transform": "translateX(0.5rem)",
+            "-webkit-transform": "translateX(0.5rem)",
+            "margin-top": "4vh"
+          })
 
+        } else {
+          // 键盘收起事件处理
+          //alert("android 键盘收起事件处理")
+          $('.submit').css("display", "block")
+          $('.goHistory').css("display", "block")
+          $('.infoBg').css({
+            "width": "86vw",
+            "height": "92vh",
+            "transform": "translate(7vw, 4vh)",
+            "-webkit-transform": "translate(7vw, 4vh)",
+            "margin-top": "auto"
+          })
 
-
-  function dialogShow(msg) {
-    $('.dialog').show()
-    $('.dialog p').html(msg)
-    setTimeout(() => {
-      $('.dialog').hide()
-      $('.submit').removeClass('bg')
-      flag = true
-    }, 2500)
-  }
-
-  if (isAndroid()) {
-    //alert(889)
-    const innerHeight = window.innerHeight;
-    window.addEventListener('resize', () => {
-      const newInnerHeight = window.innerHeight;
-      if (innerHeight > newInnerHeight) {
-        // 键盘弹出事件处理
-        // alert("android 键盘弹窗事件");
-        $('.submit').css("display", "none")
-        $('.goHistory').css("display", "none")
-        $('.infoBg').css({
-          "width": "6.5rem",
-          "height": "12.3rem",
-          "transform": "translateX(0.5rem)",
-          "-webkit-transform": "translateX(0.5rem)",
-          "margin-top": "4vh"
-        })
-
-      } else {
+        }
+      });
+    } else if (isIOS()) {
+      console.log('ios机型')
+      // window.addEventListener('focusin', () => {
+      //   // 键盘弹出事件处理
+      //   alert("iphone 键盘弹出事件处理")
+      // });
+      window.addEventListener('focusout', () => {
+        window.scrollTo(0, 0)
         // 键盘收起事件处理
-        //alert("android 键盘收起事件处理")
-        $('.submit').css("display", "block")
-        $('.goHistory').css("display", "block")
-        $('.infoBg').css({
-          "width": "86vw",
-          "height": "92vh",
-          "transform": "translate(7vw, 4vh)",
-          "-webkit-transform": "translate(7vw, 4vh)",
-          "margin-top": "auto"
-        })
 
-      }
-    });
-  } else if (isIOS()) {
-    console.log('ios机型')
-    // window.addEventListener('focusin', () => {
-    //   // 键盘弹出事件处理
-    //   alert("iphone 键盘弹出事件处理")
-    // });
-    window.addEventListener('focusout', () => {
-      window.scrollTo(0, 0)
-      // 键盘收起事件处理
-
-    });
-  }
-</script>
+      });
+    }
+  </script>
+  <!--banner:end:292603-->
+  <!--banner:begin:292595:3:1:ba0d6895527d6037521264832404cbb882886361-->
+  <!-- 页尾通栏  -->
+  <!--banner:end:292595-->
+</body>
 
 </html>

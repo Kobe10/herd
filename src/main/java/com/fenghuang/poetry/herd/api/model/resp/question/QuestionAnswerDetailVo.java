@@ -36,13 +36,13 @@ public class QuestionAnswerDetailVo {
 
     @ApiModelProperty(notes = "问题id", value = "asdfadf")
     @NotBlank(message = "问题id不能为空")
-    private String questionId;
+    private String questionCode;
 
     @ApiModelProperty(notes = "问题类型", value = "radio:单选 Multiple:多选 blank:填空")
     @NotBlank(message = "问题类型不能为空")
     private String questionType;
 
-    @ApiModelProperty(notes = "用户填写答案", value = "单选:A   多选:ABC  填空:xxxx")
+    @ApiModelProperty(notes = "用户填写答案  如果是填空题  当前就是答案；  如果是单选，  答案在option里面", value = "填空:xxxx   单选不在此答案")
     private String userAnswer;
 
     @ApiModelProperty(notes = "正确答案", value = "当前题目正确答案")
@@ -58,7 +58,13 @@ public class QuestionAnswerDetailVo {
     private String difficult;
 
     @ApiModelProperty(notes = "选项数量")
-    private String optionCount;
+    private Integer optionCount;
+
+    @ApiModelProperty(notes = "逻辑顺序  从1开始")
+    private Integer logicOrderValue;
+
+    @ApiModelProperty(notes = "是否正确 0 错误  1 正确")
+    private Integer right;
 
     @ApiModelProperty(notes = "选项内容")
     private List<OptionDetailVo> optionDetailVoList;

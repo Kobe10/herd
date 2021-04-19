@@ -28,13 +28,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @ApiModel(value = "登录入参", description = "登录入参`")
 public class LoginInfoReq {
-    @ApiModelProperty(notes = "海选赛参赛码 (海选赛必须)", value = "sdx-asdfw1234", required = true)
+    @ApiModelProperty(notes = "参赛码", value = "sdx-asdfw1234", required = true)
+    @NotBlank
     private String competitionCode;
-
-    @ApiModelProperty(notes = "手机号 (除海选赛之外的其他阶段必须)", value = "17611221957", required = true)
-    private String phone;
-
-
-    @ApiModelProperty(notes = "参赛者姓名  (除海选赛之外的其他阶段必须)", value = "付xx", required = true)
-    private String userName;
 }

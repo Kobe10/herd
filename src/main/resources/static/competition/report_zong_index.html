@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="description" content="究竟谁能脱颖而出，摘得市级决赛的桂冠？" />
+  <link rel="stylesheet" href="./style/home.css" />
+  <title>《浙江诗词大会》市级决赛今日正式开赛！</title>
+</head>
+
+<body>
+  <img id="imgForShare" style="position: fixed; left: -1000%; top: -1000%;"
+    src="http://x0.ifengimg.com/cmpp/2020_31/eca1633215d8a82_size62_w300_h300.png" alt="分享缩略图" />
+  <div id="ifeng_share_thumbnail" style="display:none"></div>
+  <div id="ifeng_share_title" style="display:none"></div>
+  <div id="ifeng_share_description" style="display:none"></div>
+  <div id="ifeng_share_url" style="display:none"></div>
+  <div class="report_content">
+
+    <div class="nr">
+      <div class="report_tit"><img src="http://x0.ifengimg.com/cmpp/2020_31/64c24fa2c7da27f_size146_w408_h127.png">
+      </div>
+      <div class="report_name">
+        <p><span class="name">xxx</span>同学</p>
+        <p>您的<span class="shi"></span>实时排名是<span class="sheng_ranking"></span>名</p>
+        <p>恭喜您打败了<span class="shi"></span><span class="dabai"></span>%的参赛选手</p>
+        <p>答对题数<span class="right_ti"></span>题，答题用时<span class="right_time"></span></p>
+        <p class="tongji">（统计数据截至<span></span>）</p>
+      </div>
+      <p class="tit_report_text" style="display: none;"> </p>
+      <div class="erwei_nr">
+        <img src="http://x0.ifengimg.com/cmpp/2020_31/b7dd243734c0c17_size16_w165_h165.jpg">
+        <p>更多大赛最新资讯，重磅奖品爆料<br>
+          敬请关注凤凰网浙江教育微信公众号</p>
+      </div>
+    </div>
+  </div>
+  <div class="pm">
+    <span class="changan">长按屏幕保存成绩单</span>
+    <span class="area">地区排行榜</span>
+  </div>
+</body>
+<script src="https://p2.ifengimg.com/l/2018/27/61a49b087c93575/jquery-1.7.2.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="./scripts/html2.min.js"></script>
+<script src="./scripts/common.js"></script>
+<script src="./scripts/login.js"></script>
+<script>
+  var shareIcon = document.getElementById('imgForShare').src,
+    shareTitle = '《浙江诗词大会》市级决赛今日正式开赛！',
+    shareContent = document.querySelector('meta[name=description]') ? document.querySelector('meta[name=description]')
+    .getAttribute('content') : '究竟谁能脱颖而出，摘得市级决赛的桂冠？',
+    shareLink = window.location.href;
+  document.getElementById("ifeng_share_title").innerHTML = shareTitle;
+  document.getElementById("ifeng_share_thumbnail").innerHTML = shareIcon;
+  document.getElementById("ifeng_share_description").innerHTML = shareContent;
+  document.getElementById("ifeng_share_url").innerHTML = shareLink;
+  if (/MicroMessenger/.test(navigator.userAgent)) {
+    var wxConfigParams = {};
+    $.ajax({
+      url: 'https://api.cmpp.v.ifeng.com/api/Secert',
+      type: 'get',
+      dataType: 'jsonp',
+      data: {
+        url: encodeURIComponent(window.location.href),
+        _: '',
+        rt: 'jsonp',
+      },
+      success: function (data) {
+        wxConfigParams.debug = false;
+        wxConfigParams.appId = data.data.appId;
+        wxConfigParams.timestamp = data.data.timestamp;
+        wxConfigParams.nonceStr = data.data.nonceStr;
+        wxConfigParams.signature = data.data.signature;
+        wxConfigParams.jsApiList = ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ',
+          'onMenuShareQZone'
+        ];
+        wx.config(wxConfigParams);
+        wx.ready(function () {
+          wx.onMenuShareAppMessage({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareQZone({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareQQ({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareTimeline({
+            title: shareTitle,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+        });
+      },
+      error: function (data) {}
+    });
+  }
+</script>
+<script>
+  $(function () {
+    var rankAreaName = ''
+    var areaCode = ''
+    var parms = {
+      "competitionCode": sessionStorage.getItem('competitionCode'), //
+      //"rankCode": getQueryVariable('rankCode'),
+      "rankType": "area"
+    }
+    $.ajax({
+      url: host + "/api/rank/personal/leaderboard",
+      type: "post",
+      contentType: "application/json",
+      dataType: "JSON",
+      data: JSON.stringify(parms),
+      success: function (res) {
+        if (res.code == 200) {
+          if (res.data) {
+            areaCode = res.data.areaCode
+            rankAreaName = res.data.rankAreaName
+            $('.name').html(res.data.userName)
+            $('.sheng').html(res.data.rankProvinceName)
+            $('.shi').html(res.data.rankAreaName)
+            $('.sheng_ranking').html(res.data.areaNum)
+            $('.dabai').html(res.data.areaBeatRate)
+            $('.tongji span').html(res.data.countEndTime)
+            $('.right_ti').html(res.data.rightQuestionNum)
+            $('.right_time').html(res.data.userTime)
+            $('.tit_report_text').html(res.data.rankName)
+            var appellation = res.data.appellation
+            var city = res.data.rankAreaName;
+            var paiming = res.data.areaBeatRate;
+            setTimeout(() => {
+              canvas()
+            }, 500);
+          }
+        }
+      }
+    })
+
+    $('.zj').click(function () {
+      sessionStorage.setItem('areaVal', '浙江省')
+      sessionStorage.setItem('rankType', "province")
+      window.location.replace('resultlist.shtml?rankType=province')
+    })
+    $('.area').click(function () {
+      sessionStorage.setItem('areaVal', rankAreaName)
+      window.location.replace('resultlist.shtml?rankType=area&areaCode=' + areaCode)
+    })
+
+    //生成图片
+    function canvas() {
+      html2canvas(document.querySelector('.report_content'), {
+        scale: 2,
+        useCORS: true,
+        /* logging:true,*/
+      }).then(function (canvas) {
+        document.body.appendChild(canvas);
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0px';
+        canvas.style.left = '0px';
+        canvas.style.width = '100%';
+        canvas.style.zIndex = 9;
+        var img = new Image();
+        document.body.appendChild(img);
+        img.style.position = 'absolute';
+        img.style.top = '0%';
+        img.style.left = '0px';
+        img.style.width = '100%';
+        img.style.zIndex = 9;
+        img.src = canvas.toDataURL("image/png");
+      })
+    }
+  })
+</script>
+
+</html>

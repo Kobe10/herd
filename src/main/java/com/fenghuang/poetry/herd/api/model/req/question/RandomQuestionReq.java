@@ -31,7 +31,8 @@ import java.io.Serializable;
 public class RandomQuestionReq implements Serializable {
 
     private static final long serialVersionUID = 3114624340284335599L;
-    @ApiModelProperty(notes = "场景编码", value = "HX", required = true)
-//    @NotBlank(message = "场景编码为空")
-    private String sceneCode;
+
+    @ApiModelProperty(notes = "参赛码", value = "sdx-asdfw1234", required = true)
+    @NotBlank(message = "参赛码不能为空")
+    private String competitionCode;
 }

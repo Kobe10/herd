@@ -35,4 +35,19 @@ public interface CompetitionMapper {
      * @return
      */
     CompetitionEntity findByUidAndSceneCode(@Param("uid") String uid, @Param("sceneCode") String sceneCode);
+
+    /**
+     *
+     * @param competitionCode
+     * @return
+     */
+    CompetitionEntity selectByCompetitionCode(@Param("competitionCode") String competitionCode);
+
+    /**
+     *
+     * @param competitionCode
+     * @param sceneCode
+     * @return
+     */
+    CompetitionEntity selectByCompetitionCodeAndSceneCode(@Param("competitionCode") String competitionCode, @Param("sceneCode") String sceneCode);
 }

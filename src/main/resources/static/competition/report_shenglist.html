@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="description" content="初赛时间：7.25-7.27，参赛即有机会与大咖同台，海量奖品等着你~" />
+  <link rel="stylesheet" href="./style/home.css" />
+  <title>《浙江诗词大会》初赛正式开赛，快来测测你的浙江诗词储备量！</title>
+</head>
+
+<body>
+  <img id="imgForShare" style="position: fixed; left: -1000%; top: -1000%;"
+    src="http://x0.ifengimg.com/cmpp/2020_29/e22c6b0f611ae98_size43_w300_h300.jpg" alt="分享缩略图" />
+  <div id="ifeng_share_thumbnail" style="display:none"></div>
+  <div id="ifeng_share_title" style="display:none"></div>
+  <div id="ifeng_share_description" style="display:none"></div>
+  <div id="ifeng_share_url" style="display:none"></div>
+  <div class="report_content">
+    <div class="report_name" style="top:4rem">
+      <p><span class="name">xxx</span>同学</p>
+      <p>您的<span class="sheng"></span>实时排名是<span class="sheng_ranking"></span>名</p>
+      <p>恭喜您打败了全省<span class="dabai"></span>%的参赛选手</p>
+      <p>答对题数<span class="right_ti"></span>题，答题用时<span class="right_time"></span></p>
+      <p class="tongji">（统计数据截至<span></span>）</p>
+    </div>
+    <div class="nr">
+      <p class="tit_report_text"></p>
+      <div class="erwei_nr"><img src="http://x0.ifengimg.com/cmpp/2020_30/5602b7240616f02_size10_w130_h130.jpg"></div>
+      <p class="report_text">扫码免费报名参赛《浙江诗词大会》<br>
+        与《中国诗词大会》总冠军彭敏同台互动<br>
+        高额奖金精美奖品等你来拿<br>
+        浙江诗路文化研究院&浙江大学中文系&浙江师范大学中文系<br>
+        担任大赛学术顾问单位<br>
+        凤凰网全程关注，打造浙江诗词明星<br>
+        （报名截止时间：2020年7月27日）</p>
+    </div>
+  </div>
+  <div class="pm">
+    <span class="zj">浙江省排行榜</span>
+    <span>|</span>
+    <span class="area">地区排行榜</span>
+  </div>
+</body>
+<script src="https://p2.ifengimg.com/l/2018/27/61a49b087c93575/jquery-1.7.2.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+
+</script>
+<script src="./scripts/html2.min.js"></script>
+<script src="./scripts/common.js"></script>
+<script src="./scripts/login.js"></script>
+<script>
+  $(function () {
+
+    function share(sheng,appellation) {
+      var shareIcon = document.getElementById('imgForShare').src,
+        shareTitle = appellation+'我在《浙江诗词大会》打败了全省' + sheng + '%的选手！',
+        shareContent = document.querySelector('meta[name=description]') ? document.querySelector(
+          'meta[name=description]')
+        .getAttribute('content') : '快来测测你的“浙江诗词”储备量！有机会与大咖同台，赢奖金奖品~',
+        shareLink = window.location.href;
+      console.log(shareTitle)
+      document.getElementById("ifeng_share_title").innerHTML = shareTitle;
+      document.getElementById("ifeng_share_thumbnail").innerHTML = shareIcon;
+      document.getElementById("ifeng_share_description").innerHTML = shareContent;
+      document.getElementById("ifeng_share_url").innerHTML = shareLink;
+      if (/MicroMessenger/.test(navigator.userAgent)) {
+        var wxConfigParams = {};
+        $.ajax({
+          url: 'https://api.cmpp.v.ifeng.com/api/Secert',
+          type: 'get',
+          dataType: 'jsonp',
+          data: {
+            url: encodeURIComponent(window.location.href),
+            _: '',
+            rt: 'jsonp',
+          },
+          success: function (data) {
+            wxConfigParams.debug = false;
+            wxConfigParams.appId = data.data.appId;
+            wxConfigParams.timestamp = data.data.timestamp;
+            wxConfigParams.nonceStr = data.data.nonceStr;
+            wxConfigParams.signature = data.data.signature;
+            wxConfigParams.jsApiList = ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ',
+              'onMenuShareQZone'
+            ];
+            wx.config(wxConfigParams);
+            wx.ready(function () {
+              wx.onMenuShareAppMessage({
+                title: shareTitle,
+                desc: shareContent,
+                link: shareLink,
+                imgUrl: shareIcon
+              });
+              wx.onMenuShareQZone({
+                title: shareTitle,
+                desc: shareContent,
+                link: shareLink,
+                imgUrl: shareIcon
+              });
+              wx.onMenuShareQQ({
+                title: shareTitle,
+                desc: shareContent,
+                link: shareLink,
+                imgUrl: shareIcon
+              });
+              wx.onMenuShareTimeline({
+                title: shareTitle,
+                link: shareLink,
+                imgUrl: shareIcon
+              });
+            });
+          },
+          error: function (data) {}
+        });
+      }
+    }
+
+
+    var rankAreaName = ''
+    var parms = {
+      "competitionCode": getQueryVariable('competitionCode'), //
+      "rankCode": '330000',
+      "rankType": "province"
+    }
+    $.ajax({
+      url: host + "/api/rank/personal/leaderboard",
+      type: "post",
+      contentType: "application/json",
+      dataType: "JSON",
+      data: JSON.stringify(parms),
+      success: function (res) {
+        if (res.code == 200) {
+          if (res.data) {
+            rankAreaName = res.data.rankAreaName 
+            $('.name').html(res.data.userName)
+            $('.sheng').html(res.data.rankProvinceName)
+            $('.sheng_ranking').html(res.data.provinceRankNum)
+            $('.dabai').html(res.data.provinceBeatRate)
+            $('.shi_ranking').html(res.data.areaNum)
+            $('.tongji span').html(res.data.countEndTime)
+
+            $('.right_ti').html(res.data.rightQuestionNum)
+            $('.right_time').html(res.data.userTime)
+            $('.tit_report_text').html(res.data.rankName)
+            var sheng = res.data.provinceBeatRate
+            var appellation = res.data.appellation
+            share(sheng,appellation)
+            setTimeout(() => {
+              canvas()
+            }, 500);
+          }
+        }
+      }
+    })
+
+    $('.zj').click(function () {
+      sessionStorage.setItem('areaVal', '浙江省')
+      sessionStorage.setItem('rankType', "province")
+      window.location.href = 'resultlist.html?rankType=province'
+    })
+    $('.area').click(function () {
+      sessionStorage.setItem('areaVal', rankAreaName)
+      window.location.href = 'resultlist.html?rankType=area&areaCode=' + sessionStorage.getItem('areaCode')
+    })
+
+    //生成图片
+    function canvas() {
+      html2canvas(document.querySelector('.report_content'), {
+        scale: 2,
+        useCORS: true,
+        /* logging:true,*/
+      }).then(function (canvas) {
+        document.body.appendChild(canvas);
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0px';
+        canvas.style.left = '0px';
+        canvas.style.width = '100%';
+        canvas.style.zIndex = 98;
+        var img = new Image();
+        document.body.appendChild(img);
+        img.style.position = 'absolute';
+        img.style.top = '0%';
+        img.style.left = '0px';
+        img.style.width = '100%';
+        img.style.zIndex = 98;
+        img.src = canvas.toDataURL("image/png");
+      })
+    }
+
+
+  })
+</script>
+
+</html>

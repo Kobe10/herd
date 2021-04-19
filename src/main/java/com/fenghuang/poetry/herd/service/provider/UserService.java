@@ -1,13 +1,15 @@
 package com.fenghuang.poetry.herd.service.provider;
 
+import com.fenghuang.poetry.herd.api.model.req.LoginUserInfoReq;
+import com.fenghuang.poetry.herd.dao.entity.CompetitionEntity;
 import com.fenghuang.poetry.herd.service.model.dto.CompetitionDto;
 import com.fenghuang.poetry.herd.service.model.dto.PageInfoDto;
 import com.fenghuang.poetry.herd.service.model.dto.UserExtraInfoDto;
 import com.fenghuang.poetry.herd.service.model.dto.UserInfoDto;
 import com.fenghuang.poetry.herd.web.model.req.QueryUserReq;
 import com.fenghuang.poetry.herd.web.model.resp.user.QueryUserCountVo;
-import com.fenghuang.poetry.herd.web.model.resp.user.QueryUserResultVo;
 import com.fenghuang.poetry.herd.web.model.resp.user.UserDetailInfoVo;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p></p>
@@ -61,7 +63,25 @@ public interface UserService {
 
     /**
      * 用户数量统计
+     *
      * @return
      */
     QueryUserCountVo countUser();
+
+    /**
+     * 校验当前用户参赛资格
+     *
+     * @param competitionEntity 参赛码详细信息
+     * @return
+     */
+    @Transactional
+    boolean checkUserEligibility(CompetitionEntity competitionEntity) throws Exception;
+
+    /**
+     * 修改用户信息
+     *
+     * @param loginUserInfoReq 用户信息
+     * @return
+     */
+    boolean updateUserInfo(LoginUserInfoReq loginUserInfoReq);
 }

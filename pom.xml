@@ -27,6 +27,7 @@
         <commons-lang3.version>3.7</commons-lang3.version>
         <gson.version>2.6.2</gson.version>
         <emoji-java.version>5.1.1</emoji-java.version>
+        <jwt.version>3.4.0</jwt.version>
         <mybatis-spring-boot-starter.version>2.0.1</mybatis-spring-boot-starter.version>
 
         <skipTests>true</skipTests>
@@ -56,6 +57,12 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+            <version>4.12</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -171,6 +178,19 @@
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
             <version>3.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
+        <!-- 接口加密依赖包       https://github.com/yinjihuan/monkey-api-encrypt/wiki/%E8%AF%A6%E7%BB%86%E9%85%8D%E7%BD%AE%E4%BD%BF%E7%94%A8-->
+        <!--        https://blog.csdn.net/fishinhouse/article/details/80566138-->
+        <dependency>
+            <groupId>com.cxytiandi</groupId>
+            <artifactId>monkey-api-encrypt-core</artifactId>
+            <version>1.2.RELEASE</version>
         </dependency>
 
         <dependency>

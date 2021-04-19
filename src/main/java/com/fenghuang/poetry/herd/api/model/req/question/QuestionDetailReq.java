@@ -32,6 +32,6 @@ public class QuestionDetailReq implements Serializable {
 
     private static final long serialVersionUID = -7592777220968777235L;
     @ApiModelProperty(notes = "问题id", value = "111112s", required = true)
-//    @NotBlank(message = "问题id不能为空")
-    private String questionId;
+    @NotBlank(message = "问题id不能为空")
+    private String questionCode;
 }

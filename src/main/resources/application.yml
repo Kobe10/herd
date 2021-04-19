@@ -14,14 +14,26 @@ spring:
   datasource:
     druid:
       url: jdbc:mysql://211.159.176.138:3306/herd?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+
       username: root
       password: wdfzq1957
       driver-class-name: com.mysql.jdbc.Driver
+  #      url: jdbc:mysql://47.111.16.228:3306/herd?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+  #      username: root
+  #      password: Fenghuang1!
+  #      driver-class-name: com.mysql.jdbc.Driver
   # 上传文件配置
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+
+  # 主从模式
+  redis:
+    database: 0
+    host: 47.111.16.228
+    password: fuzq
+    timeout: 1000000
 
   #thymeleaf模板配置
   thymeleaf:
@@ -36,6 +48,17 @@ spring:
     static-path-pattern: /**
   resources:
     static-locations: /templates/,classpath:/static/
+
+  # encrypt加密配置
+  encrypt:
+    #    加密key，必须是16位
+    key: abcdef0123456789
+    #    是否开启调试模式,默认为false,如果为true则不启用加解密操作
+    debug: true
+    requestDecyptUriList[0]: /herd/api/question/random/get
+    requestDecyptUriList[1]: /herd/api/question/submit/answer
+    responseEncryptUriList[0]: /herd/api/question/random/get
+    responseEncryptUriList[1]: /herd/api/question/submit/answer
 
 logging:
   config:
@@ -59,6 +82,7 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
   returnPageInfo: check
+
 
 management:
   endpoint:

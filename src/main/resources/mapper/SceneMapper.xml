@@ -1,177 +1,184 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fenghuang.poetry.herd.dao.SceneMapper">
-  <resultMap id="BaseResultMap" type="com.fenghuang.poetry.herd.dao.entity.SceneEntity">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="scene_code" jdbcType="VARCHAR" property="sceneCode" />
-    <result column="scene_name" jdbcType="VARCHAR" property="sceneName" />
-    <result column="scene_show_name" jdbcType="VARCHAR" property="sceneShowName" />
-    <result column="scene_show_strategy" jdbcType="VARCHAR" property="sceneShowStrategy" />
-    <result column="scene_status" jdbcType="TINYINT" property="sceneStatus" />
-    <result column="is_valid" jdbcType="TINYINT" property="isValid" />
-    <result column="is_del" jdbcType="TINYINT" property="isDel" />
-    <result column="create_id" jdbcType="VARCHAR" property="createId" />
-    <result column="last_modify_id" jdbcType="VARCHAR" property="lastModifyId" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, scene_code, scene_name, scene_show_name, scene_show_strategy, scene_status, is_valid, 
+    <resultMap id="BaseResultMap" type="com.fenghuang.poetry.herd.dao.entity.SceneEntity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="scene_code" jdbcType="VARCHAR" property="sceneCode"/>
+        <result column="scene_name" jdbcType="VARCHAR" property="sceneName"/>
+        <result column="scene_show_name" jdbcType="VARCHAR" property="sceneShowName"/>
+        <result column="scene_show_strategy" jdbcType="VARCHAR" property="sceneShowStrategy"/>
+        <result column="scene_status" jdbcType="TINYINT" property="sceneStatus"/>
+        <result column="is_valid" jdbcType="TINYINT" property="isValid"/>
+        <result column="is_del" jdbcType="TINYINT" property="isDel"/>
+        <result column="create_id" jdbcType="VARCHAR" property="createId"/>
+        <result column="last_modify_id" jdbcType="VARCHAR" property="lastModifyId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, scene_code, scene_name, scene_show_name, scene_show_strategy, scene_status, is_valid,
     is_del, create_id, last_modify_id, create_time, last_modify_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from scene
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from scene
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.fenghuang.poetry.herd.dao.entity.SceneEntity">
-    insert into scene (id, scene_code, scene_name, 
-      scene_show_name, scene_show_strategy, scene_status, 
-      is_valid, is_del, create_id, 
-      last_modify_id, create_time, last_modify_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{sceneCode,jdbcType=VARCHAR}, #{sceneName,jdbcType=VARCHAR}, 
-      #{sceneShowName,jdbcType=VARCHAR}, #{sceneShowStrategy,jdbcType=VARCHAR}, #{sceneStatus,jdbcType=TINYINT}, 
-      #{isValid,jdbcType=TINYINT}, #{isDel,jdbcType=TINYINT}, #{createId,jdbcType=VARCHAR}, 
-      #{lastModifyId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.fenghuang.poetry.herd.dao.entity.SceneEntity">
-    insert into scene
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="sceneCode != null">
-        scene_code,
-      </if>
-      <if test="sceneName != null">
-        scene_name,
-      </if>
-      <if test="sceneShowName != null">
-        scene_show_name,
-      </if>
-      <if test="sceneShowStrategy != null">
-        scene_show_strategy,
-      </if>
-      <if test="sceneStatus != null">
-        scene_status,
-      </if>
-      <if test="isValid != null">
-        is_valid,
-      </if>
-      <if test="isDel != null">
-        is_del,
-      </if>
-      <if test="createId != null">
-        create_id,
-      </if>
-      <if test="lastModifyId != null">
-        last_modify_id,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="lastModifyTime != null">
-        last_modify_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="sceneCode != null">
-        #{sceneCode,jdbcType=VARCHAR},
-      </if>
-      <if test="sceneName != null">
-        #{sceneName,jdbcType=VARCHAR},
-      </if>
-      <if test="sceneShowName != null">
-        #{sceneShowName,jdbcType=VARCHAR},
-      </if>
-      <if test="sceneShowStrategy != null">
-        #{sceneShowStrategy,jdbcType=VARCHAR},
-      </if>
-      <if test="sceneStatus != null">
-        #{sceneStatus,jdbcType=TINYINT},
-      </if>
-      <if test="isValid != null">
-        #{isValid,jdbcType=TINYINT},
-      </if>
-      <if test="isDel != null">
-        #{isDel,jdbcType=TINYINT},
-      </if>
-      <if test="createId != null">
-        #{createId,jdbcType=VARCHAR},
-      </if>
-      <if test="lastModifyId != null">
-        #{lastModifyId,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastModifyTime != null">
-        #{lastModifyTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fenghuang.poetry.herd.dao.entity.SceneEntity">
-    update scene
-    <set>
-      <if test="sceneCode != null">
-        scene_code = #{sceneCode,jdbcType=VARCHAR},
-      </if>
-      <if test="sceneName != null">
-        scene_name = #{sceneName,jdbcType=VARCHAR},
-      </if>
-      <if test="sceneShowName != null">
-        scene_show_name = #{sceneShowName,jdbcType=VARCHAR},
-      </if>
-      <if test="sceneShowStrategy != null">
-        scene_show_strategy = #{sceneShowStrategy,jdbcType=VARCHAR},
-      </if>
-      <if test="sceneStatus != null">
-        scene_status = #{sceneStatus,jdbcType=TINYINT},
-      </if>
-      <if test="isValid != null">
-        is_valid = #{isValid,jdbcType=TINYINT},
-      </if>
-      <if test="isDel != null">
-        is_del = #{isDel,jdbcType=TINYINT},
-      </if>
-      <if test="createId != null">
-        create_id = #{createId,jdbcType=VARCHAR},
-      </if>
-      <if test="lastModifyId != null">
-        last_modify_id = #{lastModifyId,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastModifyTime != null">
-        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.fenghuang.poetry.herd.dao.entity.SceneEntity">
-    update scene
-    set scene_code = #{sceneCode,jdbcType=VARCHAR},
-      scene_name = #{sceneName,jdbcType=VARCHAR},
-      scene_show_name = #{sceneShowName,jdbcType=VARCHAR},
-      scene_show_strategy = #{sceneShowStrategy,jdbcType=VARCHAR},
-      scene_status = #{sceneStatus,jdbcType=TINYINT},
-      is_valid = #{isValid,jdbcType=TINYINT},
-      is_del = #{isDel,jdbcType=TINYINT},
-      create_id = #{createId,jdbcType=VARCHAR},
-      last_modify_id = #{lastModifyId,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from scene
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectAllList" resultMap="BaseResultMap">
+        select *
+        from scene
+        where is_del = 0
+        order by id
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from scene
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.fenghuang.poetry.herd.dao.entity.SceneEntity">
+        insert into scene (id, scene_code, scene_name,
+                           scene_show_name, scene_show_strategy, scene_status,
+                           is_valid, is_del, create_id,
+                           last_modify_id, create_time, last_modify_time)
+        values (#{id,jdbcType=INTEGER}, #{sceneCode,jdbcType=VARCHAR}, #{sceneName,jdbcType=VARCHAR},
+                #{sceneShowName,jdbcType=VARCHAR}, #{sceneShowStrategy,jdbcType=VARCHAR},
+                #{sceneStatus,jdbcType=TINYINT},
+                #{isValid,jdbcType=TINYINT}, #{isDel,jdbcType=TINYINT}, #{createId,jdbcType=VARCHAR},
+                #{lastModifyId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+                #{lastModifyTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.fenghuang.poetry.herd.dao.entity.SceneEntity">
+        insert into scene
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sceneCode != null">
+                scene_code,
+            </if>
+            <if test="sceneName != null">
+                scene_name,
+            </if>
+            <if test="sceneShowName != null">
+                scene_show_name,
+            </if>
+            <if test="sceneShowStrategy != null">
+                scene_show_strategy,
+            </if>
+            <if test="sceneStatus != null">
+                scene_status,
+            </if>
+            <if test="isValid != null">
+                is_valid,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="lastModifyId != null">
+                last_modify_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="sceneCode != null">
+                #{sceneCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sceneName != null">
+                #{sceneName,jdbcType=VARCHAR},
+            </if>
+            <if test="sceneShowName != null">
+                #{sceneShowName,jdbcType=VARCHAR},
+            </if>
+            <if test="sceneShowStrategy != null">
+                #{sceneShowStrategy,jdbcType=VARCHAR},
+            </if>
+            <if test="sceneStatus != null">
+                #{sceneStatus,jdbcType=TINYINT},
+            </if>
+            <if test="isValid != null">
+                #{isValid,jdbcType=TINYINT},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyId != null">
+                #{lastModifyId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fenghuang.poetry.herd.dao.entity.SceneEntity">
+        update scene
+        <set>
+            <if test="sceneCode != null">
+                scene_code = #{sceneCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sceneName != null">
+                scene_name = #{sceneName,jdbcType=VARCHAR},
+            </if>
+            <if test="sceneShowName != null">
+                scene_show_name = #{sceneShowName,jdbcType=VARCHAR},
+            </if>
+            <if test="sceneShowStrategy != null">
+                scene_show_strategy = #{sceneShowStrategy,jdbcType=VARCHAR},
+            </if>
+            <if test="sceneStatus != null">
+                scene_status = #{sceneStatus,jdbcType=TINYINT},
+            </if>
+            <if test="isValid != null">
+                is_valid = #{isValid,jdbcType=TINYINT},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyId != null">
+                last_modify_id = #{lastModifyId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fenghuang.poetry.herd.dao.entity.SceneEntity">
+        update scene
+        set scene_code          = #{sceneCode,jdbcType=VARCHAR},
+            scene_name          = #{sceneName,jdbcType=VARCHAR},
+            scene_show_name     = #{sceneShowName,jdbcType=VARCHAR},
+            scene_show_strategy = #{sceneShowStrategy,jdbcType=VARCHAR},
+            scene_status        = #{sceneStatus,jdbcType=TINYINT},
+            is_valid            = #{isValid,jdbcType=TINYINT},
+            is_del              = #{isDel,jdbcType=TINYINT},
+            create_id           = #{createId,jdbcType=VARCHAR},
+            last_modify_id      = #{lastModifyId,jdbcType=VARCHAR},
+            create_time         = #{createTime,jdbcType=TIMESTAMP},
+            last_modify_time    = #{lastModifyTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

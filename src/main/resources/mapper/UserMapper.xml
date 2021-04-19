@@ -11,6 +11,7 @@
         <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
         <result column="school" jdbcType="VARCHAR" property="school"/>
         <result column="grade" jdbcType="VARCHAR" property="grade"/>
+        <result column="is_verify" jdbcType="INTEGER" property="isVerify"/>
         <result column="is_del" jdbcType="INTEGER" property="isDel"/>
         <result column="create_id" jdbcType="VARCHAR" property="createId"/>
         <result column="last_modify_id" jdbcType="VARCHAR" property="lastModifyId"/>
@@ -18,9 +19,9 @@
         <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, `uid`, user_name, phone, wx_num, province_code, area_code, school, grade, is_del,
+        id, `uid`, user_name, phone, wx_num, province_code, area_code, school, grade, is_verify, is_del,
     create_id, last_modify_id, create_time, last_modify_time
-  </sql>
+    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -28,7 +29,11 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <select id="findUserByNameAndPhone" resultMap="BaseResultMap">
-      select * from user where is_del = 0 and user_name = #{userName} and phone = #{phone};
+        select *
+        from user
+        where is_del = 0
+          and user_name = #{userName}
+          and phone = #{phone};
     </select>
     <select id="countUser" resultType="com.fenghuang.poetry.herd.service.model.dto.UserCountResultDto">
         select u.area_code as areaCode, count(u.uid) as userNum
@@ -36,7 +41,8 @@
         group by u.area_code;
     </select>
     <select id="countAll" resultType="java.lang.Integer">
-        select count(uid) from user;
+        select count(uid)
+        from user;
     </select>
     <select id="findUserListByCondition" resultMap="BaseResultMap">
         select *
@@ -53,22 +59,30 @@
             and phone like CONCAT(CONCAT('%', #{phone}), '%')
         </if>
     </select>
+    <select id="findUserByUid" resultMap="BaseResultMap">
+        select *
+        from user
+        where is_del = 0
+          and uid = #{uid};
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+        delete
+        from user
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="com.fenghuang.poetry.herd.dao.entity.UserEntity">
-    insert into user (id, `uid`, user_name, 
-      phone, wx_num, province_code, 
-      area_code, school, grade,
-      is_del, create_id, last_modify_id, 
-      create_time, last_modify_time)
-    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{wxNum,jdbcType=VARCHAR}, #{provinceCode,jdbcType=VARCHAR}, 
-      #{areaCode,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR},
-      #{isDel,jdbcType=INTEGER}, #{createId,jdbcType=VARCHAR}, #{lastModifyId,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP})
-  </insert>
+        insert into user (id, `uid`, user_name,
+                          phone, wx_num, province_code,
+                          area_code, school, grade, is_verify,
+                          is_del, create_id, last_modify_id,
+                          create_time, last_modify_time)
+        values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+                #{phone,jdbcType=VARCHAR}, #{wxNum,jdbcType=VARCHAR}, #{provinceCode,jdbcType=VARCHAR},
+                #{areaCode,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR},
+                #{isVerify,jdbcType=INTEGER},
+                #{isDel,jdbcType=INTEGER}, #{createId,jdbcType=VARCHAR}, #{lastModifyId,jdbcType=VARCHAR},
+                #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP})
+    </insert>
     <insert id="insertSelective" parameterType="com.fenghuang.poetry.herd.dao.entity.UserEntity">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -98,6 +112,9 @@
             </if>
             <if test="grade != null">
                 grade,
+            </if>
+            <if test="isVerify != null">
+                is_verify,
             </if>
             <if test="isDel != null">
                 is_del,
@@ -146,6 +163,9 @@
             <if test="isDel != null">
                 #{isDel,jdbcType=INTEGER},
             </if>
+            <if test="isVerify != null">
+                #{isVerify,jdbcType=INTEGER},
+            </if>
             <if test="createId != null">
                 #{createId,jdbcType=VARCHAR},
             </if>
@@ -187,6 +207,9 @@
             <if test="grade != null">
                 grade = #{grade,jdbcType=VARCHAR},
             </if>
+            <if test="isVerify != null">
+                is_verify = #{isVerify,jdbcType=INTEGER},
+            </if>
             <if test="isDel != null">
                 is_del = #{isDel,jdbcType=INTEGER},
             </if>
@@ -206,20 +229,21 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.fenghuang.poetry.herd.dao.entity.UserEntity">
-    update user
-    set `uid` = #{uid,jdbcType=VARCHAR},
-      user_name = #{userName,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      wx_num = #{wxNum,jdbcType=VARCHAR},
-      province_code = #{provinceCode,jdbcType=VARCHAR},
-      area_code = #{areaCode,jdbcType=VARCHAR},
-      school = #{school,jdbcType=VARCHAR},
-      grade = #{grade,jdbcType=VARCHAR},
-      is_del = #{isDel,jdbcType=INTEGER},
-      create_id = #{createId,jdbcType=VARCHAR},
-      last_modify_id = #{lastModifyId,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        update user
+        set `uid`            = #{uid,jdbcType=VARCHAR},
+            user_name        = #{userName,jdbcType=VARCHAR},
+            phone            = #{phone,jdbcType=VARCHAR},
+            wx_num           = #{wxNum,jdbcType=VARCHAR},
+            province_code    = #{provinceCode,jdbcType=VARCHAR},
+            area_code        = #{areaCode,jdbcType=VARCHAR},
+            school           = #{school,jdbcType=VARCHAR},
+            grade            = #{grade,jdbcType=VARCHAR},
+            is_verify        = #{isVerify,jdbcType=INTEGER},
+            is_del           = #{isDel,jdbcType=INTEGER},
+            create_id        = #{createId,jdbcType=VARCHAR},
+            last_modify_id   = #{lastModifyId,jdbcType=VARCHAR},
+            create_time      = #{createTime,jdbcType=TIMESTAMP},
+            last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

@@ -7,6 +7,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+
 /**
  * <p></p>
  * <p>
@@ -26,30 +30,29 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(value = "登录用户返回信息")
-public class LoginUserInfoVo {
+@ApiModel(value = "用户详细信息")
+public class LoginUserInfoVo implements Serializable {
+
+    private static final long serialVersionUID = 5884720811382830075L;
+
+    @ApiModelProperty(notes = "用户uid")
+    private String uid;
 
     @ApiModelProperty(notes = "用户姓名")
     private String userName;
 
-    @ApiModelProperty(notes = "用户UID")
-    private String uid;
+    @ApiModelProperty(notes = "用户电话")
+    private String phone;
 
-    @ApiModelProperty(notes = "参赛码")
-    private String competitionCode;
+    @ApiModelProperty(notes = "微信号")
+    private String wxNum;
 
-    @ApiModelProperty(notes = "地区编码")
+    @ApiModelProperty(notes = "赛区编码")
     private String areaCode;
 
-    @ApiModelProperty(notes = "用户处于比赛阶段编码")
-    private String stageCode;
+    @ApiModelProperty(notes = "学校")
+    private String school;
 
-    @ApiModelProperty(notes = "用户处于比赛阶段编码")
-    private String stageName;
-
-    @ApiModelProperty(notes = "场景编码")
-    private String sceneCode;
-
-    @ApiModelProperty(notes = "场景名称")
-    private String sceneName;
+    @ApiModelProperty(notes = "年级")
+    private String grade;
 }

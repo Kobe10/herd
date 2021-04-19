@@ -34,12 +34,12 @@ public class RandomQuestionVo implements Serializable {
 
     private static final long serialVersionUID = -178967570204061848L;
 
+    @ApiModelProperty(notes = "答卷单 ----  提交答题时需要用到")
+    private String pageOrderCode;
+
     @ApiModelProperty(notes = "比赛详细信息")
     private CompetitionInfoVo competitionInfoVo;
 
     @ApiModelProperty(notes = "问题详情列表")
     private List<QuestionDetailVo> questionIdVoList;
-
-    @ApiModelProperty(notes = "问题规则")
-    private CompetitionRuleInfoVo competitionRuleInfoVo;
 }

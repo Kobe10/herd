@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fenghuang.poetry.herd.dao.QuestionMapper">
+    <resultMap id="BaseResultMap" type="com.fenghuang.poetry.herd.dao.entity.QuestionEntity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="bank_code" jdbcType="VARCHAR" property="bankCode"/>
+        <result column="question_code" jdbcType="VARCHAR" property="questionCode"/>
+        <result column="question_title" jdbcType="VARCHAR" property="questionTitle"/>
+        <result column="question_desc" jdbcType="VARCHAR" property="questionDesc"/>
+        <result column="question_type" jdbcType="VARCHAR" property="questionType"/>
+        <result column="option_count" jdbcType="INTEGER" property="optionCount"/>
+        <result column="difficult" jdbcType="VARCHAR" property="difficult"/>
+        <result column="answer" jdbcType="VARCHAR" property="answer"/>
+        <result column="order_value" jdbcType="INTEGER" property="orderValue"/>
+        <result column="is_del" jdbcType="INTEGER" property="isDel"/>
+        <result column="create_id" jdbcType="VARCHAR" property="createId"/>
+        <result column="last_modify_id" jdbcType="VARCHAR" property="lastModifyId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, bank_code, question_code, question_title, question_desc, question_type, option_count,
+    difficult, answer, order_value, is_del, create_id, last_modify_id, create_time, last_modify_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from question
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="getQuestionByStrategy" resultMap="BaseResultMap">
+        SELECT *
+        FROM `question` AS t1
+                 left join (select ROUND(RAND() * (SELECT MAX(id) FROM `question`)) AS id) AS t2 on 1
+        WHERE t1.bank_code = #{questionBankCode}
+          and difficult = #{difficult}
+          and t1.is_del = 0
+          and t1.id >= t2.id
+        ORDER BY t1.id
+        LIMIT #{pageSize};
+    </select>
+    <select id="selectQuestionByCodeList" resultMap="BaseResultMap">
+        select *
+        from question
+        where is_del = 0
+        and question_code in
+        <foreach item="item" index="index" collection="questionCodeList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="selectAll" resultType="java.lang.String">
+        select question_code
+        from question
+        where is_del = 0
+    </select>
+    <select id="getQuestionById" resultMap="BaseResultMap">
+        select *
+        from question
+        where is_del = 0
+        and id in
+        <foreach item="item" index="index" collection="questionIdList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        order by id
+    </select>
+    <select id="getQuestionByStrategyAll" resultMap="BaseResultMap">
+        select *
+        from question
+        where is_del = 0
+          and bank_code = #{questionBankCode}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from question
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.fenghuang.poetry.herd.dao.entity.QuestionEntity">
+        insert into question (id, bank_code, question_code,
+                              question_title, question_desc, question_type,
+                              option_count, difficult, answer,
+                              order_value, is_del, create_id,
+                              last_modify_id, create_time, last_modify_time)
+        values (#{id,jdbcType=INTEGER}, #{bankCode,jdbcType=VARCHAR}, #{questionCode,jdbcType=VARCHAR},
+                #{questionTitle,jdbcType=VARCHAR}, #{questionDesc,jdbcType=VARCHAR}, #{questionType,jdbcType=VARCHAR},
+                #{optionCount,jdbcType=INTEGER}, #{difficult,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR},
+                #{orderValue,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{createId,jdbcType=VARCHAR},
+                #{lastModifyId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+                #{lastModifyTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.fenghuang.poetry.herd.dao.entity.QuestionEntity">
+        insert into question
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="bankCode != null">
+                bank_code,
+            </if>
+            <if test="questionCode != null">
+                question_code,
+            </if>
+            <if test="questionTitle != null">
+                question_title,
+            </if>
+            <if test="questionDesc != null">
+                question_desc,
+            </if>
+            <if test="questionType != null">
+                question_type,
+            </if>
+            <if test="optionCount != null">
+                option_count,
+            </if>
+            <if test="difficult != null">
+                difficult,
+            </if>
+            <if test="answer != null">
+                answer,
+            </if>
+            <if test="orderValue != null">
+                order_value,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="lastModifyId != null">
+                last_modify_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="bankCode != null">
+                #{bankCode,jdbcType=VARCHAR},
+            </if>
+            <if test="questionCode != null">
+                #{questionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="questionTitle != null">
+                #{questionTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="questionDesc != null">
+                #{questionDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="questionType != null">
+                #{questionType,jdbcType=VARCHAR},
+            </if>
+            <if test="optionCount != null">
+                #{optionCount,jdbcType=INTEGER},
+            </if>
+            <if test="difficult != null">
+                #{difficult,jdbcType=VARCHAR},
+            </if>
+            <if test="answer != null">
+                #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="orderValue != null">
+                #{orderValue,jdbcType=INTEGER},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=INTEGER},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyId != null">
+                #{lastModifyId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fenghuang.poetry.herd.dao.entity.QuestionEntity">
+        update question
+        <set>
+            <if test="bankCode != null">
+                bank_code = #{bankCode,jdbcType=VARCHAR},
+            </if>
+            <if test="questionCode != null">
+                question_code = #{questionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="questionTitle != null">
+                question_title = #{questionTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="questionDesc != null">
+                question_desc = #{questionDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="questionType != null">
+                question_type = #{questionType,jdbcType=VARCHAR},
+            </if>
+            <if test="optionCount != null">
+                option_count = #{optionCount,jdbcType=INTEGER},
+            </if>
+            <if test="difficult != null">
+                difficult = #{difficult,jdbcType=VARCHAR},
+            </if>
+            <if test="answer != null">
+                answer = #{answer,jdbcType=VARCHAR},
+            </if>
+            <if test="orderValue != null">
+                order_value = #{orderValue,jdbcType=INTEGER},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=INTEGER},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyId != null">
+                last_modify_id = #{lastModifyId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fenghuang.poetry.herd.dao.entity.QuestionEntity">
+        update question
+        set bank_code        = #{bankCode,jdbcType=VARCHAR},
+            question_code    = #{questionCode,jdbcType=VARCHAR},
+            question_title   = #{questionTitle,jdbcType=VARCHAR},
+            question_desc    = #{questionDesc,jdbcType=VARCHAR},
+            question_type    = #{questionType,jdbcType=VARCHAR},
+            option_count     = #{optionCount,jdbcType=INTEGER},
+            difficult        = #{difficult,jdbcType=VARCHAR},
+            answer           = #{answer,jdbcType=VARCHAR},
+            order_value      = #{orderValue,jdbcType=INTEGER},
+            is_del           = #{isDel,jdbcType=INTEGER},
+            create_id        = #{createId,jdbcType=VARCHAR},
+            last_modify_id   = #{lastModifyId,jdbcType=VARCHAR},
+            create_time      = #{createTime,jdbcType=TIMESTAMP},
+            last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

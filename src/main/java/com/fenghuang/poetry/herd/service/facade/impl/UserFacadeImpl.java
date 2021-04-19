@@ -5,16 +5,22 @@ import com.fenghuang.poetry.herd.api.model.req.QueryApplyInfoReq;
 import com.fenghuang.poetry.herd.api.model.resp.ApplyInfoVo;
 import com.fenghuang.poetry.herd.api.model.resp.CompetitionCodeInfoVo;
 import com.fenghuang.poetry.herd.common.enums.*;
+import com.fenghuang.poetry.herd.common.web.Resp;
+import com.fenghuang.poetry.herd.dao.SceneMapper;
+import com.fenghuang.poetry.herd.dao.entity.SceneEntity;
 import com.fenghuang.poetry.herd.service.facade.UserFacade;
 import com.fenghuang.poetry.herd.service.model.dto.CompetitionDto;
 import com.fenghuang.poetry.herd.service.model.dto.UserExtraInfoDto;
 import com.fenghuang.poetry.herd.service.model.dto.UserInfoDto;
 import com.fenghuang.poetry.herd.service.provider.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -37,6 +43,9 @@ import java.util.Objects;
 public class UserFacadeImpl implements UserFacade {
     @Autowired
     private UserService userService;
+
+    @Resource
+    private SceneMapper sceneMapper;
 
     /**
      * 海选报名
@@ -80,8 +89,20 @@ public class UserFacadeImpl implements UserFacade {
                 .build();
 
         UserInfoDto userInfo = userService.checkUserIsExist(userInfoDto);
+        // 查询场景编码： 默认是初赛； 依次遍历； 如果当前场景有效，那就使用当前场景，否则递归使用下一个场景
+        List<SceneEntity> allSceneList = sceneMapper.selectAllList();
+        if (CollectionUtils.isEmpty(allSceneList)) {
+
+        }
+        String sceneCode = "FS";
+        for (SceneEntity sceneEntity : allSceneList) {
+            if (sceneEntity.getSceneStatus() == 1) {
+                sceneCode = sceneEntity.getSceneCode();
+                break;
+            }
+        }
         if (!Objects.isNull(userInfo)) {
-            CompetitionDto competitionDto = userService.findCompetitionCode(userInfo.getUid(), "HX");
+            CompetitionDto competitionDto = userService.findCompetitionCode(userInfo.getUid(), sceneCode);
             if (!Objects.isNull(competitionDto)) {
                 CompetitionCodeInfoVo competitionCodeInfoVo = new CompetitionCodeInfoVo();
                 BeanUtils.copyProperties(competitionDto, competitionCodeInfoVo);

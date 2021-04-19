@@ -31,18 +31,24 @@ import java.io.Serializable;
 public class AnswerInfoReq implements Serializable {
 
     private static final long serialVersionUID = 4209569127767728022L;
-    @ApiModelProperty(notes = "是否为答案", value = "0 不是答案   1 是提交上来的答案", required = true)
-//    @NotBlank(message = "标记为空")
+    @ApiModelProperty(notes = "是否为答案", value = "0 不是答案   1 用户提交上来的答案", required = true)
+    @NotBlank(message = "答案标记不能为空")
     private Integer isAnswer;
 
-    @ApiModelProperty(notes = "问题id", value = "asdfadf", required = true)
-//    @NotBlank(message = "问题id不能为空")
-    private String questionId;
+    @ApiModelProperty(notes = "问题id", value = "quxxxxxxx", required = true)
+    @NotBlank(message = "问题编码不能为空")
+    private String questionCode;
+
+    @ApiModelProperty(notes = "选项编码", value = "如果是选择题就传   填空题传null")
+    private String optionCode;
 
     @ApiModelProperty(notes = "问题类型", value = "radio:单选 Multiple:多选 blank:填空", required = true)
-//    @NotBlank(message = "问题类型不能为空")
+    @NotBlank(message = "问题类型不能为空")
     private String questionType;
 
     @ApiModelProperty(notes = "用户填写答案", value = "单选:A   多选:ABC  填空:xxxx", required = true)
     private String userAnswer;
+
+    @ApiModelProperty(notes = "问题的顺序  必须提交后端返回的顺序id", value = "1", required = true)
+    private Integer questionOrderValue;
 }

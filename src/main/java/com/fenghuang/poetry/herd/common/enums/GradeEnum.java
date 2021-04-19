@@ -64,4 +64,16 @@ public enum GradeEnum {
         }
         return other;
     }
+
+    public static GradeEnum getByCodeForUpdate(String code) {
+        if (StringUtils.isBlank(code)) {
+            return null;
+        }
+        for (GradeEnum canShowStatusEnum : GradeEnum.values()) {
+            if (canShowStatusEnum.getCode().equals(code.trim())) {
+                return canShowStatusEnum;
+            }
+        }
+        return null;
+    }
 }

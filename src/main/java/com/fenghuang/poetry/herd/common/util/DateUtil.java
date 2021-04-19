@@ -203,6 +203,26 @@ public final class DateUtil {
     }
 
     /**
+     * 将日期对象转换为yyyyMMddHHmmss格式字符串
+     *
+     * @param date 时间对象
+     * @return
+     */
+    public static String toStringmdHms(Date date) {
+        String strDate =  (new SimpleDateFormat("yyyyMMddHHmmss")).format(date);
+
+        String year = strDate.substring(0,4);
+        String month = strDate.substring(4,6);
+        String day = strDate.substring(6,8);
+        String hour = strDate.substring(8,10);
+        String minute = strDate.substring(10,12);
+
+        return String.format("%s月%s日%s时%s分", month, day, hour, minute);
+
+    }
+
+
+    /**
      * 将yyyyMMddHHmmss格式字符串转换为日期对象
      *
      * @param dateStr yyyyMMddHHmmss格式字符串
@@ -617,6 +637,63 @@ public final class DateUtil {
         long seconds = (mss % (1000 * 60)) / 1000;
         return days + " 天 " + hours + " 小时 " + minutes + " 分 "
                 + seconds + " 秒 ";
+    }
+
+    public static String secToTime(int time) {
+        String timeStr = null;
+        int hour = 0;
+        int minute = 0;
+        int second = 0;
+        if (time <= 0)
+            return "00:00";
+        else {
+            minute = time / 60;
+            if (minute < 60) {
+                second = time % 60;
+                timeStr = unitFormat(minute) + ":" + unitFormat(second);
+            } else {
+                hour = minute / 60;
+                if (hour > 99)
+                    return "99:59:59";
+                minute = minute % 60;
+                second = time - hour * 3600 - minute * 60;
+                timeStr = unitFormat(hour) + ":" + unitFormat(minute) + ":" + unitFormat(second);
+            }
+        }
+        return timeStr;
+    }
+
+    public static String secToTimeChinese(int time) {
+        String timeStr = null;
+        int hour = 0;
+        int minute = 0;
+        int second = 0;
+        if (time <= 0)
+            return "00分00秒";
+        else {
+            minute = time / 60;
+            if (minute < 60) {
+                second = time % 60;
+                timeStr = unitFormat(minute) + "分" + unitFormat(second) + "秒";
+            } else {
+                hour = minute / 60;
+                if (hour > 99)
+                    return "99:59:59";
+                minute = minute % 60;
+                second = time - hour * 3600 - minute * 60;
+                timeStr = unitFormat(hour) + ":" + unitFormat(minute) + ":" + unitFormat(second);
+            }
+        }
+        return timeStr;
+    }
+
+    public static String unitFormat(int i) {
+        String retStr = null;
+        if (i >= 0 && i < 10)
+            retStr = "0" + Integer.toString(i);
+        else
+            retStr = "" + i;
+        return retStr;
     }
 }
 

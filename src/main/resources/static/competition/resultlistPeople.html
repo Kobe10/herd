@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="description" content="究竟谁能脱颖而出，摘得市级决赛的桂冠？" />
+  <link rel="stylesheet" href="./style/home.css" />
+  <title>《浙江诗词大会》市级决赛今日正式开赛！</title>
+</head>
+
+<body>
+  <img id="imgForShare" style="position: fixed; left: -1000%; top: -1000%;"
+    src="http://x0.ifengimg.com/cmpp/2020_31/eca1633215d8a82_size62_w300_h300.png" alt="分享缩略图" />
+  <div id="ifeng_share_thumbnail" style="display:none"></div>
+  <div id="ifeng_share_title" style="display:none"></div>
+  <div id="ifeng_share_description" style="display:none"></div>
+  <div id="ifeng_share_url" style="display:none"></div>
+  <div class="phb_content">
+    <div class="content_list listContent-result">
+      <!-- <div class="xian"> -->
+      <div class="tit_list_img_index"></div>
+      <div class="addName"><span>浙江省</span>排行榜</div>
+      <div class="searchResult">
+        <input type="text" placeholder="输入报名码查询成绩" class="resultInput">
+        <div class="submitResult">查询</div>
+      </div>
+      <div class="result_table">
+        <table border="0" cellspacing="1" cellpadding="0">
+          <thead>
+            <tr>
+              <td>排名</td>
+              <td>姓名</td>
+              <td>学校</td>
+              <td>正确数</td>
+              <td>完成时间</td>
+            </tr>
+          </thead>
+          <tbody class="phbList">
+            
+          </tbody>
+        </table>
+      </div>
+      <!-- </div> -->
+    </div>
+    <div class="tc"></div>
+    <div class="back"></div>
+  </div>
+</body>
+<script src="https://p2.ifengimg.com/l/2018/27/61a49b087c93575/jquery-1.7.2.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script>
+  var shareIcon = document.getElementById('imgForShare').src,
+    shareTitle = '《浙江诗词大会》市级决赛今日正式开赛！',
+    shareContent = document.querySelector('meta[name=description]') ? document.querySelector('meta[name=description]')
+    .getAttribute('content') : '究竟谁能脱颖而出，摘得市级决赛的桂冠？',
+    shareLink = window.location.href;
+  document.getElementById("ifeng_share_title").innerHTML = shareTitle;
+  document.getElementById("ifeng_share_thumbnail").innerHTML = shareIcon;
+  document.getElementById("ifeng_share_description").innerHTML = shareContent;
+  document.getElementById("ifeng_share_url").innerHTML = shareLink;
+  if (/MicroMessenger/.test(navigator.userAgent)) {
+    var wxConfigParams = {};
+    $.ajax({
+      url: 'https://api.cmpp.v.ifeng.com/api/Secert',
+      type: 'get',
+      dataType: 'jsonp',
+      data: {
+        url: encodeURIComponent(window.location.href),
+        _: '',
+        rt: 'jsonp',
+      },
+      success: function (data) {
+        wxConfigParams.debug = false;
+        wxConfigParams.appId = data.data.appId;
+        wxConfigParams.timestamp = data.data.timestamp;
+        wxConfigParams.nonceStr = data.data.nonceStr;
+        wxConfigParams.signature = data.data.signature;
+        wxConfigParams.jsApiList = ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ',
+          'onMenuShareQZone'
+        ];
+        wx.config(wxConfigParams);
+        wx.ready(function () {
+          wx.onMenuShareAppMessage({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareQZone({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareQQ({
+            title: shareTitle,
+            desc: shareContent,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+          wx.onMenuShareTimeline({
+            title: shareTitle,
+            link: shareLink,
+            imgUrl: shareIcon
+          });
+        });
+      },
+      error: function (data) {}
+    });
+  }
+</script>
+<script src="./scripts/common.js"></script>
+<!-- <script src="./scripts/login.js"></script> -->
+<script>
+  $(function () {
+    var submitResult = $('.submitResult'),
+      phbList = $('.phbList');
+    $('.addName span').html(sessionStorage.getItem('areaVal'))
+    var areaCode = getQueryVariable('areaCode') ? getQueryVariable('areaCode') : null
+    var provinceCode = getQueryVariable('provinceCode') ? getQueryVariable('provinceCode') : null
+    var rankType = getQueryVariable('rankType')
+    var competitionCode = sessionStorage.getItem('competitionCode')
+
+    provinAjax(competitionCode)
+
+    function provinAjax(competitionCode) {
+      $.ajax({
+        url: host + "/api/rank/all/leaderboard",
+        type: "post",
+        contentType: "application/json",
+        dataType: "JSON",
+        data: JSON.stringify({
+          "areaCode": areaCode,
+          "competitionCode": null,
+          "provinceCode": '330000',
+          "rankType": rankType
+        }),
+        success: function (res) {
+          if (res.code == 200) {
+            if (res.data) {
+              var phbList = $('.phbList');
+              var phbListHtml = '';
+              res.data.forEach(element => {
+                phbListHtml += "<tr><td>" + element.rank + "</td><td>" + element.userName + "</td><td>" +
+                  element.school + "</td><td>" + element.rightSubjectNum + "</td><td>" + element
+                  .userTime + "</td></tr>"
+              });
+              phbList.html(phbListHtml)
+
+            } else {
+              alert(res.message)
+            }
+          }
+        }
+      })
+    }
+
+    submitResult.click(function () {
+      tc = $('.tc')
+      debugger
+      var resultInput = $('.resultInput').val().trim();
+      var parms;
+
+      // //判断登录
+      // if (sessionStorage.getItem('competitionCode')) {
+      //   debugger
+      //   $.ajax({
+      //     url: host + "/api/base/login",
+      //     type: "post",
+      //     contentType: "application/json",
+      //     dataType: "JSON",
+      //     data: JSON.stringify({
+      //       "competitionCode": resultInput
+      //     }),
+      //     success: function (res) {
+      //       if (res.code == 200) {
+      //         if (getQueryVariable('rankType') == 'province') { //省的
+      //           parms = { //参赛码、省code、省参
+      //             "competitionCode": resultInput, //sessionStorage.getItem('competitionCode')
+      //             "rankCode": '330000',
+      //             "rankType": 'province'
+      //           }
+      //         } else {
+      //           parms = {
+      //             "competitionCode": resultInput, //sessionStorage.getItem('competitionCode')
+      //             "rankCode": getQueryVariable('areaCode'),
+      //             "rankType": 'area'
+      //           } //
+      //         }
+
+      //       } else {
+      //         console.log(222)
+      //         window.location.replace('../index_home.html')
+      //       }
+      //     }
+      //   })
+
+      //   //window.location.replace('../index_home.html')
+      //   //competitionCode = sessionStorage.getItem('competitionCode')
+      // }
+
+
+
+
+      $.ajax({
+        url: host + "/api/rank/personal/leaderboard",
+        type: "post",
+        contentType: "application/json",
+        dataType: "JSON",
+        data: JSON.stringify(parms),
+        success: function (res) {
+          if (res.code == 200 && res.data) { //\u6d59\u6c5f\u7701  
+            if (getQueryVariable('provinceCode') == '330000') {
+              history.go(-100)
+              window.location.replace('./report_shenglist.shtml?rankCode=330000&competitionCode=' +
+                resultInput + '&rankType=province')
+
+
+            } else {
+              history.go(-100)
+              window.location.replace('./report_diqulist.shtml?rankCode=' + getQueryVariable('areaCode') +
+                '&competitionCode=' + resultInput + '&rankType=area')
+            }
+          } else {
+            tc.show()
+            tc.html(res.message)
+            setTimeout(function () {
+              tc.hide()
+            }, 3000)
+          }
+        }
+      })
+
+
+    })
+
+    $('.back').click(function () {
+      history.go(-100)
+      window.location.replace('./index_home.shtml')
+    })
+  })
+</script>
+
+</html>

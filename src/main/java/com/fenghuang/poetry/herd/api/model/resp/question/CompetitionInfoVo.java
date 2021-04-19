@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
@@ -40,7 +41,12 @@ public class CompetitionInfoVo implements Serializable {
     private Integer competitionDuration;
 
     @ApiModelProperty(notes = "开始答题时间   ", value = "2020-05-12 12:12:12")
-    private Timestamp startAnswerTime;
+    private String startAnswerTime;
 
+    @ApiModelProperty(notes = "截止答题时间   ", value = "2020-05-12 12:12:12")
+    private String endAnswerTime;
+
+    @ApiModelProperty(notes = "比赛场景", value = "HX")
+    private String sceneCode;
 
 }

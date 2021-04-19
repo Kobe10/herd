@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="description" content="究竟谁能脱颖而出，摘得市级决赛的桂冠？" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./style/home.css" />
+  <title>《浙江诗词大会》市级决赛今日正式开赛！</title>
+</head>
+
+<body>
+  <img id="imgForShare" style="position: fixed; left: -1000%; top: -1000%;"
+    src="http://x0.ifengimg.com/cmpp/2020_31/eca1633215d8a82_size62_w300_h300.png" alt="分享缩略图" />
+  <div id="ifeng_share_thumbnail" style="display:none"></div>
+  <div id="ifeng_share_title" style="display:none"></div>
+  <div id="ifeng_share_description" style="display:none"></div>
+  <div id="ifeng_share_url" style="display:none"></div>
+  <div class="content">
+    <div class="zss_logo"></div>
+    <div class="title_home"></div>
+    <div class="entry entry_index">大赛答题入口</div>
+    <div class="entry pai">排行榜查询</div>
+    <div class="entry people" style="top:9.18rem">个人成绩单</div>
+    <div class="home_bottom" style="display:none">
+      <a href="javascript:;" class="rightBoreder">大赛报名入口</a>
+      <a href="javascript:;" class="bmm">报名码查询</a>
+    </div>
+  </div>
+  <script src="https://p2.ifengimg.com/l/2018/27/61a49b087c93575/jquery-1.7.2.min.js"></script>
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+  <script>
+    var shareIcon = document.getElementById('imgForShare').src,
+      shareTitle = '《浙江诗词大会》市级决赛今日正式开赛！',
+      shareContent = document.querySelector('meta[name=description]') ? document.querySelector('meta[name=description]')
+      .getAttribute('content') : '究竟谁能脱颖而出，摘得市级决赛的桂冠？',
+      shareLink = window.location.href;
+    document.getElementById("ifeng_share_title").innerHTML = shareTitle;
+    document.getElementById("ifeng_share_thumbnail").innerHTML = shareIcon;
+    document.getElementById("ifeng_share_description").innerHTML = shareContent;
+    document.getElementById("ifeng_share_url").innerHTML = shareLink;
+    if (/MicroMessenger/.test(navigator.userAgent)) {
+      var wxConfigParams = {};
+      $.ajax({
+        url: 'https://api.cmpp.v.ifeng.com/api/Secert',
+        type: 'get',
+        dataType: 'jsonp',
+        data: {
+          url: encodeURIComponent(window.location.href),
+          _: '',
+          rt: 'jsonp',
+        },
+        success: function (data) {
+          wxConfigParams.debug = false;
+          wxConfigParams.appId = data.data.appId;
+          wxConfigParams.timestamp = data.data.timestamp;
+          wxConfigParams.nonceStr = data.data.nonceStr;
+          wxConfigParams.signature = data.data.signature;
+          wxConfigParams.jsApiList = ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ',
+            'onMenuShareQZone'
+          ];
+          wx.config(wxConfigParams);
+          wx.ready(function () {
+            wx.onMenuShareAppMessage({
+              title: shareTitle,
+              desc: shareContent,
+              link: shareLink,
+              imgUrl: shareIcon
+            });
+            wx.onMenuShareQZone({
+              title: shareTitle,
+              desc: shareContent,
+              link: shareLink,
+              imgUrl: shareIcon
+            });
+            wx.onMenuShareQQ({
+              title: shareTitle,
+              desc: shareContent,
+              link: shareLink,
+              imgUrl: shareIcon
+            });
+            wx.onMenuShareTimeline({
+              title: shareTitle,
+              link: shareLink,
+              imgUrl: shareIcon
+            });
+          });
+        },
+        error: function (data) {}
+      });
+    }
+  </script>
+  <script src="./scripts/common.js"></script>
+</body>
+<script>
+  var entry_index = document.querySelector('.entry_index');
+  entry_index.addEventListener('touchstart', function () {
+    history.go(-100)
+    window.location.replace('./search.shtml')
+  })
+  var pai = document.querySelector('.pai');
+  pai.addEventListener('touchstart', function () {
+    //debugger
+    history.go(-100)
+    setTimeout(function () {
+      window.location.replace('./list.shtml')
+    }, 100)
+
+  })
+  var rightBoreder = document.querySelector('.rightBoreder');
+  rightBoreder.addEventListener('touchstart', function () {
+    history.go(-100)
+    window.location.replace('./entry.shtml')
+  })
+  // var bmm = document.querySelector('.bmm');
+  // bmm.addEventListener('touchstart', function () {
+  //   history.go(-100)
+  //   window.location.replace('./search.shtml')
+  // })
+  var people = document.querySelector('.people');
+  people.addEventListener('touchstart', function () {
+    history.go(-100)
+    window.location.replace('./searchPeople.shtml')
+  })
+</script>
+
+</html>

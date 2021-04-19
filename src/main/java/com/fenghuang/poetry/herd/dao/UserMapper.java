@@ -5,6 +5,7 @@ import com.fenghuang.poetry.herd.service.model.dto.UserCountResultDto;
 import com.fenghuang.poetry.herd.service.model.dto.UserInfoDto;
 import com.fenghuang.poetry.herd.web.model.req.QueryUserReq;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -46,4 +47,6 @@ public interface UserMapper {
     List<UserCountResultDto> countUser();
 
     int countAll();
+
+    UserEntity findUserByUid(@Param("uid") String uid);
 }

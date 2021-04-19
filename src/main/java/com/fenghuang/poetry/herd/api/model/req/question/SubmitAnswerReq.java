@@ -32,15 +32,12 @@ import java.util.List;
 public class SubmitAnswerReq implements Serializable {
 
     private static final long serialVersionUID = -2514566415581542368L;
-    @ApiModelProperty(notes = "参赛码", value = "shx-sdfasfxxx", required = true)
-//    @NotBlank(message = "参赛码为空")
-    private String competitionCode;
+    @ApiModelProperty(notes = "答卷单号", value = "shx-sdfasfxxx", required = true)
+    @NotBlank(message = "答卷单号不能为空")
+    private String pageOrderCode;
 
-    @ApiModelProperty(notes = "场景编码", value = "HX", required = true)
-//    @NotBlank(message = "场景编码不能为空")
-    private String sceneCode;
 
-    @ApiModelProperty(notes = "提交答案信息", value = "shx-sdfasfxxx", required = true)
-//    @NotBlank(message = "提交答案信息")
+    @ApiModelProperty(notes = "提交答案信息", required = true)
+    @NotBlank(message = "答卷信息不能为空")
     private List<AnswerInfoReq> answerInfoReqList;
 }

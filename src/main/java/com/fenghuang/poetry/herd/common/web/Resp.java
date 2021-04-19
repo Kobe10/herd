@@ -1,6 +1,6 @@
 package com.fenghuang.poetry.herd.common.web;
 
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -78,6 +78,7 @@ public class Resp<T> {
 
     @Override
     public String toString() {
-        return JSONObject.toJSONString(this);
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

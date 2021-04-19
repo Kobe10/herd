@@ -1,19 +1,23 @@
 package com.fenghuang.poetry.herd.service.provider.impl;
 
+import com.fenghuang.poetry.herd.api.model.req.LoginUserInfoReq;
 import com.fenghuang.poetry.herd.common.enums.AreaEnum;
 import com.fenghuang.poetry.herd.common.enums.CompetitionStatusEnum;
-import com.fenghuang.poetry.herd.common.util.ChineseNameUtil;
+import com.fenghuang.poetry.herd.common.util.DateUtil;
 import com.fenghuang.poetry.herd.common.util.PinYin4jUtils;
 import com.fenghuang.poetry.herd.common.util.StringUtils;
 import com.fenghuang.poetry.herd.config.exception.BusinessException;
 import com.fenghuang.poetry.herd.dao.CompetitionMapper;
+import com.fenghuang.poetry.herd.dao.SceneConfigMapper;
 import com.fenghuang.poetry.herd.dao.UserMapper;
 import com.fenghuang.poetry.herd.dao.UserStageMapper;
 import com.fenghuang.poetry.herd.dao.entity.CompetitionEntity;
+import com.fenghuang.poetry.herd.dao.entity.SceneConfigEntity;
 import com.fenghuang.poetry.herd.dao.entity.UserEntity;
 import com.fenghuang.poetry.herd.dao.entity.UserStageEntity;
 import com.fenghuang.poetry.herd.service.model.dto.*;
 import com.fenghuang.poetry.herd.service.provider.CompetitionService;
+import com.fenghuang.poetry.herd.service.provider.SceneConfigService;
 import com.fenghuang.poetry.herd.service.provider.UserService;
 import com.fenghuang.poetry.herd.web.model.req.QueryUserReq;
 import com.fenghuang.poetry.herd.web.model.resp.user.QueryUserCountVo;
@@ -33,6 +37,7 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * <p></p>
@@ -61,8 +66,14 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserStageMapper userStageMapper;
 
+    @Resource
+    private SceneConfigMapper sceneConfigMapper;
+
     @Autowired
     private CompetitionService competitionService;
+
+    @Autowired
+    private SceneConfigService sceneConfigService;
 
 
     /**
@@ -231,5 +242,71 @@ public class UserServiceImpl implements UserService {
                 .totalUserNum(totalUser)
                 .userCountList(userCountList)
                 .build();
+    }
+
+    /**
+     * 校验当前用户参赛资格
+     *
+     * @param competitionEntity 参赛码详细信息
+     * @return
+     */
+    @Override
+    public boolean checkUserEligibility(CompetitionEntity competitionEntity) throws Exception {
+        //1、通过场景编码查询当前场景配置，判断当前激活码是否满足场景配置(是否作答两次以上，是否已经完成作答)
+        String sceneCode = competitionEntity.getSceneCode();
+        if (StringUtils.isBlank(sceneCode)) {
+            throw new BusinessException("场景编码不存在");
+        }
+        // 查询当前场景的激活码使用配置次数
+        SceneConfigEntity sceneConfig = sceneConfigService.findConfigBySceneCode(sceneCode);
+        if (Objects.isNull(sceneConfig)) {
+            log.warn("当前场景未配置,请配置: 场景编码:{}", sceneCode);
+            throw new BusinessException("当前场景未配置,请配置: 场景编码:{}");
+        }
+        //答题时间规则限制
+        Date now = new Date();
+        if (now.compareTo(sceneConfig.getCompetingStartTime()) < 0) {
+            log.info("当前系统时间：{}", now);
+            log.info("场景开放时间：{}", sceneConfig.getCompetingStartTime());
+            throw new BusinessException("答题时间还未开始，请稍候再试");
+        }
+        if (now.compareTo(sceneConfig.getCompetingEndTime()) > 0) {
+            throw new BusinessException("来迟啦~本轮比赛已结束");
+        }
+
+        if (StringUtils.equals(competitionEntity.getCompetitionStatus(), "ysy")) {
+            throw new BusinessException("当前并非您的答题时间");
+        }
+
+        Integer sceneAnswerTimes = sceneConfig.getAnswerTimes();
+        // 如果当前答题次数大于场景配置次数
+        if (competitionEntity.getUseTimes() > sceneAnswerTimes) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 修改用户信息
+     *
+     * @param loginUserInfoReq 用户信息
+     * @return
+     */
+    @Override
+    public boolean updateUserInfo(LoginUserInfoReq loginUserInfoReq) {
+        String uid = loginUserInfoReq.getUid();
+        if (StringUtils.isBlank(uid)) {
+            return false;
+        }
+        UserEntity userEntity = userMapper.findUserByUid(uid);
+        if (userEntity.getIsVerify() == 1) {
+            return true;
+        }
+        BeanUtils.copyProperties(loginUserInfoReq, userEntity);
+        userEntity.setIsVerify(1);
+        userEntity.setLastModifyTime(new Date());
+        //修改用户信息 ， 并且当前认证状态改为1
+        userMapper.updateByPrimaryKey(userEntity);
+        return true;
     }
 }

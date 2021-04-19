@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fenghuang.poetry.herd.dao.PageOrderMapper">
+    <resultMap id="BaseResultMap" type="com.fenghuang.poetry.herd.dao.entity.PageOrderEntity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="page_code" jdbcType="VARCHAR" property="pageCode"/>
+        <result column="page_status" jdbcType="VARCHAR" property="pageStatus"/>
+        <result column="uid" jdbcType="VARCHAR" property="uid"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="school" jdbcType="VARCHAR" property="school"/>
+        <result column="right_subject_num" jdbcType="INTEGER" property="rightSubjectNum"/>
+        <result column="speed_time" jdbcType="INTEGER" property="speedTime"/>
+        <result column="competition_code" jdbcType="VARCHAR" property="competitionCode"/>
+        <result column="scene_code" jdbcType="VARCHAR" property="sceneCode"/>
+        <result column="province_code" jdbcType="VARCHAR" property="provinceCode"/>
+        <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
+        <result column="page_question" jdbcType="VARCHAR" property="pageQuestion"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="create_page_time" jdbcType="TIMESTAMP" property="createPageTime"/>
+        <result column="submit_page_time" jdbcType="TIMESTAMP" property="submitPageTime"/>
+        <result column="is_del" jdbcType="INTEGER" property="isDel"/>
+        <result column="create_id" jdbcType="VARCHAR" property="createId"/>
+        <result column="last_modify_id" jdbcType="VARCHAR" property="lastModifyId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, page_code, page_status, `uid`, user_name, school, right_subject_num,speed_time, competition_code,
+    scene_code, province_code, area_code, page_question, start_time, end_time, create_page_time, 
+    submit_page_time, is_del, create_id, last_modify_id, create_time, last_modify_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from page_order
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectByPageOrderCode" resultMap="BaseResultMap">
+        select *
+        from page_order
+        where is_del = 0
+          and page_code = #{pageOrderCode};
+    </select>
+    <select id="selectByCompetitionCode" resultMap="BaseResultMap">
+        select *
+        from page_order
+        where competition_code = #{competitionCode}
+          and is_del = 0
+    </select>
+    <select id="selectValidPageOrderByCompetitionCode"
+            resultMap="BaseResultMap">
+        select *
+        from page_order
+        where competition_code = #{competitionCode}
+          and page_status = 'yks'
+          and is_del = 0
+    </select>
+    <select id="selectByCompetitionCodeAndSceneCode"
+            resultMap="BaseResultMap">
+        select *
+        from page_order
+        where competition_code = #{competitionCode}
+          and is_del = 0
+          and scene_code = #{sceneCode}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from page_order
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.fenghuang.poetry.herd.dao.entity.PageOrderEntity">
+        insert into page_order (id, page_code, page_status,
+                                `uid`, user_name, school,
+                                right_subject_num, speed_time, competition_code, scene_code,
+                                province_code, area_code, page_question,
+                                start_time, end_time, create_page_time,
+                                submit_page_time, is_del, create_id,
+                                last_modify_id, create_time, last_modify_time)
+        values (#{id,jdbcType=INTEGER}, #{pageCode,jdbcType=VARCHAR}, #{pageStatus,jdbcType=VARCHAR},
+                #{uid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR},
+                #{rightSubjectNum,jdbcType=INTEGER}, #{speedTime,jdbcType=INTEGER}, #{competitionCode,jdbcType=VARCHAR},
+                #{sceneCode,jdbcType=VARCHAR},
+                #{provinceCode,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, #{pageQuestion,jdbcType=VARCHAR},
+                #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{createPageTime,jdbcType=TIMESTAMP},
+                #{submitPageTime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=INTEGER}, #{createId,jdbcType=VARCHAR},
+                #{lastModifyId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+                #{lastModifyTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.fenghuang.poetry.herd.dao.entity.PageOrderEntity">
+        insert into page_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="pageCode != null">
+                page_code,
+            </if>
+            <if test="pageStatus != null">
+                page_status,
+            </if>
+            <if test="uid != null">
+                `uid`,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="school != null">
+                school,
+            </if>
+            <if test="rightSubjectNum != null">
+                right_subject_num,
+            </if>
+            <if test="speedTime != null">
+                speed_time,
+            </if>
+            <if test="competitionCode != null">
+                competition_code,
+            </if>
+            <if test="sceneCode != null">
+                scene_code,
+            </if>
+            <if test="provinceCode != null">
+                province_code,
+            </if>
+            <if test="areaCode != null">
+                area_code,
+            </if>
+            <if test="pageQuestion != null">
+                page_question,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="createPageTime != null">
+                create_page_time,
+            </if>
+            <if test="submitPageTime != null">
+                submit_page_time,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="lastModifyId != null">
+                last_modify_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="pageCode != null">
+                #{pageCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pageStatus != null">
+                #{pageStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="school != null">
+                #{school,jdbcType=VARCHAR},
+            </if>
+            <if test="rightSubjectNum != null">
+                #{rightSubjectNum,jdbcType=INTEGER},
+            </if>
+            <if test="speedTime != null">
+                #{speedTime,jdbcType=INTEGER},
+            </if>
+            <if test="competitionCode != null">
+                #{competitionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sceneCode != null">
+                #{sceneCode,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceCode != null">
+                #{provinceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="areaCode != null">
+                #{areaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pageQuestion != null">
+                #{pageQuestion,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createPageTime != null">
+                #{createPageTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="submitPageTime != null">
+                #{submitPageTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=INTEGER},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyId != null">
+                #{lastModifyId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fenghuang.poetry.herd.dao.entity.PageOrderEntity">
+        update page_order
+        <set>
+            <if test="pageCode != null">
+                page_code = #{pageCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pageStatus != null">
+                page_status = #{pageStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="uid != null">
+                `uid` = #{uid,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="school != null">
+                school = #{school,jdbcType=VARCHAR},
+            </if>
+            <if test="rightSubjectNum != null">
+                right_subject_num = #{rightSubjectNum,jdbcType=INTEGER},
+            </if>
+            <if test="speedTime != null">
+                speed_time = #{speedTime,jdbcType=INTEGER},
+            </if>
+            <if test="competitionCode != null">
+                competition_code = #{competitionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sceneCode != null">
+                scene_code = #{sceneCode,jdbcType=VARCHAR},
+            </if>
+            <if test="provinceCode != null">
+                province_code = #{provinceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="areaCode != null">
+                area_code = #{areaCode,jdbcType=VARCHAR},
+            </if>
+            <if test="pageQuestion != null">
+                page_question = #{pageQuestion,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createPageTime != null">
+                create_page_time = #{createPageTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="submitPageTime != null">
+                submit_page_time = #{submitPageTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=INTEGER},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="lastModifyId != null">
+                last_modify_id = #{lastModifyId,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fenghuang.poetry.herd.dao.entity.PageOrderEntity">
+        update page_order
+        set page_code         = #{pageCode,jdbcType=VARCHAR},
+            page_status       = #{pageStatus,jdbcType=VARCHAR},
+            `uid`             = #{uid,jdbcType=VARCHAR},
+            user_name         = #{userName,jdbcType=VARCHAR},
+            school            = #{school,jdbcType=VARCHAR},
+            right_subject_num = #{rightSubjectNum,jdbcType=INTEGER},
+            speed_time        = #{speedTime,jdbcType=INTEGER},
+            competition_code  = #{competitionCode,jdbcType=VARCHAR},
+            scene_code        = #{sceneCode,jdbcType=VARCHAR},
+            province_code     = #{provinceCode,jdbcType=VARCHAR},
+            area_code         = #{areaCode,jdbcType=VARCHAR},
+            page_question     = #{pageQuestion,jdbcType=VARCHAR},
+            start_time        = #{startTime,jdbcType=TIMESTAMP},
+            end_time          = #{endTime,jdbcType=TIMESTAMP},
+            create_page_time  = #{createPageTime,jdbcType=TIMESTAMP},
+            submit_page_time  = #{submitPageTime,jdbcType=TIMESTAMP},
+            is_del            = #{isDel,jdbcType=INTEGER},
+            create_id         = #{createId,jdbcType=VARCHAR},
+            last_modify_id    = #{lastModifyId,jdbcType=VARCHAR},
+            create_time       = #{createTime,jdbcType=TIMESTAMP},
+            last_modify_time  = #{lastModifyTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

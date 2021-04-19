@@ -32,9 +32,11 @@ import java.util.List;
 @ApiModel(value = "提交答案返回信息")
 public class SubmitAnswerVo {
 
-    @ApiModelProperty(notes = "排名信息  包含省级，地区级  已经排序")
-    private List<RankDetailVo> rankDetailVoList;
+    @ApiModelProperty(notes = "用户答题详细信息")
+    private List<QuestionAnswerDetailVo> questionAnswerDetailVos;
 
     @ApiModelProperty(notes = "答题结果详细信息")
     private AnswerDetailVo answerDetailVo;
+
+    private String areaCode;
 }

@@ -1,13 +1,22 @@
 package com.fenghuang.poetry.herd.dao.entity;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * user
- * @author 
+ *
+ * @author
  */
+@Data
 public class UserEntity implements Serializable {
+    private static final long serialVersionUID = 8617802944823543216L;
+
+
     /**
      * 主键
      */
@@ -59,6 +68,11 @@ public class UserEntity implements Serializable {
     private String grade;
 
     /**
+     * 是否验证个人信息   0 未验证   1 已经验证
+     */
+    private Integer isVerify;
+
+    /**
      * 逻辑删除 0 未删除  1  删除
      */
     private Integer isDel;
@@ -71,125 +85,18 @@ public class UserEntity implements Serializable {
 
     private Date lastModifyTime;
 
-    private static final long serialVersionUID = 1L;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getWxNum() {
-        return wxNum;
-    }
-
-    public void setWxNum(String wxNum) {
-        this.wxNum = wxNum;
-    }
-
-    public String getProvinceCode() {
-        return provinceCode;
-    }
-
-    public void setProvinceCode(String provinceCode) {
-        this.provinceCode = provinceCode;
-    }
-
-    public String getAreaCode() {
-        return areaCode;
-    }
-
-    public void setAreaCode(String areaCode) {
-        this.areaCode = areaCode;
-    }
-
-    public String getSchool() {
-        return school;
-    }
-
-    public void setSchool(String school) {
-        this.school = school;
-    }
-
-    public String getGrade() {
-        return grade;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
-
-    public Integer getIsDel() {
-        return isDel;
-    }
-
-    public void setIsDel(Integer isDel) {
-        this.isDel = isDel;
-    }
-
-    public String getCreateId() {
-        return createId;
-    }
-
-    public void setCreateId(String createId) {
-        this.createId = createId;
-    }
-
-    public String getLastModifyId() {
-        return lastModifyId;
-    }
-
-    public void setLastModifyId(String lastModifyId) {
-        this.lastModifyId = lastModifyId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getLastModifyTime() {
-        return lastModifyTime;
-    }
-
-    public void setLastModifyTime(Date lastModifyTime) {
-        this.lastModifyTime = lastModifyTime;
-    }
-
-    public String getGeneraCode() {
-        return generaCode;
-    }
-
-    public void setGeneraCode(String generaCode) {
-        this.generaCode = generaCode;
+    /**
+     * 用户用户token
+     *
+     * @param user
+     * @return
+     */
+    public String getToken(UserEntity user) {
+        String token = "";
+        token = JWT.create()
+                .withAudience(user.getUid())
+                .withAudience(user.getGeneraCode())
+                .sign(Algorithm.HMAC256(user.getGeneraCode()));
+        return token;
     }
 }

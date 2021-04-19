@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="初赛时间：7.25-7.27，参赛即有机会与大咖同台，海量奖品等着你~" />
+  <link rel="stylesheet" href="./style/home.css" />
+  <title>成绩单</title>
+</head>
+
+<body>
+  <div class="report_content">
+    <div class="report_name" style="top:4rem">
+      <p><span class="name">xxx</span>同学</p>
+      <p>您的<span class="sheng">xx</span>省实时排名是<span class="sheng_ranking"></span>名</p>
+      <p>恭喜您打败了<span class="shi">xxx</span>市 <span class="dabai"></span>%的参赛选手</p>
+      <p class="tongji">（统计数据截至<span></span>）</p>
+    </div>
+    <div class="nr">
+      <p class="tit_report_text">卓尔不群<br><span>俱怀逸兴壮思飞，欲上青天览明月</span>
+      </p>
+      <div class="erwei_nr"><img src="./images/erweima.jpg"></div>
+      <p class="report_text" style="font-size: 0.2rem">扫码免费报名参赛《浙江诗词大会》<br>
+        与《中国诗词大会》总冠军彭敏同台互动<br>
+        高额奖金精美奖品等你来拿<br>
+        浙江诗路文化研究院&浙江大学中文系&浙江师范大学中文系<br>
+        担任大赛学术顾问单位<br>
+        凤凰网全程关注，打造浙江诗词明星<br>
+        （报名截止时间：2020年7月27日）</p>
+    </div>
+    <div class="pm">
+      <span class="zj">浙江省排行榜</span>
+      <span>|</span>
+      <span class="area">地区排行榜</span>
+    </div>
+  </div>
+</body>
+<script src="https://p2.ifengimg.com/l/2018/27/61a49b087c93575/jquery-1.7.2.min.js"></script>
+<script src="./scripts/common.js"></script>
+<script>
+  $(function () {
+    var rankAreaName = ''
+    var parms = {
+      "competitionCode": sessionStorage.getItem('competitionCode'), //
+      "rankCode": getQueryVariable('areaCode'),
+      "rankType": "area"
+    }
+    $.ajax({
+      url: host + "/api/rank/personal/leaderboard",
+      type: "post",
+      contentType: "application/json",
+      dataType: "JSON",
+      data: JSON.stringify(parms),
+      success: function (res) {
+        if (res.code == 200) {
+          if (res.data) {
+            rankAreaName = res.data.rankAreaName
+            $('.name').html(res.data.userName)
+            $('.sheng').html(res.data.rankProvinceName)
+            $('.shi').html(res.data.rankAreaName)
+            $('.sheng_ranking').html(res.data.provinceRankNum)
+            $('.dabai').html(res.data.areaBeatRate)
+            $('.shi_ranking').html(res.data.areaNum)
+            $('.tongji span').html(res.data.countEndTime)
+          }
+        }
+      }
+    })
+
+    $('.zj').click(function () {
+      sessionStorage.setItem('areaVal', '浙江省')
+      sessionStorage.setItem('rankType', "province")
+      window.location.href = 'resultlist.html?rankType=province'
+    })
+    $('.area').click(function () {
+      // sessionStorage.setItem('areaVal', rankAreaName)
+      window.location.href = 'resultlist.html?rankType=area&areaCode=' + sessionStorage.getItem('areaCode')
+    })
+  })
+</script>
+
+</html>

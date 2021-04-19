@@ -1,6 +1,7 @@
 package com.fenghuang.poetry.herd.web;
 
 import com.fenghuang.poetry.herd.common.web.Resp;
+import com.fenghuang.poetry.herd.service.provider.ToolService;
 import com.fenghuang.poetry.herd.service.provider.UserService;
 import com.fenghuang.poetry.herd.web.model.resp.user.UserDetailInfoVo;
 import io.swagger.annotations.Api;
@@ -45,6 +46,9 @@ import java.util.Objects;
 public class ToolController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ToolService toolService;
 
     /**
      * 获取配置文件的路径
@@ -197,7 +201,7 @@ public class ToolController {
     @GetMapping("/show/wx/test/{imageName}")
     @ResponseBody
     public Object showImageTest(@PathVariable("imageName") String imageName,
-                            HttpServletResponse response) throws IOException {
+                                HttpServletResponse response) throws IOException {
         ServletOutputStream out = null;
         FileInputStream ips = null;
         String upload = null;
@@ -235,5 +239,21 @@ public class ToolController {
             ips.close();
         }
         return null;
+    }
+
+
+    /**
+     * 导入问题
+     *
+     * @param files
+     * @return
+     * @throws IOException
+     */
+    @PostMapping(value = "/answer/import")
+    @ResponseBody
+    public Resp importQuestion(
+            @RequestParam(value = "files") MultipartFile files) throws IOException {
+        toolService.importQuestion(files);
+        return new Resp("导入题库成功!");
     }
 }

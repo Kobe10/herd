@@ -30,7 +30,16 @@ import java.io.Serializable;
 public class OptionDetailVo implements Serializable {
     private static final long serialVersionUID = -8334672472819036234L;
     @ApiModelProperty(notes = "选项id 唯一标识")
-    private Integer optionId;
+    private String questionId;
+
+    @ApiModelProperty(notes = "选项id 唯一标识")
+    private String optionId;
+
+    @ApiModelProperty(notes = "是否选中当前选项   1表示选中    0: 未选中")
+    private Integer isSelected;
+
+    @ApiModelProperty(notes = "选项的顺序")
+    private Integer optionOrderValue;
 
     @ApiModelProperty(notes = "选择题会有这个选项 A或者B或者C  提交答案的时候把这个属性提交上来；  填空题没有这个选项")
     private String letter;
@@ -39,7 +48,7 @@ public class OptionDetailVo implements Serializable {
     private String optionTitle;
 
     @ApiModelProperty(notes = "选项描述")
-    private String questionDesc;
+    private String optionDesc;
 
     @ApiModelProperty(notes = "选项类型")
     private String optionType;

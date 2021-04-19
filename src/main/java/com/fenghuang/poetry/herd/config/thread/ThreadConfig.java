@@ -29,7 +29,7 @@ public class ThreadConfig {
         // 设置线程活跃时间（秒）
         executor.setKeepAliveSeconds(120);
         // 设置默认线程名称
-        executor.setThreadNamePrefix("Evaluate-Async-");
+        executor.setThreadNamePrefix("herd-Async-");
         // 设置拒绝策略
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         executor.initialize();
